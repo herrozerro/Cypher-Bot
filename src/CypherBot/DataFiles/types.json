@@ -1,0 +1,18 @@
+﻿[
+  {
+    "Id": 0,
+    "Name": "Type",
+    "Description": "",
+    "StartingPools": {
+      "Might": 10,
+      "Speed": 10,
+      "Intellect": 10
+    },
+    "Bonuses": {
+      "Effort": "1",
+      "MightEdge": "0",
+      "SpeedEdge": "0",
+      "IntellectEdge": "0"
+    }
+  }
+]

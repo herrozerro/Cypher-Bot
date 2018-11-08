@@ -1,0 +1,11 @@
+[
+  {
+    "ID": 0,
+    "Name": "Test",
+    "Type": "Cypher",
+    "LevelDie": "6",
+    "LevelBonus": "0",
+    "Effect": "It does stuff",
+    "Source": "CSR"
+  }
+]
