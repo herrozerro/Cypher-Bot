@@ -32,14 +32,14 @@ namespace CypherBot.DataAccess.IO
             return str;
         }
 
-        public static async Task SaveTextFileAsync(string database, string fileName, string obj)
+        public async Task SaveTextFileAsync(string database, string fileName, string obj)
         {
             fileName = Utilities.StringHelpers.CleanFileName(fileName);
             database = Utilities.StringHelpers.CleanPathName(database);
 
             fileName = fileName.Replace(" ", string.Empty);
 
-            string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            string dataDir = ConnectionString;
             var ext = ".json";
 
             var path = new List<string>();
@@ -93,8 +93,6 @@ namespace CypherBot.DataAccess.IO
                 Collection = "";
             }
 
-            
-
             string dataDir = ConnectionString;
 
             Task<string> t = Task.Run(() => GetFileString(Collection, file));
@@ -110,7 +108,24 @@ namespace CypherBot.DataAccess.IO
 
         public override void StoreDocuments<T>(string Collection, IEnumerable<T> ObjToStore)
         {
-            throw new NotImplementedException();
+            string file = "none";
+            if (typeof(T) == typeof(Models.Character))
+            {
+                file = "Characters";
+            }
+            if (typeof(T) == typeof(Models.Cypher))
+            {
+                file = "cyphers";
+                Collection = "";
+            }
+
+            string obj = JsonConvert.SerializeObject(ObjToStore);
+
+            string dataDir = ConnectionString;
+
+            Task t = Task.Run(() => SaveTextFileAsync(Collection, file, obj));
+
+            Task.WaitAll(t);
         }
 
         public override void StoreDocument<T>(string Collection, T ObjToStore)

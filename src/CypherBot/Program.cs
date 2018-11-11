@@ -72,6 +72,10 @@ namespace CypherBot
             var cyphers = IOServ.GetDocuments<Models.Cypher>("");
             var characters = IOServ.GetDocuments<Models.Character>("Players\\herrozerro2535");
 
+            //characters.First().Name += "SaveTest";
+
+            //IOServ.StoreDocuments("Players\\herrozerro2535", characters);
+
             //var loadedCyphers = IOServ.FilterDocuments<CypherBot.Models.Cypher>("cyphers", filters);
 
 
