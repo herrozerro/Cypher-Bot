@@ -674,7 +674,7 @@ namespace CypherBot.Commands
                 {
                     response.Add(file);
                 }
-                response.Add("What character do tyou wish to load? (0 to cancel)");
+                response.Add("What character do you wish to load? (0 to cancel)");
 
                 await ctx.RespondAsync(string.Join(Environment.NewLine, response));
 

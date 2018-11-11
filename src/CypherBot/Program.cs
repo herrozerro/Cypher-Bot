@@ -54,18 +54,23 @@ namespace CypherBot
             });
 
             //List<Models.Cypher> cyphers = await Data.CypherList.Cyphers();
-            var conn = /*Environment.GetEnvironmentVariable("mongoConn");*/ Configuration["mongoConn"];
+            //var conn = /*Environment.GetEnvironmentVariable("mongoConn");*/ Configuration["mongoConn"];
+            var conn = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
 
-            var IOServ = DataAccess.Abstractions.IOService.BuildService(conn, DataAccess.Abstractions.IOService.ServiceTypes.Mongo);
+            var IOServ = DataAccess.Abstractions.IOService.BuildService(conn, DataAccess.Abstractions.IOService.ServiceTypes.File);
 
             //foreach (var cy in cyphers)
             //{
             //    mongoService.StoreDocument<Models.Cypher>("cyphers", cy);
             //}
 
-            Dictionary<string, string> filters = new Dictionary<string, string>();
+            Dictionary<string, string> filters = new Dictionary<string, string>
+            {
+                { "LevelDie", "6" }
+            };
 
-            filters.Add("LevelDie", "6");
+            var cyphers = IOServ.GetDocuments<Models.Cypher>("");
+            var characters = IOServ.GetDocuments<Models.Character>("Players\\herrozerro2535");
 
             //var loadedCyphers = IOServ.FilterDocuments<CypherBot.Models.Cypher>("cyphers", filters);
 

@@ -11,9 +11,28 @@ namespace CypherBot.Data
     {
         public static async Task<string> GetFileString(string fileName, string database = "")
         {
-            var s = await DataAccess.IO.FileIOService.GetFileString(database, fileName);
+            //var s = await DataAccess.IO.FileIOService.GetFileString(database, fileName);
 
-            return s;
+            string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var ext = ".json";
+            var path = new List<string>();
+            path.Add(dataDir);
+            if (database != null && database.Length != 0)
+            {
+                path.Add(database);
+            }
+            path.Add($"{fileName}{ext}");
+
+            if (!File.Exists(string.Join('\\', path)))
+            {
+                return null;
+            }
+
+            var str = await File.ReadAllTextAsync(string.Join('\\', path));
+
+            return str;
+
+            //return s;
         }
 
         public static async Task SaveFileString(string fileName, string playerId, string fileContent)

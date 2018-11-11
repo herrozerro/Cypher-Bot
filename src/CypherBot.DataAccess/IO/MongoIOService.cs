@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using System.Threading.Tasks;
-using MongoDB;
-using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using Newtonsoft.Json;
 using CypherBot.DataAccess.MongoDBUtilities;
 using System.Reflection;
 using System.Linq.Expressions;

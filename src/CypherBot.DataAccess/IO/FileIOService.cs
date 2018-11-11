@@ -10,9 +10,9 @@ namespace CypherBot.DataAccess.IO
 {
     public class FileIOService : IOService
     {
-        public static async Task<string> GetFileString(string database, string fileName)
+        public async Task<string> GetFileString(string database, string fileName)
         {
-            string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            string dataDir = ConnectionString;
             var ext = ".json";
             var path = new List<string>();
             path.Add(dataDir);
@@ -82,25 +82,30 @@ namespace CypherBot.DataAccess.IO
 
         public override IEnumerable<T> GetDocuments<T>(string Collection)
         {
-            //string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            //var ext = ".json";
-            //var path = new List<string>();
-            //path.Add(dataDir);
-            //if (database != null && database.Length != 0)
-            //{
-            //    path.Add(database);
-            //}
-            //path.Add($"{fileName}{ext}");
+            string file = "none";
+            if(typeof(T) == typeof(Models.Character))
+            {
+                file = "Characters";
+            }
+            if (typeof(T) == typeof(Models.Cypher))
+            {
+                file = "cyphers";
+                Collection = "";
+            }
 
-            //if (!File.Exists(string.Join('\\', path)))
-            //{
-            //    return null;
-            //}
+            
 
-            //var str = await File.ReadAllTextAsync(string.Join('\\', path));
+            string dataDir = ConnectionString;
 
-            //return str;
-            throw new NotImplementedException();
+            Task<string> t = Task.Run(() => GetFileString(Collection, file));
+
+            Task.WaitAll(t);
+
+            var str = t.Result;
+
+            var objs = JsonConvert.DeserializeObject<List<T>>(str);
+
+            return objs;
         }
 
         public override void StoreDocuments<T>(string Collection, IEnumerable<T> ObjToStore)
