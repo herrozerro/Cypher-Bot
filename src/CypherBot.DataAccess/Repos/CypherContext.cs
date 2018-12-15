@@ -17,9 +17,13 @@ namespace CypherBot.DataAccess.Repos
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=cs.db");
-
-
         }
+
+        public DbSet<Character> Characters { get; set; }
+        public DbSet<CharacterInventory> CharacterInventories { get; set; }
+        public DbSet<CharacterRecoveryRoll> CharacterRecoveryRolls { get; set; }
+        public DbSet<CharacterCypher> CharacterCyphers { get; set; }
+        public DbSet<Cypher> Cyphers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -95,16 +99,6 @@ namespace CypherBot.DataAccess.Repos
 
                 e.Ignore(x => x.Level);
             });
-
         }
-
-
-
-        public DbSet<Character> Characters { get; set; }
-        public DbSet<CharacterInventory> CharacterInventories { get; set; }
-        public DbSet<CharacterRecoveryRoll> CharacterRecoveryRolls { get; set; }
-        public DbSet<CharacterCypher> CharacterCyphers { get; set; }
-        public DbSet<Cypher> Cyphers { get; set; }
-
     }
 }

@@ -219,7 +219,7 @@ namespace CypherBot.Commands
                     return;
                 }
 
-                var cy = (Cypher)await Data.CypherList.GetRandomCypherAsync();
+                var cy = (Cypher)await Utilities.CypherHelper.GetRandomCypherAsync();
 
                 var cypher = new Models.CharacterCypher()
                 {
@@ -428,7 +428,7 @@ namespace CypherBot.Commands
                 //var cyphers = Models.Cypher.GetCyphers().ToList();
                 try
                 {
-                    var cypher = (Cypher)await Data.CypherList.GetRandomCypherAsync();
+                    var cypher = (Cypher)await Utilities.CypherHelper.GetRandomCypherAsync();
 
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Name:** " + cypher.Name + Environment.NewLine;
@@ -493,7 +493,7 @@ namespace CypherBot.Commands
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "third" });
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "fourth" });
 
-                    var cyls = (IEnumerable<Cypher>)await Data.CypherList.GetRandomCyphersAsync(2);
+                    var cyls = (IEnumerable<Cypher>)await Utilities.CypherHelper.GetRandomCypherAsync(2);
 
                     chr.Cyphers = cyls.Select(x => new Models.CharacterCypher()
                     {
@@ -674,8 +674,6 @@ namespace CypherBot.Commands
                     var chrString = JsonConvert.SerializeObject(chr, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
                     Utilities.CharacterHelper.SaveCurrentCharacter("", chr);
-
-                    await Data.FileIO.SaveFileString(chr.Name.Substring(0, Math.Min(chr.Name.Length, 25)), ctx.Member.Username + ctx.Member.Discriminator, chrString);
                 }
                 catch (Exception ex)
                 {
