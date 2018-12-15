@@ -4,10 +4,11 @@ using System.Text;
 
 namespace CypherBot.Models
 {
-    public class CharacterCypher : Cypher
+    public class CharacterCypher
     {
         private int level = 0;
         public int CharacterId { get; set; }
+        public int CypherId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public int Level
@@ -25,5 +26,6 @@ namespace CypherBot.Models
         public int LevelBonus { get; set; }
         public string Effect { get; set; }
         public string Source { get; set; }
+        public Character Character { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace CypherBot.Models
 {
     public class CharacterRecoveryRoll
     {
+        public int RecoveryRollId { get; set; }
         public string RollName { get; set; }
         public bool IsUsed { get; set; }
     }

@@ -219,7 +219,18 @@ namespace CypherBot.Commands
                     return;
                 }
 
-                var cypher = (Cypher) await Data.CypherList.GetRandomCypherAsync();
+                var cy = (Cypher) await Data.CypherList.GetRandomCypherAsync();
+
+                var cypher = new Models.CharacterCypher()
+                {
+                    CypherId = cy.CypherId,
+                    Effect = cy.Effect,
+                    LevelBonus = cy.LevelBonus,
+                    LevelDie = cy.LevelDie,
+                    Name = cy.Name,
+                    Source = cy.Source,
+                    Type = cy.Type
+                };
 
                 var responses = new List<string>();
 
@@ -473,7 +484,7 @@ namespace CypherBot.Commands
                     chr.RecoveryMod = 0;
 
                     chr.Player = ctx.Member.Username + ctx.User.Discriminator;
-                    chr.Cyphers = new List<Cypher>();
+                    chr.Cyphers = new List<CharacterCypher>();
                     chr.RecoveryRolls = new List<CharacterRecoveryRoll>();
 
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "first" });
@@ -483,7 +494,16 @@ namespace CypherBot.Commands
 
                     var cyls = (IEnumerable<Cypher>) await Data.CypherList.GetRandomCyphersAsync(2);
 
-                    chr.Cyphers = cyls.ToList();
+                    chr.Cyphers = cyls.Select(x => new Models.CharacterCypher()
+                    {
+                        CypherId = x.CypherId,
+                        Effect = x.Effect,
+                        LevelBonus = x.LevelBonus,
+                        LevelDie = x.LevelDie,
+                        Name = x.Name,
+                        Source = x.Source,
+                        Type = x.Type
+                    }).ToList();
 
                     chr.Inventory = new List<CharacterInventory>();
                     chr.Inventory.Add(new CharacterInventory { ItemName = "Backpack", Qty = 1 });

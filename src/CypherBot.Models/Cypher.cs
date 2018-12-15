@@ -7,7 +7,7 @@ namespace CypherBot.Models
     public class Cypher
     {
         private int level = 0;
-
+        public int CypherId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public int Level
