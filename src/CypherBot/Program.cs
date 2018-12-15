@@ -53,57 +53,12 @@ namespace CypherBot
                 
             });
 
-            //List<Models.Cypher> cyphers = await Data.CypherList.Cyphers();
-            //var conn = /*Environment.GetEnvironmentVariable("mongoConn");*/ Configuration["mongoConn"];
-            var conn = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            var IOServ = DataAccess.Abstractions.IOService.BuildService(conn, DataAccess.Abstractions.IOService.ServiceTypes.File);
-
-            //foreach (var cy in cyphers)
-            //{
-            //    mongoService.StoreDocument<Models.Cypher>("cyphers", cy);
-            //}
-
-            Dictionary<string, string> filters = new Dictionary<string, string>
-            {
-                { "LevelDie", "6" }
-            };
-
-
-
-            var cyphers = IOServ.GetDocuments<Models.Cypher>("");
-            var characters = IOServ.GetDocuments<Models.Character>("herrozerro2535");
-
-
-
             var db = new DataAccess.Repos.CypherContext();
 
             db.Database.Migrate();
 
-            foreach (var cypher in cyphers)
-            {
-                db.Cyphers.Add(cypher);
-            }
-            db.SaveChanges();
-            var chars = db.Characters
-                .Include(x=>x.Inventory)
-                .Include(x=>x.RecoveryRolls)
-                .Include(x=>x.Cyphers).ToList();
-
             var cyList = db.Cyphers.ToList();
-
-            //var character = await GetCharacter("Blobby");
-
-            //db.Characters.Add(character);
-
-            //await db.SaveChangesAsync();
-
-            //characters.First().Name += "SaveTest";
-
-            //IOServ.StoreDocuments("Players\\herrozerro2535", characters);
-
-            //var loadedCyphers = IOServ.FilterDocuments<CypherBot.Models.Cypher>("cyphers", filters);
-
-
+            
             await discord.ConnectAsync();
 
             await Task.Delay(-1);

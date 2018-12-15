@@ -71,7 +71,7 @@ namespace CypherBot.Data
 
         public static List<string> GetFilesInDatabase(string database)
         {
-            return DataAccess.IO.FileIOService.GetFilesInDatabase(database);
+            throw new NotImplementedException();
         }
     }
 

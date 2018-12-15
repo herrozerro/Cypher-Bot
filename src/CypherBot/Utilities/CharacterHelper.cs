@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace CypherBot.Utilities
@@ -13,7 +14,7 @@ namespace CypherBot.Utilities
     {
         public static async Task<Models.Character> GetCurrentPlayersCharacter(CommandContext ctx)
         {
-            var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username+ctx.Member.Discriminator);
+            var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator);
 
             if (chr == null)
             {
@@ -21,6 +22,19 @@ namespace CypherBot.Utilities
             }
 
             return chr;
+        }
+
+        public static async Task<List<Models.Character>> GetCurrentPlayersCharacters(CommandContext ctx)
+        {
+            using (var db = new DataAccess.Repos.CypherContext())
+            {
+                var chars = await db.Characters
+                    .Include(x => x.Cyphers)
+                    .Include(x => x.Inventory)
+                    .Include(x => x.RecoveryRolls).Where(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator).ToListAsync();
+
+                return chars;
+            }
         }
 
         public static async Task<string> GetCurrentCharacterCyphers(CommandContext ctx)
@@ -55,24 +69,48 @@ namespace CypherBot.Utilities
             return string.Join(Environment.NewLine, responses);
         }
 
+
+
         public static void SaveCurrentCharacter(string playerId, Models.Character charToSave)
         {
-            var conn = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            var IOServ = DataAccess.Abstractions.IOService.BuildService(conn, DataAccess.Abstractions.IOService.ServiceTypes.File);
-
-            List<Models.Character> playerCharacters = IOServ.GetDocuments<Models.Character>("Players\\" + playerId).ToList();
-
-            if (!playerCharacters.Any(x=>x.Name == charToSave.Name))
+            using (var db = new DataAccess.Repos.CypherContext())
             {
-                playerCharacters.Add(charToSave);
-            }
-            else
-            {
-                Models.Character c = playerCharacters.First(x => x.Name == charToSave.Name);
-                c = charToSave;
-            }
+                var chr = db.Characters
+                    .Include(x => x.Cyphers)
+                    .Include(x => x.Inventory)
+                    .Include(x => x.RecoveryRolls)
+                    .FirstOrDefault(x => x.CharacterId == charToSave.CharacterId);
 
-            IOServ.StoreDocuments("Players\\" + playerId, playerCharacters);
+                if (chr == null)
+                {
+                    db.Characters.Add(charToSave);
+                }
+                else
+                {
+                    db.Entry(chr).CurrentValues.SetValues(charToSave);
+
+                    foreach (var cy in chr.Cyphers)
+                    {
+                        if (!charToSave.Cyphers.Any(x => x.CypherId == cy.CypherId))
+                        {
+                            db.Remove(cy);
+                        }
+
+                    }
+                    
+                }
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace CypherBot.Commands
             public async Task UseCharacterCyphers(CommandContext ctx)
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
-                var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName);
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx); // await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 if (chr == null)
                 {
@@ -73,11 +73,11 @@ namespace CypherBot.Commands
             }
 
             [Command("inventory")]
-            [Aliases("item","items")]
+            [Aliases("item", "items")]
             public async Task UseInventory(CommandContext ctx)
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
-                var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName);
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 if (chr == null)
                 {
@@ -136,7 +136,7 @@ namespace CypherBot.Commands
                         await ctx.RespondAsync("Sorry, the response was either bad or more than you have.");
                         return;
                     }
-                    
+
                     if (selectedInventoryItem.Qty - invQty == 0)
                     {
                         await ctx.RespondAsync("You've used it all up, do you want to remove it from your inventory? (y/n)");
@@ -214,12 +214,12 @@ namespace CypherBot.Commands
 
                 var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);
 
-                if(chr == null)
+                if (chr == null)
                 {
                     return;
                 }
 
-                var cy = (Cypher) await Data.CypherList.GetRandomCypherAsync();
+                var cy = (Cypher)await Data.CypherList.GetRandomCypherAsync();
 
                 var cypher = new Models.CharacterCypher()
                 {
@@ -243,11 +243,12 @@ namespace CypherBot.Commands
                 await ctx.RespondAsync(string.Join(Environment.NewLine, responses));
 
                 var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
-                if(userResponse.Message.Content.ToLower() == "y")
+                if (userResponse.Message.Content.ToLower() == "y")
                 {
                     chr.Cyphers.Add(cypher);
                     await ctx.RespondAsync($"{cypher.Name} Added!");
-                }else if (userResponse.Message.Content.ToLower() == "n")
+                }
+                else if (userResponse.Message.Content.ToLower() == "n")
                 {
                     await ctx.RespondAsync("It's thrown away.");
                 }
@@ -258,7 +259,7 @@ namespace CypherBot.Commands
             }
 
             [Command("inventory")]
-            [Aliases("item","items")]
+            [Aliases("item", "items")]
             public async Task AddInventory(CommandContext ctx)
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
@@ -274,7 +275,7 @@ namespace CypherBot.Commands
 
                 var selection = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
 
-                if(selection == null)
+                if (selection == null)
                 {
                     await ctx.RespondAsync("Sorry, you didn't get back to me timely.");
                     return;
@@ -282,13 +283,13 @@ namespace CypherBot.Commands
 
                 var success = int.TryParse(selection.Message.Content, out int selectionIndex);
 
-                if (!success || (selectionIndex <0 || selectionIndex > chr.Inventory.Count))
+                if (!success || (selectionIndex < 0 || selectionIndex > chr.Inventory.Count))
                 {
                     await ctx.RespondAsync("Sorry, I didn't understand that.");
                     return;
                 }
 
-                if(selectionIndex == 0)
+                if (selectionIndex == 0)
                 {
                     await ctx.RespondAsync("What do you want to add?");
                     var descresponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
@@ -341,7 +342,7 @@ namespace CypherBot.Commands
 
                     chr.Inventory[selectionIndex - 1].Qty += itemQty;
 
-                    await ctx.RespondAsync($"You now have {chr.Inventory[selectionIndex - 1].Qty} of {chr.Inventory[selectionIndex-1].ItemName}");
+                    await ctx.RespondAsync($"You now have {chr.Inventory[selectionIndex - 1].Qty} of {chr.Inventory[selectionIndex - 1].ItemName}");
                 }
             }
         }
@@ -394,7 +395,7 @@ namespace CypherBot.Commands
             }
 
             [Command("inventory")]
-            [Aliases("items","item")]
+            [Aliases("items", "item")]
             [Description("Shows the character's inventory")]
             public async Task ViewInventory(CommandContext ctx)
             {
@@ -412,7 +413,7 @@ namespace CypherBot.Commands
                     return;
                 }
 
-                await ctx.RespondAsync(string.Join(Environment.NewLine,await Utilities.CharacterHelper.GetCurrentCharacterInventory(ctx)));
+                await ctx.RespondAsync(string.Join(Environment.NewLine, await Utilities.CharacterHelper.GetCurrentCharacterInventory(ctx)));
             }
         }
 
@@ -427,7 +428,7 @@ namespace CypherBot.Commands
                 //var cyphers = Models.Cypher.GetCyphers().ToList();
                 try
                 {
-                    var cypher = (Cypher) await Data.CypherList.GetRandomCypherAsync();
+                    var cypher = (Cypher)await Data.CypherList.GetRandomCypherAsync();
 
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Name:** " + cypher.Name + Environment.NewLine;
@@ -492,7 +493,7 @@ namespace CypherBot.Commands
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "third" });
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "fourth" });
 
-                    var cyls = (IEnumerable<Cypher>) await Data.CypherList.GetRandomCyphersAsync(2);
+                    var cyls = (IEnumerable<Cypher>)await Data.CypherList.GetRandomCyphersAsync(2);
 
                     chr.Cyphers = cyls.Select(x => new Models.CharacterCypher()
                     {
@@ -530,11 +531,11 @@ namespace CypherBot.Commands
 
             [Command("recovery")]
             [Description("Rolls the character's recovery roll and marks it as used")]
-            public async Task RecoveryRoll(CommandContext ctx,[Description("Which roll do you want to make? 1,2,3,4,(5 if you are sturdy, etc...)")] int rollIndex)
+            public async Task RecoveryRoll(CommandContext ctx, [Description("Which roll do you want to make? 1,2,3,4,(5 if you are sturdy, etc...)")] int rollIndex)
             {
-                var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName);
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
-                if(chr.RecoveryRolls[rollIndex - 1].IsUsed)
+                if (chr.RecoveryRolls[rollIndex - 1].IsUsed)
                 {
                     await ctx.RespondAsync("Error: that recover roll is used already");
                     return;
@@ -544,7 +545,7 @@ namespace CypherBot.Commands
 
                 var rnd = new Random();
                 var dieroll = rnd.Next(1, chr.RecoveryDie);
-                
+
                 await ctx.RespondAsync($"🎲 You recovered {dieroll + chr.RecoveryMod + chr.Tier}: Rolled: {dieroll} Mod: {chr.RecoveryMod} Tier: {chr.Tier}");
             }
         }
@@ -558,7 +559,7 @@ namespace CypherBot.Commands
             [Description("Modifys the pool of a character")]
             public async Task ModifyPool(CommandContext ctx, [Description("Pool to modify")]string pool, [Description("How much to modify it by. Negative numbers are valid")]int mod)
             {
-                var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName);
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx); //await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 if (pool.ToLower() == "might")
                 {
@@ -586,7 +587,7 @@ namespace CypherBot.Commands
             [Description("Modifys the character's tier")]
             public async Task ModifyTier(CommandContext ctx, [Description("What the tier will be changed to.")] int mod)
             {
-                var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName);
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 chr.Tier = mod;
 
@@ -597,7 +598,7 @@ namespace CypherBot.Commands
             [Description("Modifies the character's XP")]
             public async Task ModifyXp(CommandContext ctx, [Description("What the XP will be changed to.")] int mod)
             {
-                var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName);
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 chr.XP = mod;
 
@@ -614,7 +615,7 @@ namespace CypherBot.Commands
             [Description("Exports the current character")]
             public async Task ExportCharacter(CommandContext ctx)
             {
-                var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName);
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 if (chr == null)
                 {
@@ -636,7 +637,7 @@ namespace CypherBot.Commands
             [Description("Imports a character for the player")]
             public async Task ImportCharacter(CommandContext ctx, string chr)
             {
-                Data.CharacterList.Characters.Remove(Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.DisplayName));
+                Data.CharacterList.Characters.Remove(await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx));
 
                 try
                 {
@@ -664,14 +665,24 @@ namespace CypherBot.Commands
             {
                 var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);
 
-                if(chr == null)
+                if (chr == null)
                 {
                     return;
                 }
+                try
+                {
+                    var chrString = JsonConvert.SerializeObject(chr, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
-                var chrString = JsonConvert.SerializeObject(chr);
+                    Utilities.CharacterHelper.SaveCurrentCharacter("", chr);
 
-                await Data.FileIO.SaveFileString(chr.Name.Substring(0,Math.Min(chr.Name.Length, 25)), ctx.Member.Username+ctx.Member.Discriminator,chrString);
+                    await Data.FileIO.SaveFileString(chr.Name.Substring(0, Math.Min(chr.Name.Length, 25)), ctx.Member.Username + ctx.Member.Discriminator, chrString);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+
             }
         }
 
@@ -686,13 +697,15 @@ namespace CypherBot.Commands
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
 
-                var files = Data.FileIO.GetFilesInDatabase("Players\\" + ctx.Member.Username + ctx.Member.Discriminator);
+                //var files = Data.FileIO.GetFilesInDatabase("Players\\" + ctx.Member.Username + ctx.Member.Discriminator);
+
+                var chars = await Utilities.CharacterHelper.GetCurrentPlayersCharacters(ctx);
 
                 var response = new List<string>();
                 response.Add("Here are your saved characters:");
-                foreach (var file in files)
+                foreach (var character in chars.OrderBy(x=>x.Name).Select((model, i)=> new { model, i}))
                 {
-                    response.Add(file);
+                    response.Add($"{character.i + 1}. {character.model.Name}");
                 }
                 response.Add("What character do you wish to load? (0 to cancel)");
 
@@ -700,24 +713,23 @@ namespace CypherBot.Commands
 
                 var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
 
-                if(userResponse.Message.Content.Trim() == "0")
+                if (userResponse.Message.Content.Trim() == "0")
                 {
-                    await ctx.RespondAsync("Thanks!  Come again");
+                    await ctx.RespondAsync("Thanks! Come again");
                 }
 
-                if (files.Contains(userResponse.Message.Content))
+                if (int.TryParse(userResponse.Message.Content.Trim(), out int selected))
                 {
-                    var file = files.First(x => x.Contains(userResponse.Message.Content));
-
-                    var chr = await Data.FileIO.GetFileString(file, "Players\\" + ctx.User.Username + ctx.User.Discriminator);
+                    var chr = chars.OrderBy(x => x.Name).ToList()[selected-1];
 
                     try
                     {
-                        var character = JsonConvert.DeserializeObject<Character>(chr);
                         Data.CharacterList.Characters.Remove(Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.User.Discriminator));
-                        Data.CharacterList.Characters.Add(character);
+                        Data.CharacterList.Characters.Add(chr);
+
+                        await ctx.RespondAsync($"Successfully loaded {chr.Name}");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
