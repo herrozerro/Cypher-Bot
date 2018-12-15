@@ -61,13 +61,16 @@ namespace CypherBot.DataAccess.Repos
                 e.Property(x => x.Type)
                     .HasMaxLength(15);
 
-                e.Ignore(x => x.Level);
-
             });
 
             builder.Entity<CharacterRecoveryRoll>(e =>
             {
                 e.HasKey(x => x.RecoveryRollId);
+
+                e.HasOne(x => x.Character)
+                    .WithMany(x => x.RecoveryRolls)
+                    .HasForeignKey(x => x.CharacterId);
+
                 e.Property(x => x.RollName)
                     .HasMaxLength(25);
             });
@@ -75,6 +78,14 @@ namespace CypherBot.DataAccess.Repos
             builder.Entity<CharacterInventory>(e =>
             {
                 e.HasKey(x => x.InventoryId);
+
+                e.Property(x => x.InventoryId)
+                    .ValueGeneratedOnAdd();
+                    
+                e.HasOne(x => x.Character)
+                    .WithMany(x => x.Inventory)
+                    .HasForeignKey(x => x.CharacterId);
+
                 e.Property(x => x.ItemName)
                     .HasMaxLength(50);
             });

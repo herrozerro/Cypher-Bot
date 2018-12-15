@@ -12,7 +12,7 @@ namespace CypherBot.Utilities
 {
     public static class CharacterHelper
     {
-        public static async Task<Models.Character> GetCurrentPlayersCharacter(CommandContext ctx)
+        public static async Task<Models.Character> GetCurrentPlayersCharacterAsync(CommandContext ctx)
         {
             var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator);
 
@@ -24,7 +24,7 @@ namespace CypherBot.Utilities
             return chr;
         }
 
-        public static async Task<List<Models.Character>> GetCurrentPlayersCharacters(CommandContext ctx)
+        public static async Task<List<Models.Character>> GetCurrentPlayersCharactersAsync(CommandContext ctx)
         {
             using (var db = new DataAccess.Repos.CypherContext())
             {
@@ -37,9 +37,9 @@ namespace CypherBot.Utilities
             }
         }
 
-        public static async Task<string> GetCurrentCharacterCyphers(CommandContext ctx)
+        public static async Task<string> GetCurrentCharacterCyphersAsync(CommandContext ctx)
         {
-            var chr = await GetCurrentPlayersCharacter(ctx);
+            var chr = await GetCurrentPlayersCharacterAsync(ctx);
 
             var response = "Here are your current cyphers:" + Environment.NewLine;
 
@@ -53,9 +53,9 @@ namespace CypherBot.Utilities
             return response;
         }
 
-        public static async Task<string> GetCurrentCharacterInventory(CommandContext ctx)
+        public static async Task<string> GetCurrentCharacterInventoryAsync(CommandContext ctx)
         {
-            var chr = await GetCurrentPlayersCharacter(ctx);
+            var chr = await GetCurrentPlayersCharacterAsync(ctx);
 
             var responses = new List<string>();
 
@@ -69,9 +69,7 @@ namespace CypherBot.Utilities
             return string.Join(Environment.NewLine, responses);
         }
 
-
-
-        public static void SaveCurrentCharacter(string playerId, Models.Character charToSave)
+        public static async Task SaveCurrentCharacterAsync(string playerId, Models.Character charToSave)
         {
             using (var db = new DataAccess.Repos.CypherContext())
             {
@@ -95,14 +93,28 @@ namespace CypherBot.Utilities
                         {
                             db.Remove(cy);
                         }
-
                     }
-                    
+
+                    foreach (var inv in chr.Inventory)
+                    {
+                        if (!charToSave.Inventory.Any(x => x.InventoryId == inv.InventoryId))
+                        {
+                            db.Remove(inv);
+                        }
+                    }
+
+                    foreach (var roll in chr.RecoveryRolls)
+                    {
+                        if (!charToSave.RecoveryRolls.Any(x => x.RecoveryRollId == roll.RecoveryRollId))
+                        {
+                            db.Remove(roll);
+                        }
+                    }
                 }
 
                 try
                 {
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {

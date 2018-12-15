@@ -55,25 +55,38 @@ namespace CypherBot
             var db = new DataAccess.Repos.CypherContext();
             db.Database.Migrate();
 
-            var characters = db.Characters.ToList();
-
-            db.RemoveRange(characters);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                throw;
-            }
-
-
+            //await InitializeDatabaseAsync();
 
             await discord.ConnectAsync();
 
             await Task.Delay(-1);
+        }
+
+
+        /// <summary>
+        /// Loads reference data from datafiles
+        /// </summary>
+        /// <returns></returns>
+        public static async Task InitializeDatabaseAsync()
+        {
+            var cypherStrings = await Data.FileIO.GetFileString("cyphers");
+
+            var cyphers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Models.Cypher>>(cypherStrings);
+
+            using (var db = new DataAccess.Repos.CypherContext())
+            {
+                db.AddRange(cyphers);
+
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+            }
         }
     }
 }

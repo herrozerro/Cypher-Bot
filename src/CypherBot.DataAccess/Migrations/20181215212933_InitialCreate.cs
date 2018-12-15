@@ -54,6 +54,7 @@ namespace CypherBot.DataAccess.Migrations
                     CharacterId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 30, nullable: true),
                     Type = table.Column<string>(maxLength: 15, nullable: true),
+                    Level = table.Column<int>(nullable: false),
                     LevelDie = table.Column<int>(nullable: false),
                     LevelBonus = table.Column<int>(nullable: false),
                     Effect = table.Column<string>(type: "varchar(2000)", nullable: true),
@@ -76,9 +77,9 @@ namespace CypherBot.DataAccess.Migrations
                 {
                     InventoryId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    CharacterId = table.Column<int>(nullable: false),
                     ItemName = table.Column<string>(maxLength: 50, nullable: true),
-                    Qty = table.Column<int>(nullable: false),
-                    CharacterId = table.Column<int>(nullable: true)
+                    Qty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,7 +89,7 @@ namespace CypherBot.DataAccess.Migrations
                         column: x => x.CharacterId,
                         principalTable: "Characters",
                         principalColumn: "CharacterId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,9 +98,9 @@ namespace CypherBot.DataAccess.Migrations
                 {
                     RecoveryRollId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    CharacterId = table.Column<int>(nullable: false),
                     RollName = table.Column<string>(maxLength: 25, nullable: true),
-                    IsUsed = table.Column<bool>(nullable: false),
-                    CharacterId = table.Column<int>(nullable: true)
+                    IsUsed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +110,7 @@ namespace CypherBot.DataAccess.Migrations
                         column: x => x.CharacterId,
                         principalTable: "Characters",
                         principalColumn: "CharacterId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
