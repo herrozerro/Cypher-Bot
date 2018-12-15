@@ -6,6 +6,7 @@ namespace CypherBot.Models
 {
     public class Character
     {
+        public int CharacterId { get; set; }
         public string Player { get; set; }
         public string Name { get; set; }
         public int Tier { get; set; }
@@ -19,14 +20,14 @@ namespace CypherBot.Models
         public int RecoveryMod { get; set; }
         public List<CharacterRecoveryRoll> RecoveryRolls { get; set; }
 
-        public List<Cypher> Cyphers { get; set; }
+        public List<CharacterCypher> Cyphers { get; set; }
         public List<CharacterInventory> Inventory { get; set; }
 
         public Character()
         {
             //set some defaults
             RecoveryRolls = new List<CharacterRecoveryRoll>();
-            Cyphers = new List<Cypher>();
+            Cyphers = new List<CharacterCypher>();
             Inventory = new List<CharacterInventory>();
         }
     }

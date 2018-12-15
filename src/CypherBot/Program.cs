@@ -24,7 +24,6 @@ namespace CypherBot
             .AddJsonFile("appsettings.json")
             .AddJsonFile("secrets.json");
 
-
             Configuration = builder.Build();
 
             // Use this if you want App_Data off your project root folder
@@ -69,7 +68,7 @@ namespace CypherBot
             };
 
             var cyphers = IOServ.GetDocuments<Models.Cypher>("");
-            var characters = IOServ.GetDocuments<Models.Character>("Players\\herrozerro2535");
+            var characters = IOServ.GetDocuments<Models.Character>("herrozerro2535");
 
             //characters.First().Name += "SaveTest";
 

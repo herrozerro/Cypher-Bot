@@ -10,7 +10,7 @@ namespace CypherBot.DataAccess.IO
 {
     public class FileIOService : IOService
     {
-        public async Task<string> GetFileString(string database, string fileName)
+        private async Task<string> GetFileString(string database, string fileName)
         {
             string dataDir = ConnectionString;
             var ext = ".json";
@@ -32,7 +32,7 @@ namespace CypherBot.DataAccess.IO
             return str;
         }
 
-        public async Task SaveTextFileAsync(string database, string fileName, string obj)
+        private async Task SaveTextFileAsync(string database, string fileName, string obj)
         {
             fileName = Utilities.StringHelpers.CleanFileName(fileName);
             database = Utilities.StringHelpers.CleanPathName(database);
@@ -86,6 +86,7 @@ namespace CypherBot.DataAccess.IO
             if(typeof(T) == typeof(Models.Character))
             {
                 file = "Characters";
+                Collection = "Players\\" + Collection;
             }
             if (typeof(T) == typeof(Models.Cypher))
             {
@@ -112,6 +113,7 @@ namespace CypherBot.DataAccess.IO
             if (typeof(T) == typeof(Models.Character))
             {
                 file = "Characters";
+                Collection = "Players\\" + Collection;
             }
             if (typeof(T) == typeof(Models.Cypher))
             {

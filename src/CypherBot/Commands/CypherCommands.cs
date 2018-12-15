@@ -649,7 +649,7 @@ namespace CypherBot.Commands
                     return;
                 }
 
-                var chrString = Newtonsoft.Json.JsonConvert.SerializeObject(chr);
+                var chrString = JsonConvert.SerializeObject(chr);
 
                 await Data.FileIO.SaveFileString(chr.Name.Substring(0,Math.Min(chr.Name.Length, 25)), ctx.Member.Username+ctx.Member.Discriminator,chrString);
             }
