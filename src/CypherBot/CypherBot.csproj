@@ -55,7 +55,6 @@
 
   <ItemGroup>
     <Folder Include="BusinessLogic\" />
-    <Folder Include="DataFiles\Players\" />
   </ItemGroup>
 
 </Project>

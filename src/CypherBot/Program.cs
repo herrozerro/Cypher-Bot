@@ -22,7 +22,7 @@ namespace CypherBot
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.json", false, true)
             .AddJsonFile("secrets.json");
 
             Configuration = builder.Build();
@@ -55,38 +55,23 @@ namespace CypherBot
             var db = new DataAccess.Repos.CypherContext();
             db.Database.Migrate();
 
-            //await InitializeDatabaseAsync();
+            if (Configuration["appInitialize"].ToLower() == "true")
+            {
+                Console.WriteLine("Initializing the database.");
+
+                await Utilities.DatabaseHelper.InitializeDatabaseAsync();
+
+                Console.WriteLine("Database Initialized, please set the appInitialize flag in appsettings.json to false.");
+                Console.WriteLine("Press any key to close.");
+
+                Console.ReadKey();
+
+                return;
+            }
 
             await discord.ConnectAsync();
 
             await Task.Delay(-1);
-        }
-
-
-        /// <summary>
-        /// Loads reference data from datafiles
-        /// </summary>
-        /// <returns></returns>
-        public static async Task InitializeDatabaseAsync()
-        {
-            var cypherStrings = await Data.FileIO.GetFileString("cyphers");
-
-            var cyphers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Models.Cypher>>(cypherStrings);
-
-            using (var db = new DataAccess.Repos.CypherContext())
-            {
-                db.AddRange(cyphers);
-
-                try
-                {
-                    await db.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-
-            }
         }
     }
 }
