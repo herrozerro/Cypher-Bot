@@ -22,12 +22,8 @@ namespace CypherBot
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-#if DEBUG
             .AddJsonFile("appsettings.json", false, true)
-            .AddJsonFile("secrets.json");
-#else
-            .AddJsonFile("appsettings.json", false, true);
-#endif
+            .AddJsonFile("secrets.json", true, true);
 
             Configuration = builder.Build();
 
