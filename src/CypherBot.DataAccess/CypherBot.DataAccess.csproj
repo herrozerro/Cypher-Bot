@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="mongocsharpdriver" Version="2.7.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="mongocsharpdriver" Version="2.7.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.7.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="RavenDB.Client" Version="4.1.3-patch-41005" />
   </ItemGroup>
 

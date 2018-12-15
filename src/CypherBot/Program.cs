@@ -56,7 +56,6 @@ namespace CypherBot
             //List<Models.Cypher> cyphers = await Data.CypherList.Cyphers();
             //var conn = /*Environment.GetEnvironmentVariable("mongoConn");*/ Configuration["mongoConn"];
             var conn = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-
             var IOServ = DataAccess.Abstractions.IOService.BuildService(conn, DataAccess.Abstractions.IOService.ServiceTypes.File);
 
             //foreach (var cy in cyphers)

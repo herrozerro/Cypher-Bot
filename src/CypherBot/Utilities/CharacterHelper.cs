@@ -54,5 +54,25 @@ namespace CypherBot.Utilities
 
             return string.Join(Environment.NewLine, responses);
         }
+
+        public static void SaveCurrentCharacter(string playerId, Models.Character charToSave)
+        {
+            var conn = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var IOServ = DataAccess.Abstractions.IOService.BuildService(conn, DataAccess.Abstractions.IOService.ServiceTypes.File);
+
+            List<Models.Character> playerCharacters = IOServ.GetDocuments<Models.Character>("Players\\" + playerId).ToList();
+
+            if (!playerCharacters.Any(x=>x.Name == charToSave.Name))
+            {
+                playerCharacters.Add(charToSave);
+            }
+            else
+            {
+                Models.Character c = playerCharacters.First(x => x.Name == charToSave.Name);
+                c = charToSave;
+            }
+
+            IOServ.StoreDocuments("Players\\" + playerId, playerCharacters);
+        }
     }
 }
