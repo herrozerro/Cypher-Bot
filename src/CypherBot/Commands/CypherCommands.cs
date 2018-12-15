@@ -675,7 +675,7 @@ namespace CypherBot.Commands
                 {
                     var chrString = JsonConvert.SerializeObject(chr, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
-                    Utilities.CharacterHelper.SaveCurrentCharacterAsync("", chr);
+                    await Utilities.CharacterHelper.SaveCurrentCharacterAsync("", chr);
                 }
                 catch (Exception ex)
                 {
