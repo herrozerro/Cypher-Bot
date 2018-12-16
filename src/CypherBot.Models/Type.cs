@@ -14,6 +14,6 @@ namespace CypherBot.Models
         public int MightStartingPool { get; set; }
         public int SpeedStartingPool { get; set; }
 
-        public List<TypeAbility> Abilities { get; set; }
+        public List<TypeAbility> TypeAbilities { get; set; }
     }
 }
