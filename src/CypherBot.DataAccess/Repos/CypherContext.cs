@@ -24,6 +24,7 @@ namespace CypherBot.DataAccess.Repos
         public DbSet<CharacterRecoveryRoll> CharacterRecoveryRolls { get; set; }
         public DbSet<CharacterCypher> CharacterCyphers { get; set; }
         public DbSet<CharacterAbility> CharacterAbilities { get; set; }
+        public DbSet<CharacterArtifact> CharacterArtifacts { get; set; }
 
         public DbSet<Cypher> Cyphers { get; set; }
 
@@ -45,6 +46,7 @@ namespace CypherBot.DataAccess.Repos
                 e.HasMany(x => x.RecoveryRolls);
                 e.HasMany(x => x.Cyphers);
                 e.HasMany(x => x.CharacterAbilities);
+                e.HasMany(x => x.CharacterArtifacts);
 
                 e.Property(x => x.CharacterId).ValueGeneratedOnAdd();
 
@@ -103,6 +105,50 @@ namespace CypherBot.DataAccess.Repos
                     .HasMaxLength(50);
             });
 
+            builder.Entity<CharacterAbility>(e =>
+            {
+                e.HasKey(x => x.CharacterAbilityId);
+                e.HasOne(x => x.Character)
+                    .WithMany(x => x.CharacterAbilities)
+                    .HasForeignKey(x => x.CharacterId);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
+            });
+
+            builder.Entity<CharacterArtifact>(e =>
+            {
+                e.HasKey(x => x.ArtifactId);
+
+                e.Property(x => x.ArtifactId).ValueGeneratedOnAdd();
+
+                e.HasOne(x => x.Character)
+                    .WithMany(x => x.CharacterArtifacts)
+                    .HasForeignKey(x => x.CharacterId);
+
+                e.Property(x => x.Effect)
+                    .HasColumnType("varchar(2000)");
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Source)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Depletion)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Form)
+                    .HasMaxLength(100);
+
+                e.Property(x => x.Effect)
+                    .HasMaxLength(1000);
+
+            });
+
             builder.Entity<Cypher>(e =>
             {
                 e.HasKey(x => x.CypherId);
@@ -122,20 +168,6 @@ namespace CypherBot.DataAccess.Repos
                     .HasMaxLength(15);
 
                 e.Ignore(x => x.Level);
-            });
-
-            builder.Entity<CharacterAbility>(e =>
-            {
-                e.HasKey(x => x.CharacterAbilityId);
-                e.HasOne(x => x.Character)
-                    .WithMany(x => x.CharacterAbilities)
-                    .HasForeignKey(x => x.CharacterId);
-
-                e.Property(x => x.Name)
-                    .HasMaxLength(30);
-
-                e.Property(x => x.Description)
-                    .HasMaxLength(1000);
             });
 
             builder.Entity<Models.Type>(e =>

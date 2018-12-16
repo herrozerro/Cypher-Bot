@@ -27,6 +27,7 @@ namespace CypherBot.Models
         public List<CharacterCypher> Cyphers { get; set; }
         public List<CharacterInventory> Inventory { get; set; }
         public List<CharacterAbility> CharacterAbilities { get; set; }
+        public List<CharacterArtifact> CharacterArtifacts { get; set; }
 
         public Character()
         {
@@ -35,6 +36,7 @@ namespace CypherBot.Models
             Cyphers = new List<CharacterCypher>();
             Inventory = new List<CharacterInventory>();
             CharacterAbilities = new List<CharacterAbility>();
+            CharacterArtifacts = new List<CharacterArtifact>();
         }
     }
 }
