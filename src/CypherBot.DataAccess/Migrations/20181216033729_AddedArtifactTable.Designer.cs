@@ -2,14 +2,16 @@
 using CypherBot.DataAccess.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CypherBot.DataAccess.Migrations
 {
     [DbContext(typeof(CypherContext))]
-    partial class CypherContextModelSnapshot : ModelSnapshot
+    [Migration("20181216033729_AddedArtifactTable")]
+    partial class AddedArtifactTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

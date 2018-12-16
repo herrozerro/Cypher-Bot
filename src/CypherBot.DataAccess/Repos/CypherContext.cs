@@ -27,6 +27,7 @@ namespace CypherBot.DataAccess.Repos
         public DbSet<CharacterArtifact> CharacterArtifacts { get; set; }
 
         public DbSet<Cypher> Cyphers { get; set; }
+        public DbSet<Artifact> Artifacts { get; set; }
 
         public DbSet<Models.Type> Types { get; set; }
         public DbSet<TypeAbility> TypeAbilities { get; set; }
@@ -168,6 +169,34 @@ namespace CypherBot.DataAccess.Repos
                     .HasMaxLength(15);
 
                 e.Ignore(x => x.Level);
+            });
+
+            builder.Entity<Artifact>(e =>
+            {
+                e.HasKey(x => x.ArtifactId);
+
+                e.Property(x => x.ArtifactId).ValueGeneratedOnAdd();
+
+                e.Property(x => x.Effect)
+                    .HasColumnType("varchar(2000)");
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Source)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Depletion)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Form)
+                    .HasMaxLength(100);
+
+                e.Property(x => x.Effect)
+                    .HasMaxLength(1000);
+
+                e.Ignore(x => x.Level);
+
             });
 
             builder.Entity<Models.Type>(e =>
