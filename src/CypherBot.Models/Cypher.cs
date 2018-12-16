@@ -6,7 +6,7 @@ namespace CypherBot.Models
 {
     public class Cypher
     {
-        private int level = 0;
+        private int _level = 0;
         public int CypherId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
@@ -14,11 +14,11 @@ namespace CypherBot.Models
         {
             get
             {
-                if (level == 0)
+                if (_level == 0)
                 {
-                    level = (LevelDie == 0 ? LevelBonus : new Random(Guid.NewGuid().GetHashCode()).Next() % LevelDie) + 1 + LevelBonus;
+                    _level = (LevelDie == 0 ? LevelBonus : new Random(Guid.NewGuid().GetHashCode()).Next() % LevelDie) + 1 + LevelBonus;
                 }
-                return level;
+                return _level;
             }
         }
         public int LevelDie { get; set; }
