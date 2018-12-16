@@ -23,6 +23,7 @@ namespace CypherBot.DataAccess.Repos
         public DbSet<CharacterInventory> CharacterInventories { get; set; }
         public DbSet<CharacterRecoveryRoll> CharacterRecoveryRolls { get; set; }
         public DbSet<CharacterCypher> CharacterCyphers { get; set; }
+        public DbSet<CharacterAbility> CharacterAbilities { get; set; }
         public DbSet<Cypher> Cyphers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -109,6 +110,20 @@ namespace CypherBot.DataAccess.Repos
                     .HasMaxLength(15);
 
                 e.Ignore(x => x.Level);
+            });
+
+            builder.Entity<CharacterAbility>(e =>
+            {
+                e.HasKey(x => x.CharacterAbilityId);
+                e.HasOne(x => x.Character)
+                    .WithMany(x => x.CharacterAbilities)
+                    .HasForeignKey(x => x.CharacterId);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(50);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
             });
         }
     }

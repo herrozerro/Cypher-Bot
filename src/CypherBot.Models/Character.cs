@@ -12,6 +12,10 @@ namespace CypherBot.Models
         public int Tier { get; set; }
         public int XP { get; set; }
 
+        public string Descriptor { get; set; }
+        public string Type { get; set; }
+        public string Focus { get; set; }
+
         public int MightPool { get; set; }
         public int SpeedPool { get; set; }
         public int IntPool { get; set; }
@@ -22,6 +26,7 @@ namespace CypherBot.Models
 
         public List<CharacterCypher> Cyphers { get; set; }
         public List<CharacterInventory> Inventory { get; set; }
+        public List<CharacterAbility> CharacterAbilities { get; set; }
 
         public Character()
         {
@@ -29,6 +34,7 @@ namespace CypherBot.Models
             RecoveryRolls = new List<CharacterRecoveryRoll>();
             Cyphers = new List<CharacterCypher>();
             Inventory = new List<CharacterInventory>();
+            CharacterAbilities = new List<CharacterAbility>();
         }
     }
 }
