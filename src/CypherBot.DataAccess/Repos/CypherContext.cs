@@ -186,6 +186,9 @@ namespace CypherBot.DataAccess.Repos
                 e.Property(x => x.Source)
                     .HasMaxLength(20);
 
+                e.Property(x => x.Genre)
+                    .HasMaxLength(20);
+
                 e.Property(x => x.Depletion)
                     .HasMaxLength(20);
 

@@ -22,8 +22,12 @@ namespace CypherBot.Utilities
                     Console.WriteLine("Clearing Cyphers.");
                     db.Cyphers.RemoveRange(db.Cyphers.ToList());
                     await db.SaveChangesAsync();
-
                     Console.WriteLine("Cyphers Cleared!");
+
+                    Console.WriteLine("Clearing Artifacts.");
+                    db.Artifacts.RemoveRange(db.Artifacts.ToList());
+                    await db.SaveChangesAsync();
+                    Console.WriteLine("Artifacts Cleared!");
 
                     Console.WriteLine("Getting Cyphers from cyphers.json");
                     var cypherStrings = await Data.FileIO.GetFileString("cyphers");
@@ -33,6 +37,16 @@ namespace CypherBot.Utilities
 
                     Console.WriteLine($"{cyphers.Count()} cyphers found! Adding.");
                     db.AddRange(cyphers);
+                    await db.SaveChangesAsync();
+
+                    Console.WriteLine("Getting Artifacts from artifacts.json");
+                    var artifactStrings = await Data.FileIO.GetFileString("artifacts");
+
+                    Console.WriteLine("Parsing Artifacts.");
+                    var artifacts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Models.Artifact>>(artifactStrings);
+
+                    Console.WriteLine($"{artifacts.Count()} artifacts found! Adding.");
+                    db.AddRange(artifacts);
                     await db.SaveChangesAsync();
                 }
                 catch (Exception ex)
