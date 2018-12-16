@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CypherBot.Models;
+using CypherBot.DataAccess.Repos;
 
 namespace CypherBot.Utilities
 {
     public static class CypherHelper
     {
-        public static async Task<List<Models.Cypher>> GetAllCyphersAsync()
+        public static async Task<List<Cypher>> GetAllCyphersAsync()
         {
-            using (var db = new DataAccess.Repos.CypherContext())
+            using (var db = new CypherContext())
             {
                 var cyList = await db.Cyphers.ToListAsync();
 
@@ -19,7 +21,7 @@ namespace CypherBot.Utilities
             }
         }
 
-        public static async Task<Models.Cypher> GetRandomCypherAsync()
+        public static async Task<Cypher> GetRandomCypherAsync()
         {
             var cyList = await GetAllCyphersAsync();
 
@@ -28,9 +30,9 @@ namespace CypherBot.Utilities
             return cyList[i];
         }
 
-        public static async Task<List<Models.Cypher>> GetRandomCypherAsync(int numberOfCyphers)
+        public static async Task<List<Cypher>> GetRandomCypherAsync(int numberOfCyphers)
         {
-            var ls = new List<Models.Cypher>();
+            var ls = new List<Cypher>();
             var rnd = new Random(Guid.NewGuid().GetHashCode());
 
             for (int i = 0; i < numberOfCyphers; i++)

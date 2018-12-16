@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using Microsoft.EntityFrameworkCore;
+using CypherBot.Models;
+using CypherBot.DataAccess.Repos;
 
 
 namespace CypherBot.Utilities
 {
     public static class CharacterHelper
     {
-        public static async Task<Models.Character> GetCurrentPlayersCharacterAsync(CommandContext ctx)
+        public static async Task<Character> GetCurrentPlayersCharacterAsync(CommandContext ctx)
         {
             var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator);
 
@@ -24,9 +26,9 @@ namespace CypherBot.Utilities
             return chr;
         }
 
-        public static async Task<List<Models.Character>> GetCurrentPlayersCharactersAsync(CommandContext ctx)
+        public static async Task<List<Character>> GetCurrentPlayersCharactersAsync(CommandContext ctx)
         {
-            using (var db = new DataAccess.Repos.CypherContext())
+            using (var db = new CypherContext())
             {
                 var chars = await db.Characters
                     .Include(x => x.Cyphers)
@@ -69,9 +71,9 @@ namespace CypherBot.Utilities
             return string.Join(Environment.NewLine, responses);
         }
 
-        public static async Task SaveCurrentCharacterAsync(string playerId, Models.Character charToSave)
+        public static async Task SaveCurrentCharacterAsync(string playerId, Character charToSave)
         {
-            using (var db = new DataAccess.Repos.CypherContext())
+            using (var db = new CypherContext())
             {
                 var chr = db.Characters
                     .Include(x => x.Cyphers)

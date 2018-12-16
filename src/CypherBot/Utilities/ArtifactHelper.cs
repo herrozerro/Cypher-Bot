@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CypherBot.Models;
+using CypherBot.DataAccess.Repos;
 
 namespace CypherBot.Utilities
 {
     public static class ArtifactHelper
     {
-        public static async Task<List<Models.Artifact>> GetAllArtifactsAsync()
+        public static async Task<List<Artifact>> GetAllArtifactsAsync()
         {
-            using (var db = new DataAccess.Repos.CypherContext())
+            using (var db = new CypherContext())
             {
                 var artList = await db.Artifacts.ToListAsync();
 
@@ -19,7 +21,7 @@ namespace CypherBot.Utilities
             }
         }
 
-        public static async Task<Models.Artifact> GetRandomArtifactAsync(string genre = "")
+        public static async Task<Artifact> GetRandomArtifactAsync(string genre = "")
         {
             var cyList = await GetAllArtifactsAsync();
 
@@ -33,9 +35,9 @@ namespace CypherBot.Utilities
             return cyList[i];
         }
 
-        public static async Task<List<Models.Artifact>> GetRandomArtifactAsync(int numberOfCyphers, string genre = "")
+        public static async Task<List<Artifact>> GetRandomArtifactAsync(int numberOfCyphers, string genre = "")
         {
-            var ls = new List<Models.Artifact>();
+            var ls = new List<Artifact>();
             var rnd = new Random(Guid.NewGuid().GetHashCode());
 
             for (int i = 0; i < numberOfCyphers; i++)

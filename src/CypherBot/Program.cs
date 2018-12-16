@@ -9,6 +9,8 @@ using DSharpPlus.Interactivity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 
+using CypherBot.DataAccess.Repos;
+
 namespace CypherBot
 {
     class Program
@@ -52,7 +54,7 @@ namespace CypherBot
             interactivity = discord.UseInteractivity(new InteractivityConfiguration() { });
 
             //Initialize the database and migrate on start.
-            var db = new DataAccess.Repos.CypherContext();
+            var db = new CypherContext();
             db.Database.Migrate();
 
             if (Configuration["appInitialize"].ToLower() == "true")

@@ -6,7 +6,7 @@ using CypherBot.Models;
 
 namespace CypherBot.Data
 {
-    public class CharacterList
+    public static class CharacterList
     {
         public static List<Character> Characters { get; } = new List<Character>();
     }

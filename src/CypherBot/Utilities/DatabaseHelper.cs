@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CypherBot.DataAccess.Repos;
 
 namespace CypherBot.Utilities
 {
@@ -14,7 +15,7 @@ namespace CypherBot.Utilities
         /// <returns></returns>
         public static async Task InitializeDatabaseAsync()
         {
-            using (var db = new DataAccess.Repos.CypherContext())
+            using (var db = new CypherContext())
             {
                 try
                 {
