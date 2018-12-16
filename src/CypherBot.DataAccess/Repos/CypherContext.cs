@@ -24,7 +24,17 @@ namespace CypherBot.DataAccess.Repos
         public DbSet<CharacterRecoveryRoll> CharacterRecoveryRolls { get; set; }
         public DbSet<CharacterCypher> CharacterCyphers { get; set; }
         public DbSet<CharacterAbility> CharacterAbilities { get; set; }
+
         public DbSet<Cypher> Cyphers { get; set; }
+
+        public DbSet<Models.Type> Types { get; set; }
+        public DbSet<TypeAbility> TypeAbilities { get; set; }
+
+        public DbSet<Descriptor> Descriptors { get; set; }
+        public DbSet<DescriptorAbility> DescriptorAbilities { get; set; }
+
+        public DbSet<Focus> Foci { get; set; }
+        public DbSet<FocusAbility> FociAbilities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,6 +44,8 @@ namespace CypherBot.DataAccess.Repos
                 e.HasMany(x => x.Inventory);
                 e.HasMany(x => x.RecoveryRolls);
                 e.HasMany(x => x.Cyphers);
+                e.HasMany(x => x.CharacterAbilities);
+
                 e.Property(x => x.CharacterId).ValueGeneratedOnAdd();
 
                 e.Property(x => x.Name).HasMaxLength(30);
@@ -120,10 +132,97 @@ namespace CypherBot.DataAccess.Repos
                     .HasForeignKey(x => x.CharacterId);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(50);
+                    .HasMaxLength(30);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
+            });
+
+            builder.Entity<Models.Type>(e =>
+            {
+                e.HasKey(x => x.TypeId);
+                e.HasMany(x => x.TypeAbilities);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
+            });
+
+            builder.Entity<TypeAbility>(e =>
+            {
+                e.HasKey(x => x.TypeAbilityId);
+                e.HasOne(x => x.Type)
+                    .WithMany(x => x.TypeAbilities)
+                    .HasForeignKey(x => x.TypeId);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
+
+                e.Property(x => x.Source)
+                    .HasMaxLength(20);
+            });
+
+            builder.Entity<Descriptor>(e =>
+            {
+                e.HasKey(x => x.DescriptorId);
+                e.HasMany(x => x.DescriptorAbilities);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
+            });
+
+            builder.Entity<DescriptorAbility>(e =>
+            {
+                e.HasKey(x => x.DescriptorAbilityId);
+                e.HasOne(x => x.Descriptor)
+                    .WithMany(x => x.DescriptorAbilities)
+                    .HasForeignKey(x => x.DescriptorId);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
+
+                e.Property(x => x.Source)
+                    .HasMaxLength(20);
+            });
+
+            builder.Entity<Focus>(e =>
+            {
+                e.HasKey(x => x.FocusId);
+                e.HasMany(x => x.FocusAbilities);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
+            });
+
+            builder.Entity<FocusAbility>(e =>
+            {
+                e.HasKey(x => x.FocusAbilityId);
+                e.HasOne(x => x.Focus)
+                    .WithMany(x => x.FocusAbilities)
+                    .HasForeignKey(x => x.FocusId);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Description)
+                    .HasMaxLength(1000);
+
+                e.Property(x => x.Source)
+                    .HasMaxLength(20);
             });
         }
     }
