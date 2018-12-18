@@ -46,8 +46,8 @@ namespace CypherBot.DataAccess.Repos
                 e.HasMany(x => x.Inventory);
                 e.HasMany(x => x.RecoveryRolls);
                 e.HasMany(x => x.Cyphers);
-                e.HasMany(x => x.CharacterAbilities);
-                e.HasMany(x => x.CharacterArtifacts);
+                e.HasMany(x => x.Abilities);
+                e.HasMany(x => x.Artifacts);
 
                 e.Property(x => x.CharacterId).ValueGeneratedOnAdd();
 
@@ -110,7 +110,7 @@ namespace CypherBot.DataAccess.Repos
             {
                 e.HasKey(x => x.CharacterAbilityId);
                 e.HasOne(x => x.Character)
-                    .WithMany(x => x.CharacterAbilities)
+                    .WithMany(x => x.Abilities)
                     .HasForeignKey(x => x.CharacterId);
 
                 e.Property(x => x.Name)
@@ -127,7 +127,7 @@ namespace CypherBot.DataAccess.Repos
                 e.Property(x => x.ArtifactId).ValueGeneratedOnAdd();
 
                 e.HasOne(x => x.Character)
-                    .WithMany(x => x.CharacterArtifacts)
+                    .WithMany(x => x.Artifacts)
                     .HasForeignKey(x => x.CharacterId);
 
                 e.Property(x => x.Effect)

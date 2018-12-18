@@ -304,7 +304,7 @@ namespace CypherBot.Commands
                 var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
                 if (userResponse.Message.Content.ToLower() == "y")
                 {
-                    chr.CharacterArtifacts.Add(artifact);
+                    chr.Artifacts.Add(artifact);
                     await ctx.RespondAsync($"{artifact.Name} Added!");
                 }
                 else if (userResponse.Message.Content.ToLower() == "n")

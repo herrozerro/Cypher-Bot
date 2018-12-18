@@ -61,7 +61,7 @@ namespace CypherBot.Utilities
 
             var response = "Here are your current artifacts:" + Environment.NewLine;
 
-            foreach (var artifact in chr.CharacterArtifacts)
+            foreach (var artifact in chr.Artifacts)
             {
                 response += "**Name:** " + artifact.Name + Environment.NewLine;
                 response += "**Level:** " + artifact.Level + Environment.NewLine;

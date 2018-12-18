@@ -23,6 +23,7 @@ namespace CypherBot.Models
                 }
                 return _level;
             }
+            set { _level = value; }
         }
         public int LevelDie { get; set; }
         public int LevelBonus { get; set; }
