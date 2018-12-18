@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CypherBot.Models.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CypherBot.Models
 {
-    public class Cypher
+    public class Cypher : ICypher
     {
         private int _level = 0;
         public int CypherId { get; set; }

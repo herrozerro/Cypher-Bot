@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CypherBot.Models.Abstractions;
 
 namespace CypherBot.Models
 {
-    public class CharacterArtifact
+    public class CharacterArtifact : IArtifact
     {
         public int ArtifactId { get; set; }
         public int CharacterId { get; set; }

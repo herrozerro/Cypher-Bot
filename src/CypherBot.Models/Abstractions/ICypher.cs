@@ -1,4 +1,4 @@
-﻿namespace CypherBot.Models
+﻿namespace CypherBot.Models.Abstractions
 {
     public interface ICypher
     {
