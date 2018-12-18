@@ -259,6 +259,64 @@ namespace CypherBot.Commands
                 }
             }
 
+            [Command("artifact")]
+            public async Task AddArtifact(CommandContext ctx)
+            {
+                var interactivity = ctx.Client.GetInteractivityModule();
+
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+
+                if (chr == null)
+                {
+                    return;
+                }
+
+                var art = await Utilities.ArtifactHelper.GetRandomArtifactAsync();
+
+                var artifact = new Models.CharacterArtifact()
+                {
+                    ArtifactId = art.ArtifactId,
+                    Effect = art.Effect,
+                    LevelBonus = art.LevelBonus,
+                    LevelDie = art.LevelDie,
+                    Level = art.Level,
+                    Name = art.Name,
+                    Source = art.Source,
+                    Form = art.Form,
+                    Depletion = art.Depletion,
+                    Genre = art.Genre
+                };
+
+                var responses = new List<string>();
+
+                responses.Add($"Here is what you found:");
+                responses.Add($"**Name:** {artifact.Name}");
+                responses.Add($"**Level:** {artifact.Level}");
+                responses.Add($"**Form:** {artifact.Form}");
+                responses.Add($"**Genre:** {artifact.Genre}");
+                responses.Add($"**Effect:** {artifact.Effect}");
+                responses.Add($"**Depletion:** {artifact.Depletion}");
+
+                responses.Add($"Do you wish to keep this one? (y/n)");
+
+                await ctx.RespondAsync(string.Join(Environment.NewLine, responses));
+
+                var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
+                if (userResponse.Message.Content.ToLower() == "y")
+                {
+                    chr.CharacterArtifacts.Add(artifact);
+                    await ctx.RespondAsync($"{artifact.Name} Added!");
+                }
+                else if (userResponse.Message.Content.ToLower() == "n")
+                {
+                    await ctx.RespondAsync("It's thrown away.");
+                }
+                else
+                {
+                    await ctx.RespondAsync("Sorry, I didn't understand that.");
+                }
+            }
+
             [Command("inventory")]
             [Aliases("item", "items")]
             public async Task AddInventory(CommandContext ctx)
@@ -395,6 +453,23 @@ namespace CypherBot.Commands
                 await ctx.RespondAsync(response);
             }
 
+            [Command("artifacts")]
+            [Aliases("artifact")]
+            [Description("Lists all of the character's cyphers")]
+            public async Task GetCharacterArtifacts(CommandContext ctx)
+            {
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+
+                if (chr == null)
+                {
+                    return;
+                }
+
+                var response = await Utilities.CharacterHelper.GetCurrentCharacterArtifactsAsync(ctx);
+
+                await ctx.RespondAsync(response);
+            }
+
             [Command("inventory")]
             [Aliases("items", "item")]
             [Description("Shows the character's inventory")]
@@ -435,6 +510,32 @@ namespace CypherBot.Commands
                     response += "**Name:** " + cypher.Name + Environment.NewLine;
                     response += "**Level:** " + cypher.Level + Environment.NewLine;
                     response += "**Effect:** " + cypher.Effect;
+
+                    await ctx.RespondAsync(response);
+                }
+                catch (Exception ex)
+                {
+                    await ctx.RespondAsync("Oops! Something went wrong!  I gotta get the code monkey on that.");
+                    throw ex;
+                }
+            }
+
+            [Command("artifact")]
+            [Description("Gets a random Cypher")]
+            public async Task RandomArtifact(CommandContext ctx)
+            {
+                //var cyphers = Models.Cypher.GetCyphers().ToList();
+                try
+                {
+                    var artifact = await Utilities.ArtifactHelper.GetRandomArtifactAsync();
+
+                    var response = "Wow!  look what I found out back!" + Environment.NewLine;
+                    response += "**Name:** " + artifact.Name + Environment.NewLine;
+                    response += "**Level:** " + artifact.Level + Environment.NewLine;
+                    response += "**Form:** " + artifact.Form + Environment.NewLine;
+                    response += "**Genre:** " + artifact.Genre + Environment.NewLine;
+                    response += "**Effect:** " + artifact.Effect + Environment.NewLine;
+                    response += "**Depletion:** " + artifact.Depletion;
 
                     await ctx.RespondAsync(response);
                 }

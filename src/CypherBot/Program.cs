@@ -44,7 +44,8 @@ namespace CypherBot
 
             commands = discord.UseCommandsNext(new CommandsNextConfiguration
             {
-                StringPrefix = Configuration["commandPrefix"]
+                StringPrefix = Configuration["commandPrefix"],
+                CaseSensitive = false                
             });
 
             commands.RegisterCommands<Commands.DiceCommands>();

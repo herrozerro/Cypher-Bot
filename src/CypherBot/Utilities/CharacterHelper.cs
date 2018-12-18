@@ -55,6 +55,23 @@ namespace CypherBot.Utilities
             return response;
         }
 
+        public static async Task<string> GetCurrentCharacterArtifactsAsync(CommandContext ctx)
+        {
+            var chr = await GetCurrentPlayersCharacterAsync(ctx);
+
+            var response = "Here are your current artifacts:" + Environment.NewLine;
+
+            foreach (var artifact in chr.CharacterArtifacts)
+            {
+                response += "**Name:** " + artifact.Name + Environment.NewLine;
+                response += "**Level:** " + artifact.Level + Environment.NewLine;
+                response += "**Effect:** " + artifact.Effect + Environment.NewLine + Environment.NewLine;
+            }
+
+            return response;
+        }
+
+
         public static async Task<string> GetCurrentCharacterInventoryAsync(CommandContext ctx)
         {
             var chr = await GetCurrentPlayersCharacterAsync(ctx);
