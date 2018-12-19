@@ -707,6 +707,40 @@ namespace CypherBot.Commands
 
                 await ctx.RespondAsync($"Your XP has been updated to {mod}");
             }
+
+            [Command("type")]
+            [Description("Modifys the character's Yype")]
+            public async Task ModifyType(CommandContext ctx, [Description("What the Type will be changed to.")] string type)
+            {
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+
+                chr.Type = type;
+
+                await ctx.RespondAsync($"Your Type has been updated to {type}");
+            }
+
+            [Command("descriptor")]
+            [Aliases("desc")]
+            [Description("Modifys the character's Descriptor")]
+            public async Task ModifyDescriptor(CommandContext ctx, [Description("What the Descriptor will be changed to.")] string descriptor)
+            {
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+
+                chr.Descriptor = descriptor;
+
+                await ctx.RespondAsync($"Your Descriptor has been updated to {descriptor}");
+            }
+
+            [Command("Focus")]
+            [Description("Modifys the character's type")]
+            public async Task ModifyFocus(CommandContext ctx, [Description("What the focus will be changed to.")] string focus)
+            {
+                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+
+                chr.Focus = focus;
+
+                await ctx.RespondAsync($"Your Focus has been updated to {focus}");
+            }
         }
 
         [Group("export")]

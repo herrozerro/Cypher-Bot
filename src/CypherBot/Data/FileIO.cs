@@ -11,8 +11,6 @@ namespace CypherBot.Data
     {
         public static async Task<string> GetFileString(string fileName, string database = "")
         {
-            //var s = await DataAccess.IO.FileIOService.GetFileString(database, fileName);
-
             string dataDir = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             var ext = ".json";
             var path = new List<string>();
