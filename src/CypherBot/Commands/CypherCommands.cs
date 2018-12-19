@@ -568,6 +568,42 @@ namespace CypherBot.Commands
                         }
                     }
 
+                    loop = true;
+                    while (loop)
+                    {
+                        await ctx.RespondAsync("What is your character's type?");
+                        var msgName = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
+                        if (msgName != null)
+                        {
+                            chr.Type = msgName.Message.Content;
+                            loop = false;
+                        }
+                    }
+
+                    loop = true;
+                    while (loop)
+                    {
+                        await ctx.RespondAsync("What is your character's descriptor?");
+                        var msgName = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
+                        if (msgName != null)
+                        {
+                            chr.Descriptor = msgName.Message.Content;
+                            loop = false;
+                        }
+                    }
+
+                    loop = true;
+                    while (loop)
+                    {
+                        await ctx.RespondAsync("What is your character's Focus?");
+                        var msgName = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
+                        if (msgName != null)
+                        {
+                            chr.Focus = msgName.Message.Content;
+                            loop = false;
+                        }
+                    }
+
                     //while (loop)
                     //{
                     //    var msgMight = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id && xm.Content.ToLower() == "What is your character's Might?", TimeSpan.FromMinutes(1));
@@ -615,6 +651,7 @@ namespace CypherBot.Commands
 
                     var response = $"Hey!  Here is a new character for {ctx.Member.DisplayName}" + Environment.NewLine;
                     response += "**Name:** " + chr.Name + Environment.NewLine;
+                    response += $"is a {chr.Descriptor} {chr.Type} who {chr.Focus}" + Environment.NewLine;
                     response += "**Might Pool:** " + chr.MightPool + Environment.NewLine;
                     response += "**Speed Pool:** " + chr.SpeedPool + Environment.NewLine;
                     response += "**Intellect Pool:** " + chr.IntPool + Environment.NewLine;

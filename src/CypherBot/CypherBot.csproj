@@ -24,12 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
     <None Remove="DataFiles\artifacts.json" />
     <None Remove="DataFiles\cyphers.json" />
     <None Remove="DataFiles\types.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="DataFiles\artifacts.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -58,9 +62,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="secrets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
