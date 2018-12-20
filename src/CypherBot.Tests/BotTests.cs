@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace CypherBot.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class BotTests
     {
         [TestMethod]
         public void TestMethod1()
@@ -14,7 +14,7 @@ namespace CypherBot.Tests
         }
 
 
-
+        [TestMethod]
         public static async Task<Models.Character> GetCharacter(string Name)
         {
             var chr = new Models.Character();
