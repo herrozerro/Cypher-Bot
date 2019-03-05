@@ -54,11 +54,7 @@ namespace CypherBot.Utilities
                 {
                     Console.WriteLine(ex.Message);
                 }
-
             }
         }
-
-
-
     }
 }

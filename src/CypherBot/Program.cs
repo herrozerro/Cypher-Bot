@@ -64,12 +64,9 @@ namespace CypherBot
 
                 await Utilities.DatabaseHelper.InitializeDatabaseAsync();
 
-                Console.WriteLine("Database Initialized, please set the appInitialize flag in appsettings.json to false.");
-                Console.WriteLine("Press any key to close.");
+                Console.WriteLine("Database Initialized, please set the appInitialize flag in appsettings.json to false in order to stop the database from being overridden again.");
 
-                Console.ReadKey();
-
-                return;
+                System.Threading.Thread.Sleep(3000);
             }
 
             await discord.ConnectAsync();
