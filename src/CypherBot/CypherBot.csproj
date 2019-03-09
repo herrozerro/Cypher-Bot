@@ -15,10 +15,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BusinessLogic\**" />
     <Compile Remove="Models\**" />
     <Compile Remove="Views\**" />
+    <EmbeddedResource Remove="BusinessLogic\**" />
     <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Views\**" />
+    <None Remove="BusinessLogic\**" />
     <None Remove="Models\**" />
     <None Remove="Views\**" />
   </ItemGroup>
@@ -65,10 +68,6 @@
     <None Update="secrets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="BusinessLogic\" />
   </ItemGroup>
 
 </Project>
