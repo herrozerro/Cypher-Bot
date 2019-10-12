@@ -10,13 +10,13 @@ using CypherBot.Core.Models;
 using CypherBot.Core.DataAccess.Repos;
 
 
-namespace CypherBot.Utilities
+namespace CypherBot.Core.Utilities
 {
     public static class CharacterHelper
     {
         public static async Task<Character> GetCurrentPlayersCharacterAsync(CommandContext ctx)
         {
-            var chr = Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator);
+            var chr = new Character();// Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator);
 
             if (chr == null)
             {

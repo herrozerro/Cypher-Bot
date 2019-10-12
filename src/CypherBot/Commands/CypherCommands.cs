@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
-using CypherBot.Models;
+using CypherBot.Core.Models;
 using Newtonsoft.Json;
-
+using CypherBot.Utilities;
 
 namespace CypherBot.Commands
 {
@@ -22,7 +22,7 @@ namespace CypherBot.Commands
             public async Task UseCharacterCyphers(CommandContext ctx)
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); // await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); // await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 if (chr == null)
                 {
@@ -221,7 +221,7 @@ namespace CypherBot.Commands
 
                 var cy = await Utilities.CypherHelper.GetRandomCypherAsync();
 
-                var cypher = new Models.CharacterCypher()
+                var cypher = new CharacterCypher()
                 {
                     CypherId = cy.CypherId,
                     Effect = cy.Effect,
@@ -273,7 +273,7 @@ namespace CypherBot.Commands
 
                 var art = await Utilities.ArtifactHelper.GetRandomArtifactAsync();
 
-                var artifact = new Models.CharacterArtifact()
+                var artifact = new CharacterArtifact()
                 {
                     ArtifactId = art.ArtifactId,
                     Effect = art.Effect,
@@ -633,7 +633,7 @@ namespace CypherBot.Commands
 
                     var cyls = (IEnumerable<Cypher>)await Utilities.CypherHelper.GetRandomCypherAsync(2);
 
-                    chr.Cyphers = cyls.Select(x => new Models.CharacterCypher()
+                    chr.Cyphers = cyls.Select(x => new CharacterCypher()
                     {
                         CypherId = x.CypherId,
                         Effect = x.Effect,

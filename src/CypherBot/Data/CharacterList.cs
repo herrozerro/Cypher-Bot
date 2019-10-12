@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CypherBot.Models;
+using CypherBot.Core.Models;
 
 namespace CypherBot.Data
 {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CypherBot.Core.DataAccess.Repos;
 using CypherBot.Core.Models;
 
-namespace CypherBot.Utilities
+namespace CypherBot.Core.Utilities
 {
     public static class DatabaseHelper
     {
@@ -32,7 +32,7 @@ namespace CypherBot.Utilities
                     Console.WriteLine("Artifacts Cleared!");
 
                     Console.WriteLine("Getting Cyphers from cyphers.json");
-                    var cypherStrings = await Data.FileIO.GetFileString("cyphers");
+                    var cypherStrings = ""; //await Data.FileIO.GetFileString("cyphers");
 
                     Console.WriteLine("Parsing Cyphers.");
                     var cyphers = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Cypher>>(cypherStrings);
@@ -42,7 +42,7 @@ namespace CypherBot.Utilities
                     await db.SaveChangesAsync();
 
                     Console.WriteLine("Getting Artifacts from artifacts.json");
-                    var artifactStrings = await Data.FileIO.GetFileString("artifacts");
+                    var artifactStrings = ""; // await Data.FileIO.GetFileString("artifacts");
 
                     Console.WriteLine("Parsing Artifacts.");
                     var artifacts = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Artifact>>(artifactStrings);

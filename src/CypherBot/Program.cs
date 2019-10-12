@@ -9,7 +9,7 @@ using DSharpPlus.Interactivity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-using CypherBot.DataAccess.Repos;
+using CypherBot.Core.DataAccess.Repos;
 
 namespace CypherBot
 {

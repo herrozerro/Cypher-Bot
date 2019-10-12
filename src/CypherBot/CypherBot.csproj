@@ -60,8 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CypherBot.DataAccess\CypherBot.DataAccess.csproj" />
-    <ProjectReference Include="..\CypherBot.Models\CypherBot.Models.csproj" />
+    <ProjectReference Include="..\CypherBot.Core\CypherBot.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

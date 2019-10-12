@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CypherBot.Core.Models;
 using CypherBot.Core.DataAccess.Repos;
 
-namespace CypherBot.Utilities
+namespace CypherBot.Core.Utilities
 {
     public static class ArtifactHelper
     {
