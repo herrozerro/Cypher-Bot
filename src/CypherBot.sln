@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot", "CypherBot\CypherBot.csproj", "{E2AE288C-2DEB-4FC1-B165-797203080E73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Core", "CypherBot.Core\CypherBot.Core.csproj", "{F2DC519F-2F48-474A-96CD-7A9E3421BD5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core", "CypherBot.Core\CypherBot.Core.csproj", "{F2DC519F-2F48-474A-96CD-7A9E3421BD5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core.Tests", "CypherBot.Core.Tests\CypherBot.Core.Tests.csproj", "{BFDAB1A9-C294-4AE6-92C5-F54282F37205}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Core.Tests", "CypherBot.Core.Tests\CypherBot.Core.Tests.csproj", "{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{F2DC519F-2F48-474A-96CD-7A9E3421BD5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2DC519F-2F48-474A-96CD-7A9E3421BD5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2DC519F-2F48-474A-96CD-7A9E3421BD5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFDAB1A9-C294-4AE6-92C5-F54282F37205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFDAB1A9-C294-4AE6-92C5-F54282F37205}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFDAB1A9-C294-4AE6-92C5-F54282F37205}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFDAB1A9-C294-4AE6-92C5-F54282F37205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
