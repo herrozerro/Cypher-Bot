@@ -521,7 +521,7 @@ namespace CypherBot.Commands
             }
 
             [Command("artifact")]
-            [Description("Gets a random Cypher")]
+            [Description("Gets a random Artifact")]
             public async Task RandomArtifact(CommandContext ctx)
             {
                 //var cyphers = Models.Cypher.GetCyphers().ToList();
