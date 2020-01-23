@@ -24,7 +24,25 @@ namespace CypherBot.Core.Models
         }
         public int LevelDie { get; set; }
         public int LevelBonus { get; set; }
+
+        public IEnumerable<FormOption> Forms { get; set; }
+
         public string Effect { get; set; }
+        public IEnumerable<EffectOption> EffectOptions { get; set; }
+
         public string Source { get; set; }
+    }
+
+    public class FormOption
+    {
+        public string Form { get; set; }
+        public string FormDescription { get; set; }
+    }
+
+    public class EffectOption
+    {
+        public int StartRange { get; set; }
+        public int EndRange { get; set; }
+        public string Description { get; set; }
     }
 }
