@@ -18,6 +18,8 @@ namespace CypherBot.Core.DataAccess.Repos
         public DbSet<CharacterArtifact> CharacterArtifacts { get; set; }
 
         public DbSet<Cypher> Cyphers { get; set; }
+        public DbSet<CypherFormOption> CypherFormOptions { get; set; }
+        public DbSet<CypherEffectOption> CypherEffectOptions { get; set; }
         public DbSet<Artifact> Artifacts { get; set; }
 
         public DbSet<Models.Type> Types { get; set; }
@@ -61,6 +63,12 @@ namespace CypherBot.Core.DataAccess.Repos
 
                 e.Property(x => x.Name)
                     .HasMaxLength(30);
+
+                e.Property(x => x.Form)
+                    .HasMaxLength(500);
+
+                e.Property(x => x.EffectOption)
+                    .HasMaxLength(500);
 
                 e.Property(x => x.Source)
                     .HasMaxLength(20);
@@ -145,6 +153,10 @@ namespace CypherBot.Core.DataAccess.Repos
             {
                 e.HasKey(x => x.CypherId);
 
+                e.HasMany(x => x.EffectOptions);
+
+                e.HasMany(x => x.Forms);
+
                 e.Property(x => x.CypherId).ValueGeneratedOnAdd();
 
                 e.Property(x => x.Effect)
@@ -160,6 +172,34 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasMaxLength(15);
 
                 e.Ignore(x => x.Level);
+            });
+
+            builder.Entity<CypherFormOption>(e =>
+            {
+                e.HasKey(x => x.FormOptionId);
+
+                e.Property(x => x.FormOptionId).ValueGeneratedOnAdd();
+
+                e.HasOne(x => x.Cypher)
+                    .WithMany(x => x.Forms)
+                    .HasForeignKey(x => x.CypherId);
+
+                e.Property(x => x.Form).HasMaxLength(50);
+
+                e.Property(x => x.FormDescription).HasMaxLength(500);
+            });
+
+            builder.Entity<CypherEffectOption>(e =>
+            {
+                e.HasKey(x => x.EffectOptionId);
+
+                e.Property(x => x.EffectOptionId).ValueGeneratedOnAdd();
+
+                e.HasOne(x => x.Cypher)
+                    .WithMany(x => x.EffectOptions)
+                    .HasForeignKey(x => x.CypherId);
+
+                e.Property(x => x.Description).HasMaxLength(500);
             });
 
             builder.Entity<Artifact>(e =>
