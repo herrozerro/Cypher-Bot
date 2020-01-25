@@ -36,7 +36,7 @@ namespace CypherBot
 
             discord = new DiscordClient(new DiscordConfiguration
             {
-                Token = Configuration["token"],
+                Token = Environment.GetEnvironmentVariable("DiscordAPIKey") ?? Configuration["token"],
                 TokenType = TokenType.Bot,
                 UseInternalLogHandler = true,
                 LogLevel = LogLevel.Debug
