@@ -21,6 +21,8 @@ namespace CypherBot.Core.DataAccess.Repos
         public DbSet<CypherFormOption> CypherFormOptions { get; set; }
         public DbSet<CypherEffectOption> CypherEffectOptions { get; set; }
         public DbSet<Artifact> Artifacts { get; set; }
+        public DbSet<ArtifactQuirk> ArtifactQuirks { get; set; }
+        public DbSet<Oddity> Oddities { get; set; }
 
         public DbSet<Models.Type> Types { get; set; }
         public DbSet<TypeAbility> TypeAbilities { get; set; }
@@ -147,6 +149,9 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.Property(x => x.Effect)
                     .HasMaxLength(1000);
 
+                e.Property(x => x.Quirk)
+                    .HasMaxLength(500);
+
             });
 
             builder.Entity<Cypher>(e =>
@@ -231,6 +236,28 @@ namespace CypherBot.Core.DataAccess.Repos
 
                 e.Ignore(x => x.Level);
 
+            });
+
+            builder.Entity<ArtifactQuirk>(e =>
+            {
+                e.HasKey(x => x.ArtifactQuirkId);
+
+                e.Property(x => x.ArtifactQuirkId)
+                    .ValueGeneratedOnAdd();
+
+                e.Property(x => x.Quirk)
+                    .HasMaxLength(500);
+            });
+
+            builder.Entity<Oddity>(e =>
+            {
+                e.HasKey(x => x.OddityId);
+
+                e.Property(x => x.OddityId)
+                    .ValueGeneratedOnAdd();
+
+                e.Property(e => e.OddityDescription)
+                    .HasMaxLength(500);
             });
 
             builder.Entity<Models.Type>(e =>

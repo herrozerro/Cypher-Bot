@@ -12,6 +12,7 @@ namespace CypherBot.Core.Models
         public string Name { get; set; }
         public string Form { get; set; }
         public string Genre { get; set; }
+        public string Quirk { get; set; }
 
         public int Level { get; set; }
         public int LevelDie { get; set; }

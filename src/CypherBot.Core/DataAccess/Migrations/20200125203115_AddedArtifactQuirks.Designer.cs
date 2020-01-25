@@ -2,14 +2,16 @@
 using CypherBot.Core.DataAccess.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CypherBot.Core.DataAccess.Migrations
 {
     [DbContext(typeof(CypherContext))]
-    partial class CypherContextModelSnapshot : ModelSnapshot
+    [Migration("20200125203115_AddedArtifactQuirks")]
+    partial class AddedArtifactQuirks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -479,21 +481,6 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.HasIndex("FocusId");
 
                     b.ToTable("FociAbilities");
-                });
-
-            modelBuilder.Entity("CypherBot.Core.Models.Oddity", b =>
-                {
-                    b.Property<int>("OddityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OddityDescription")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(500);
-
-                    b.HasKey("OddityId");
-
-                    b.ToTable("Oddities");
                 });
 
             modelBuilder.Entity("CypherBot.Core.Models.Type", b =>
