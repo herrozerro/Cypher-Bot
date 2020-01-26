@@ -11,6 +11,9 @@ namespace CypherBot.Core.Models
         public int CypherId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+
+        public bool IsIdentified { get; set; }
+
         public int Level { get; set; }
         public int LevelDie { get; set; }
         public int LevelBonus { get; set; }

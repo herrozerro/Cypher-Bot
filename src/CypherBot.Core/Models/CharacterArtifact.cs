@@ -14,6 +14,8 @@ namespace CypherBot.Core.Models
         public string Genre { get; set; }
         public string Quirk { get; set; }
 
+        public bool IsIdentified { get; set; }
+
         public int Level { get; set; }
         public int LevelDie { get; set; }
         public int LevelBonus { get; set; }

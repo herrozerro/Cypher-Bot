@@ -214,6 +214,8 @@ namespace CypherBot.Commands
 
                 var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
+                var rnd = new Random();
+
                 if (chr == null)
                 {
                     return;
@@ -230,7 +232,10 @@ namespace CypherBot.Commands
                     Level = cy.Level,
                     Name = cy.Name,
                     Source = cy.Source,
-                    Type = cy.Type
+                    Type = cy.Type,
+                    IsIdentified = false,
+                    Form = cy.Forms.ToList()[rnd.Next(0, cy.Forms.Count()-1)].FormDescription,
+                    EffectOption = cy.EffectOptions.Count() == 0 ? "" : cy.EffectOptions.ToList()[rnd.Next(0,cy.EffectOptions.Count()-1)].Description
                 };
 
                 var responses = new List<string>();
@@ -272,7 +277,7 @@ namespace CypherBot.Commands
                 }
 
                 var art = await Utilities.ArtifactHelper.GetRandomArtifactAsync();
-
+                var quirk = await Utilities.ArtifactHelper.GetRandomArtifactQuirkAsync();
                 var artifact = new CharacterArtifact()
                 {
                     ArtifactId = art.ArtifactId,
@@ -284,7 +289,9 @@ namespace CypherBot.Commands
                     Source = art.Source,
                     Form = art.Form,
                     Depletion = art.Depletion,
-                    Genre = art.Genre
+                    Genre = art.Genre,
+                    IsIdentified = false,
+                    Quirk = quirk.Quirk
                 };
 
                 var responses = new List<string>();
@@ -296,6 +303,7 @@ namespace CypherBot.Commands
                 responses.Add($"**Genre:** {artifact.Genre}");
                 responses.Add($"**Effect:** {artifact.Effect}");
                 responses.Add($"**Depletion:** {artifact.Depletion}");
+                responses.Add($"**Quirk:** {artifact.Quirk}");
 
                 responses.Add($"Do you wish to keep this one? (y/n)");
 
@@ -528,14 +536,36 @@ namespace CypherBot.Commands
                 try
                 {
                     var artifact = await Utilities.ArtifactHelper.GetRandomArtifactAsync();
-
+                    var quirk = await Utilities.ArtifactHelper.GetRandomArtifactQuirkAsync();
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Name:** " + artifact.Name + Environment.NewLine;
                     response += "**Level:** " + artifact.Level + Environment.NewLine;
                     response += "**Form:** " + artifact.Form + Environment.NewLine;
                     response += "**Genre:** " + artifact.Genre + Environment.NewLine;
                     response += "**Effect:** " + artifact.Effect + Environment.NewLine;
-                    response += "**Depletion:** " + artifact.Depletion;
+                    response += "**Depletion:** " + artifact.Depletion + Environment.NewLine;
+                    response += "**Quirk:** " + quirk.Quirk;
+
+                    await ctx.RespondAsync(response);
+                }
+                catch (Exception ex)
+                {
+                    await ctx.RespondAsync("Oops! Something went wrong!  I gotta get the code monkey on that.");
+                    throw ex;
+                }
+            }
+
+            [Command("oddity")]
+            [Description("Gets a random Oddity")]
+            public async Task RandomOddity(CommandContext ctx)
+            {
+                //var cyphers = Models.Cypher.GetCyphers().ToList();
+                try
+                {
+                    var oddity = await Utilities.OddityHelper.GetRandomOddityAsync();
+
+                    var response = "Wow!  look what I found out back!" + Environment.NewLine;
+                    response += "**Oddity:** " + oddity.OddityDescription;
 
                     await ctx.RespondAsync(response);
                 }

@@ -23,16 +23,16 @@ namespace CypherBot.Utilities
 
         public static async Task<Artifact> GetRandomArtifactAsync(string genre = "")
         {
-            var cyList = await GetAllArtifactsAsync();
+            var artList = await GetAllArtifactsAsync();
 
             if (genre != "")
             {
-                cyList = cyList.Where(x => x.Genre == genre).ToList();
+                artList = artList.Where(x => x.Genre == genre).ToList();
             }
 
-            var i = new Random().Next(0, cyList.Count() - 1);
+            var i = new Random().Next(0, artList.Count() - 1);
 
-            return cyList[i];
+            return artList[i];
         }
 
         public static async Task<List<Artifact>> GetRandomArtifactAsync(int numberOfCyphers, string genre = "")
@@ -53,6 +53,25 @@ namespace CypherBot.Utilities
             }
 
             return ls;
+        }
+
+        public static async Task<List<ArtifactQuirk>> GetAllArtifactQuirksAsync()
+        {
+            using (var db = new CypherContext())
+            {
+                var artList = await db.ArtifactQuirks.ToListAsync();
+
+                return artList;
+            }
+        }
+
+        public static async Task<ArtifactQuirk> GetRandomArtifactQuirkAsync()
+        {
+            var artQuiList = await GetAllArtifactQuirksAsync();
+
+            var i = new Random().Next(0, artQuiList.Count() - 1);
+
+            return artQuiList[i];
         }
     }
 }
