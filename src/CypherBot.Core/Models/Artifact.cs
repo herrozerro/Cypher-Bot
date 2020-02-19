@@ -19,7 +19,7 @@ namespace CypherBot.Core.Models
             {
                 if (_level == 0)
                 {
-                    _level = (LevelDie == 0 ? LevelBonus : new Random(Guid.NewGuid().GetHashCode()).Next() % LevelDie) + 1 + LevelBonus;
+                    _level = (LevelDie == 0 ? LevelBonus : new Random().Next(1, LevelDie) + LevelBonus);
                 }
                 return _level;
             }
