@@ -235,7 +235,7 @@ namespace CypherBot.Commands
                     Type = cy.Type,
                     IsIdentified = false,
                     Form = cy.Forms.ToList()[rnd.Next(0, cy.Forms.Count() - 1)].FormDescription,
-                    EffectOption = cy.EffectOptions.Count() == 0 ? "" : cy.EffectOptions.ToList()[rnd.Next(0, cy.EffectOptions.Count() - 1)].Description
+                    EffectOption = cy.EffectOptions.Count() == 0 ? "" : cy.EffectOptions.ToList()[rnd.Next(0, cy.EffectOptions.Count() - 1)].EffectDescription
                 };
 
                 var responses = new List<string>();
@@ -521,10 +521,17 @@ namespace CypherBot.Commands
                     if (cypher.EffectOptions.Any())
                     {
                         response += Environment.NewLine + "Effects:";
-                        foreach (var eo in cypher.EffectOptions)
+                        foreach (var eo in cypher.EffectOptions.OrderBy(x=>x.StartRange))
                         {
-                            response += Environment.NewLine + $"{eo.StartRange}-{eo.EndRange}: {eo.Description}";
+                            response += Environment.NewLine + $"{eo.StartRange}-{eo.EndRange}: {eo.EffectDescription}";
                         }
+
+                        var rnd = Utilities.RandomGenerator.GetRandom();
+                        var rn = rnd.Next(cypher.EffectOptions.Min(x => x.StartRange), cypher.EffectOptions.Max(x => x.EndRange));
+
+                        var effectOption = cypher.EffectOptions.SingleOrDefault(x => x.StartRange <= rn && x.EndRange >= rn);
+
+                        response += Environment.NewLine + $"Rolled {rn} Chosen Effect:  {effectOption.StartRange}-{effectOption.EndRange}: {effectOption.EffectDescription}";
                     }
 
                     await ctx.RespondAsync(response);

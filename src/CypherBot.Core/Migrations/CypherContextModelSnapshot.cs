@@ -2,16 +2,14 @@
 using CypherBot.Core.DataAccess.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CypherBot.Core.DataAccess.Migrations
+namespace CypherBot.Core.Migrations
 {
     [DbContext(typeof(CypherContext))]
-    [Migration("20200125203115_AddedArtifactQuirks")]
-    partial class AddedArtifactQuirks
+    partial class CypherContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,6 +177,9 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.Property<string>("Genre")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsIdentified")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Level")
                         .HasColumnType("INTEGER");
 
@@ -226,6 +227,9 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.Property<string>("Form")
                         .HasColumnType("TEXT")
                         .HasMaxLength(500);
+
+                    b.Property<bool>("IsIdentified")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Level")
                         .HasColumnType("INTEGER");
@@ -342,7 +346,7 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.Property<int>("CypherId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("EffectDescription")
                         .HasColumnType("TEXT")
                         .HasMaxLength(500);
 
@@ -481,6 +485,21 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.HasIndex("FocusId");
 
                     b.ToTable("FociAbilities");
+                });
+
+            modelBuilder.Entity("CypherBot.Core.Models.Oddity", b =>
+                {
+                    b.Property<int>("OddityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OddityDescription")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(500);
+
+                    b.HasKey("OddityId");
+
+                    b.ToTable("Oddities");
                 });
 
             modelBuilder.Entity("CypherBot.Core.Models.Type", b =>

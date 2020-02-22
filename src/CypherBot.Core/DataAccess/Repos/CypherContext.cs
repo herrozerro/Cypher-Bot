@@ -204,7 +204,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .WithMany(x => x.EffectOptions)
                     .HasForeignKey(x => x.CypherId);
 
-                e.Property(x => x.Description).HasMaxLength(500);
+                e.Property(x => x.EffectDescription).HasMaxLength(500);
             });
 
             builder.Entity<Artifact>(e =>

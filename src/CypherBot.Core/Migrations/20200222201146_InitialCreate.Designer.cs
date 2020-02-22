@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CypherBot.Core.DataAccess.Migrations
+namespace CypherBot.Core.Migrations
 {
     [DbContext(typeof(CypherContext))]
-    [Migration("20200126000116_AddedIsIdentifiedToCypherAndArtifacts")]
-    partial class AddedIsIdentifiedToCypherAndArtifacts
+    [Migration("20200222201146_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -348,7 +348,7 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.Property<int>("CypherId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("EffectDescription")
                         .HasColumnType("TEXT")
                         .HasMaxLength(500);
 

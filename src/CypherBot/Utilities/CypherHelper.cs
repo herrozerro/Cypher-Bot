@@ -15,7 +15,7 @@ namespace CypherBot.Utilities
         {
             using (var db = new CypherContext())
             {
-                var cyList = await db.Cyphers.ToListAsync();
+                var cyList = await db.Cyphers.Include(x=>x.EffectOptions).Include(x=>x.Forms).ToListAsync();
 
                 return cyList;
             }
