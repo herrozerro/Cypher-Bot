@@ -513,10 +513,13 @@ namespace CypherBot.Commands
                 try
                 {
                     var cypher = await Utilities.CypherHelper.GetRandomCypherAsync();
+                    var rnd = Utilities.RandomGenerator.GetRandom();
 
+                    var cf = cypher.Forms.ToList()[rnd.Next(0, cypher.Forms.Count() - 1)];
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Name:** " + cypher.Name + Environment.NewLine;
-                    response += "**Level:** " + cypher.Level + Environment.NewLine;
+                    response += "**Level:** " + cypher.Level + Environment.NewLine; 
+                    response += "**Form:** " + cf.Form + " - " + cf.FormDescription + Environment.NewLine;
                     response += "**Effect:** " + cypher.Effect;
                     if (cypher.EffectOptions.Any())
                     {
@@ -526,7 +529,6 @@ namespace CypherBot.Commands
                             response += Environment.NewLine + $"{eo.StartRange}-{eo.EndRange}: {eo.EffectDescription}";
                         }
 
-                        var rnd = Utilities.RandomGenerator.GetRandom();
                         var rn = rnd.Next(cypher.EffectOptions.Min(x => x.StartRange), cypher.EffectOptions.Max(x => x.EndRange));
 
                         var effectOption = cypher.EffectOptions.SingleOrDefault(x => x.StartRange <= rn && x.EndRange >= rn);
