@@ -33,7 +33,7 @@ namespace CypherBot.Utilities
         public static async Task<List<Cypher>> GetRandomCypherAsync(int numberOfCyphers)
         {
             var ls = new List<Cypher>();
-            var rnd = new Random(Guid.NewGuid().GetHashCode());
+            var rnd = Utilities.RandomGenerator.GetRandom();
 
             for (int i = 0; i < numberOfCyphers; i++)
             {

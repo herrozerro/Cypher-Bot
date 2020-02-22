@@ -30,7 +30,7 @@ namespace CypherBot.Utilities
                 artList = artList.Where(x => x.Genre == genre).ToList();
             }
 
-            var i = new Random().Next(0, artList.Count() - 1);
+            var i = Utilities.RandomGenerator.GetRandom().Next(0, artList.Count() - 1);
 
             return artList[i];
         }
@@ -38,7 +38,7 @@ namespace CypherBot.Utilities
         public static async Task<List<Artifact>> GetRandomArtifactAsync(int numberOfCyphers, string genre = "")
         {
             var ls = new List<Artifact>();
-            var rnd = new Random(Guid.NewGuid().GetHashCode());
+            var rnd = Utilities.RandomGenerator.GetRandom();
 
             for (int i = 0; i < numberOfCyphers; i++)
             {
@@ -69,7 +69,7 @@ namespace CypherBot.Utilities
         {
             var artQuiList = await GetAllArtifactQuirksAsync();
 
-            var i = new Random().Next(0, artQuiList.Count() - 1);
+            var i = Utilities.RandomGenerator.GetRandom().Next(0, artQuiList.Count() - 1);
 
             return artQuiList[i];
         }

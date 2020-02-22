@@ -25,7 +25,7 @@ namespace CypherBot.Utilities
         {
             var oddList = await GetAllOdditysAsync();
 
-            var i = new Random().Next(0, oddList.Count() - 1);
+            var i = Utilities.RandomGenerator.GetRandom().Next(0, oddList.Count() - 1);
 
             return oddList[i];
         }
@@ -33,7 +33,7 @@ namespace CypherBot.Utilities
         public static async Task<List<Oddity>> GetRandomOddityAsync(int numberOfCyphers)
         {
             var ls = new List<Oddity>();
-            var rnd = new Random(Guid.NewGuid().GetHashCode());
+            var rnd = Utilities.RandomGenerator.GetRandom();
 
             for (int i = 0; i < numberOfCyphers; i++)
             {
