@@ -14,6 +14,19 @@ namespace CypherBot.Commands
 {
     public class CypherCommands
     {
+        public class DiceCommands
+        {
+            [Command("action")]
+            [Aliases("act")]
+            public async Task RollAction(CommandContext ctx)
+            {
+                var rnd = Utilities.RandomGenerator.GetRandom();
+                var dieroll = rnd.Next(1, 20);
+                var levelbeats = Math.Floor((decimal)dieroll / 3);
+                await ctx.RespondAsync($"{ctx.Member.DisplayName} 🎲 Your die roll is: {dieroll} and beats level: {levelbeats}");
+            }
+        }
+
         [Group("use")]
         [Description("Commands for using things")]
         public class UseCommands
