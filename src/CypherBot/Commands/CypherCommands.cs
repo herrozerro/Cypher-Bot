@@ -558,6 +558,49 @@ namespace CypherBot.Commands
                 }
             }
 
+            [Command("cy")]
+            [Description("Gets a random Cypher")]
+            public async Task RandomUCypher(CommandContext ctx)
+            {
+                //var cyphers = Models.Cypher.GetCyphers().ToList();
+                try
+                {
+                    var cy = await Utilities.CypherHelper.GetRandomCypherAsync();
+                    var rnd = Utilities.RandomGenerator.GetRandom();
+
+                    var cf = cy.Forms.ToList()[rnd.Next(0, cy.Forms.Count() - 1)];
+                    
+                    var cypher = new UnidentifiedCypher()
+                    {
+                        UnidentifiedCypherId = cy.CypherId,
+                        UnidentifiedCypherKey = RandomGenerator.GetRandomDesination(4),
+                        Effect = cy.Effect,
+                        LevelBonus = cy.LevelBonus,
+                        LevelDie = cy.LevelDie,
+                        Level = cy.Level,
+                        Name = cy.Name,
+                        Source = cy.Source,
+                        Type = cy.Type,
+                        IsIdentified = false,
+                        Form = cf.FormDescription,
+                        EffectOption = cy.EffectOptions.Count() == 0 ? "" : cy.EffectOptions.ToList()[rnd.Next(0, cy.EffectOptions.Count() - 1)].EffectDescription
+                    };
+
+                    var response = "Wow!  look what I found out back!" + Environment.NewLine;
+                    response += "**Form:** " + cf.Form + " - " + cf.FormDescription + Environment.NewLine;
+                    response += "**Key:** " + cypher.UnidentifiedCypherKey + Environment.NewLine;
+
+
+
+                    await ctx.RespondAsync(response);
+                }
+                catch (Exception ex)
+                {
+                    await ctx.RespondAsync("Oops! Something went wrong!  I gotta get the code monkey on that.");
+                    throw ex;
+                }
+            }
+
             [Command("artifact")]
             [Description("Gets a random Artifact")]
             public async Task RandomArtifact(CommandContext ctx)

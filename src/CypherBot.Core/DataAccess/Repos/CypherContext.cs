@@ -18,9 +18,11 @@ namespace CypherBot.Core.DataAccess.Repos
         public DbSet<CharacterArtifact> CharacterArtifacts { get; set; }
 
         public DbSet<Cypher> Cyphers { get; set; }
+        public DbSet<UnidentifiedCypher> UnidentifiedCyphers { get; set; }
         public DbSet<CypherFormOption> CypherFormOptions { get; set; }
         public DbSet<CypherEffectOption> CypherEffectOptions { get; set; }
         public DbSet<Artifact> Artifacts { get; set; }
+        public DbSet<UnidentifiedArtifact> UnidentifiedArtifacts { get; set; }
         public DbSet<ArtifactQuirk> ArtifactQuirks { get; set; }
         public DbSet<Oddity> Oddities { get; set; }
 
@@ -179,6 +181,30 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.Ignore(x => x.Level);
             });
 
+            builder.Entity<UnidentifiedCypher>(e =>
+            {
+                e.HasKey(x => x.UnidentifiedCypherId);
+
+                e.Property(x => x.UnidentifiedCypherId).ValueGeneratedOnAdd();
+
+                e.Property(x => x.UnidentifiedCypherKey)
+                    .HasColumnType("varchar(10)");
+
+                e.Property(x => x.Effect)
+                    .HasColumnType("varchar(2000)");
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Source)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Type)
+                    .HasMaxLength(15);
+
+                e.Ignore(x => x.Level);
+            });
+
             builder.Entity<CypherFormOption>(e =>
             {
                 e.HasKey(x => x.FormOptionId);
@@ -212,6 +238,40 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.HasKey(x => x.ArtifactId);
 
                 e.Property(x => x.ArtifactId).ValueGeneratedOnAdd();
+
+                e.Property(x => x.Effect)
+                    .HasColumnType("varchar(2000)");
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(30);
+
+                e.Property(x => x.Source)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Genre)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Depletion)
+                    .HasMaxLength(20);
+
+                e.Property(x => x.Form)
+                    .HasMaxLength(100);
+
+                e.Property(x => x.Effect)
+                    .HasMaxLength(1000);
+
+                e.Ignore(x => x.Level);
+
+            });
+
+            builder.Entity<UnidentifiedArtifact>(e =>
+            {
+                e.HasKey(x => x.UnidentifiedArtifactId);
+
+                e.Property(x => x.UnidentifiedArtifactId).ValueGeneratedOnAdd();
+
+                e.Property(x => x.UnidentifiedArtifactKey)
+                    .HasColumnType("varchar(10)");
 
                 e.Property(x => x.Effect)
                     .HasColumnType("varchar(2000)");

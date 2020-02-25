@@ -6,7 +6,6 @@ namespace CypherBot.Core.Models.Abstractions
 {
     interface IArtifact
     {
-        int ArtifactId { get; set; }
         string Name {get; set;}
         string Form {get; set;}
         string Genre {get; set;}

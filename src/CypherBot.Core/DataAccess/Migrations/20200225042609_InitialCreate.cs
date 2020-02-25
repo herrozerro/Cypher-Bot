@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CypherBot.Core.Migrations
+namespace CypherBot.Core.DataAccess.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -139,6 +139,51 @@ namespace CypherBot.Core.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Types", x => x.TypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UnidentifiedArtifacts",
+                columns: table => new
+                {
+                    UnidentifiedArtifactId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UnidentifiedArtifactKey = table.Column<int>(type: "varchar(10)", nullable: false),
+                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Form = table.Column<string>(maxLength: 100, nullable: true),
+                    Genre = table.Column<string>(maxLength: 20, nullable: true),
+                    Quirk = table.Column<string>(nullable: true),
+                    IsIdentified = table.Column<bool>(nullable: false),
+                    LevelDie = table.Column<int>(nullable: false),
+                    LevelBonus = table.Column<int>(nullable: false),
+                    Effect = table.Column<string>(type: "varchar(2000)", maxLength: 1000, nullable: true),
+                    Source = table.Column<string>(maxLength: 20, nullable: true),
+                    Depletion = table.Column<string>(maxLength: 20, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnidentifiedArtifacts", x => x.UnidentifiedArtifactId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UnidentifiedCyphers",
+                columns: table => new
+                {
+                    UnidentifiedCypherId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UnidentifiedCypherKey = table.Column<string>(type: "varchar(10)", nullable: true),
+                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Type = table.Column<string>(maxLength: 15, nullable: true),
+                    IsIdentified = table.Column<bool>(nullable: false),
+                    LevelDie = table.Column<int>(nullable: false),
+                    LevelBonus = table.Column<int>(nullable: false),
+                    Form = table.Column<string>(nullable: true),
+                    Effect = table.Column<string>(type: "varchar(2000)", nullable: true),
+                    EffectOption = table.Column<string>(nullable: true),
+                    Source = table.Column<string>(maxLength: 20, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnidentifiedCyphers", x => x.UnidentifiedCypherId);
                 });
 
             migrationBuilder.CreateTable(
@@ -467,6 +512,12 @@ namespace CypherBot.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "TypeAbilities");
+
+            migrationBuilder.DropTable(
+                name: "UnidentifiedArtifacts");
+
+            migrationBuilder.DropTable(
+                name: "UnidentifiedCyphers");
 
             migrationBuilder.DropTable(
                 name: "Characters");

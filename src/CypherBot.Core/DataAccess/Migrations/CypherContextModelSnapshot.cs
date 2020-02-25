@@ -2,16 +2,14 @@
 using CypherBot.Core.DataAccess.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CypherBot.Core.Migrations
+namespace CypherBot.Core.DataAccess.Migrations
 {
     [DbContext(typeof(CypherContext))]
-    [Migration("20200222201146_InitialCreate")]
-    partial class InitialCreate
+    partial class CypherContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -561,6 +559,100 @@ namespace CypherBot.Core.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("TypeAbilities");
+                });
+
+            modelBuilder.Entity("CypherBot.Core.Models.UnidentifiedArtifact", b =>
+                {
+                    b.Property<int>("UnidentifiedArtifactId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Depletion")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Effect")
+                        .HasColumnType("varchar(2000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Form")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Genre")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
+
+                    b.Property<bool>("IsIdentified")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LevelBonus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LevelDie")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Quirk")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Source")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
+
+                    b.Property<int>("UnidentifiedArtifactKey")
+                        .HasColumnType("varchar(10)");
+
+                    b.HasKey("UnidentifiedArtifactId");
+
+                    b.ToTable("UnidentifiedArtifacts");
+                });
+
+            modelBuilder.Entity("CypherBot.Core.Models.UnidentifiedCypher", b =>
+                {
+                    b.Property<int>("UnidentifiedCypherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Effect")
+                        .HasColumnType("varchar(2000)");
+
+                    b.Property<string>("EffectOption")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Form")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsIdentified")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LevelBonus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LevelDie")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Source")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("UnidentifiedCypherKey")
+                        .HasColumnType("varchar(10)");
+
+                    b.HasKey("UnidentifiedCypherId");
+
+                    b.ToTable("UnidentifiedCyphers");
                 });
 
             modelBuilder.Entity("CypherBot.Core.Models.CharacterAbility", b =>

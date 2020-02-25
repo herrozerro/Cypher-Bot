@@ -43,5 +43,25 @@ namespace CypherBot.Utilities
 
             return ls;
         }
+
+        public static async Task SaveUnidentifiedCypherAsync(UnidentifiedCypher unidentifiedCypher)
+        {
+            using (var db = new CypherContext())
+            {
+                db.UnidentifiedCyphers.Add(unidentifiedCypher);
+
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public static async Task<List<UnidentifiedCypher>> GetAllUnidentifiedCyphersAsync()
+        {
+            using (var db = new CypherContext())
+            {
+                var cyList = await db.UnidentifiedCyphers.ToListAsync();
+
+                return cyList;
+            }
+        }
     }
 }
