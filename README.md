@@ -1,7 +1,7 @@
 # Cypher-Bot
 Discord bot for Cypher System TTRPG
 
-See the wiki[https://github.com/herrozerro/Cypher-Bot/wiki] for the documentation of the commands.
+See the [wiki](https://github.com/herrozerro/Cypher-Bot/wiki) for the documentation of the commands.
 
 Currently the character aspect of the bot is rudimentary.  The generator for various items and objects are the main focus.
 
