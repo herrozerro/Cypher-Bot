@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CypherBot.Core.DataAccess.Migrations
 {
@@ -11,10 +12,10 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     ArtifactQuirkId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     StartRange = table.Column<int>(nullable: false),
                     EndRange = table.Column<int>(nullable: false),
-                    Quirk = table.Column<string>(maxLength: 500, nullable: true)
+                    Quirk = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,15 +27,15 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     ArtifactId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
-                    Form = table.Column<string>(maxLength: 100, nullable: true),
-                    Genre = table.Column<string>(maxLength: 20, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Form = table.Column<string>(maxLength: 500, nullable: true),
+                    Genre = table.Column<string>(maxLength: 100, nullable: true),
                     LevelDie = table.Column<int>(nullable: false),
                     LevelBonus = table.Column<int>(nullable: false),
-                    Effect = table.Column<string>(type: "varchar(2000)", maxLength: 1000, nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true),
-                    Depletion = table.Column<string>(maxLength: 20, nullable: true)
+                    Effect = table.Column<string>(maxLength: 1000, nullable: true),
+                    Source = table.Column<string>(maxLength: 100, nullable: true),
+                    Depletion = table.Column<string>(maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,9 +47,9 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     CharacterId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Player = table.Column<string>(maxLength: 30, nullable: true),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Player = table.Column<string>(maxLength: 100, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Tier = table.Column<int>(nullable: false),
                     XP = table.Column<int>(nullable: false),
                     Descriptor = table.Column<string>(nullable: true),
@@ -70,13 +71,13 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     CypherId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
-                    Type = table.Column<string>(maxLength: 15, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Type = table.Column<string>(maxLength: 100, nullable: true),
                     LevelDie = table.Column<int>(nullable: false),
                     LevelBonus = table.Column<int>(nullable: false),
-                    Effect = table.Column<string>(type: "varchar(2000)", nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true)
+                    Effect = table.Column<string>(nullable: true),
+                    Source = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,8 +89,8 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     DescriptorId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
@@ -102,8 +103,8 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     FocusId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
@@ -116,8 +117,8 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     OddityId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    OddityDescription = table.Column<string>(maxLength: 500, nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OddityDescription = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,8 +130,8 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     TypeId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
                     IntellectStartingPool = table.Column<int>(nullable: false),
                     MightStartingPool = table.Column<int>(nullable: false),
@@ -146,18 +147,18 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     UnidentifiedArtifactId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UnidentifiedArtifactKey = table.Column<int>(type: "varchar(10)", nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UnidentifiedArtifactKey = table.Column<string>(type: "varchar(10)", nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Form = table.Column<string>(maxLength: 100, nullable: true),
-                    Genre = table.Column<string>(maxLength: 20, nullable: true),
+                    Genre = table.Column<string>(maxLength: 100, nullable: true),
                     Quirk = table.Column<string>(nullable: true),
                     IsIdentified = table.Column<bool>(nullable: false),
                     LevelDie = table.Column<int>(nullable: false),
                     LevelBonus = table.Column<int>(nullable: false),
-                    Effect = table.Column<string>(type: "varchar(2000)", maxLength: 1000, nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true),
-                    Depletion = table.Column<string>(maxLength: 20, nullable: true)
+                    Effect = table.Column<string>(maxLength: 1000, nullable: true),
+                    Source = table.Column<string>(maxLength: 100, nullable: true),
+                    Depletion = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -169,17 +170,17 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     UnidentifiedCypherId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UnidentifiedCypherKey = table.Column<string>(type: "varchar(10)", nullable: true),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
-                    Type = table.Column<string>(maxLength: 15, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Type = table.Column<string>(maxLength: 100, nullable: true),
                     IsIdentified = table.Column<bool>(nullable: false),
                     LevelDie = table.Column<int>(nullable: false),
                     LevelBonus = table.Column<int>(nullable: false),
                     Form = table.Column<string>(nullable: true),
                     Effect = table.Column<string>(type: "varchar(2000)", nullable: true),
                     EffectOption = table.Column<string>(nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true)
+                    Source = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -191,10 +192,10 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     CharacterAbilityId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CharacterId = table.Column<int>(nullable: false),
                     Tier = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
@@ -213,19 +214,19 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     ArtifactId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CharacterId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Form = table.Column<string>(maxLength: 100, nullable: true),
                     Genre = table.Column<string>(nullable: true),
-                    Quirk = table.Column<string>(maxLength: 500, nullable: true),
+                    Quirk = table.Column<string>(maxLength: 1000, nullable: true),
                     IsIdentified = table.Column<bool>(nullable: false),
                     Level = table.Column<int>(nullable: false),
                     LevelDie = table.Column<int>(nullable: false),
                     LevelBonus = table.Column<int>(nullable: false),
-                    Effect = table.Column<string>(type: "varchar(2000)", maxLength: 1000, nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true),
-                    Depletion = table.Column<string>(maxLength: 20, nullable: true)
+                    Effect = table.Column<string>(maxLength: 1000, nullable: true),
+                    Source = table.Column<string>(maxLength: 100, nullable: true),
+                    Depletion = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -243,18 +244,18 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     CypherId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CharacterId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
-                    Type = table.Column<string>(maxLength: 15, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Type = table.Column<string>(maxLength: 100, nullable: true),
                     IsIdentified = table.Column<bool>(nullable: false),
                     Level = table.Column<int>(nullable: false),
                     LevelDie = table.Column<int>(nullable: false),
                     LevelBonus = table.Column<int>(nullable: false),
                     Form = table.Column<string>(maxLength: 500, nullable: true),
-                    Effect = table.Column<string>(type: "varchar(2000)", nullable: true),
+                    Effect = table.Column<string>(maxLength: 1000, nullable: true),
                     EffectOption = table.Column<string>(maxLength: 500, nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true)
+                    Source = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -272,9 +273,9 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     InventoryId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CharacterId = table.Column<int>(nullable: false),
-                    ItemName = table.Column<string>(maxLength: 50, nullable: true),
+                    ItemName = table.Column<string>(maxLength: 500, nullable: true),
                     Qty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -293,9 +294,9 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     RecoveryRollId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CharacterId = table.Column<int>(nullable: false),
-                    RollName = table.Column<string>(maxLength: 25, nullable: true),
+                    RollName = table.Column<string>(maxLength: 100, nullable: true),
                     IsUsed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -314,11 +315,11 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     EffectOptionId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CypherId = table.Column<int>(nullable: false),
                     StartRange = table.Column<int>(nullable: false),
                     EndRange = table.Column<int>(nullable: false),
-                    EffectDescription = table.Column<string>(maxLength: 500, nullable: true)
+                    EffectDescription = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -336,10 +337,10 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     FormOptionId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CypherId = table.Column<int>(nullable: false),
-                    Form = table.Column<string>(maxLength: 50, nullable: true),
-                    FormDescription = table.Column<string>(maxLength: 500, nullable: true)
+                    Form = table.Column<string>(maxLength: 100, nullable: true),
+                    FormDescription = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -357,12 +358,12 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     DescriptorAbilityId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DescriptorId = table.Column<int>(nullable: false),
                     Tier = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true)
+                    Source = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -380,12 +381,12 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     FocusAbilityId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FocusId = table.Column<int>(nullable: false),
                     Tier = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true)
+                    Source = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -403,12 +404,12 @@ namespace CypherBot.Core.DataAccess.Migrations
                 columns: table => new
                 {
                     TypeAbilityId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TypeId = table.Column<int>(nullable: false),
                     Tier = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    Source = table.Column<string>(maxLength: 20, nullable: true)
+                    Source = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -48,8 +48,8 @@ namespace CypherBot.Core.DataAccess.Repos
 
                 e.Property(x => x.CharacterId).ValueGeneratedOnAdd();
 
-                e.Property(x => x.Name).HasMaxLength(30);
-                e.Property(x => x.Player).HasMaxLength(30);
+                e.Property(x => x.Name).HasMaxLength(100);
+                e.Property(x => x.Player).HasMaxLength(100);
             });
 
             builder.Entity<CharacterCypher>(e =>
@@ -63,10 +63,10 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasForeignKey(x => x.CharacterId);
 
                 e.Property(x => x.Effect)
-                    .HasColumnType("varchar(2000)");
+                    .HasMaxLength(1000);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Form)
                     .HasMaxLength(500);
@@ -75,10 +75,10 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasMaxLength(500);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Type)
-                    .HasMaxLength(15);
+                    .HasMaxLength(100);
 
             });
 
@@ -91,7 +91,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasForeignKey(x => x.CharacterId);
 
                 e.Property(x => x.RollName)
-                    .HasMaxLength(25);
+                    .HasMaxLength(100);
             });
 
             builder.Entity<CharacterInventory>(e =>
@@ -106,7 +106,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasForeignKey(x => x.CharacterId);
 
                 e.Property(x => x.ItemName)
-                    .HasMaxLength(50);
+                    .HasMaxLength(500);
             });
 
             builder.Entity<CharacterAbility>(e =>
@@ -117,7 +117,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasForeignKey(x => x.CharacterId);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
@@ -133,17 +133,14 @@ namespace CypherBot.Core.DataAccess.Repos
                     .WithMany(x => x.Artifacts)
                     .HasForeignKey(x => x.CharacterId);
 
-                e.Property(x => x.Effect)
-                    .HasColumnType("varchar(2000)");
-
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Depletion)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Form)
                     .HasMaxLength(100);
@@ -152,7 +149,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasMaxLength(1000);
 
                 e.Property(x => x.Quirk)
-                    .HasMaxLength(500);
+                    .HasMaxLength(1000);
 
             });
 
@@ -166,17 +163,14 @@ namespace CypherBot.Core.DataAccess.Repos
 
                 e.Property(x => x.CypherId).ValueGeneratedOnAdd();
 
-                e.Property(x => x.Effect)
-                    .HasColumnType("varchar(2000)");
-
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Type)
-                    .HasMaxLength(15);
+                    .HasMaxLength(100);
 
                 e.Ignore(x => x.Level);
             });
@@ -194,13 +188,13 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasColumnType("varchar(2000)");
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Type)
-                    .HasMaxLength(15);
+                    .HasMaxLength(100);
 
                 e.Ignore(x => x.Level);
             });
@@ -215,9 +209,9 @@ namespace CypherBot.Core.DataAccess.Repos
                     .WithMany(x => x.Forms)
                     .HasForeignKey(x => x.CypherId);
 
-                e.Property(x => x.Form).HasMaxLength(50);
+                e.Property(x => x.Form).HasMaxLength(100);
 
-                e.Property(x => x.FormDescription).HasMaxLength(500);
+                e.Property(x => x.FormDescription).HasMaxLength(1000);
             });
 
             builder.Entity<CypherEffectOption>(e =>
@@ -230,7 +224,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .WithMany(x => x.EffectOptions)
                     .HasForeignKey(x => x.CypherId);
 
-                e.Property(x => x.EffectDescription).HasMaxLength(500);
+                e.Property(x => x.EffectDescription).HasMaxLength(1000);
             });
 
             builder.Entity<Artifact>(e =>
@@ -239,23 +233,20 @@ namespace CypherBot.Core.DataAccess.Repos
 
                 e.Property(x => x.ArtifactId).ValueGeneratedOnAdd();
 
-                e.Property(x => x.Effect)
-                    .HasColumnType("varchar(2000)");
-
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Genre)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Depletion)
-                    .HasMaxLength(20);
+                    .HasMaxLength(500);
 
                 e.Property(x => x.Form)
-                    .HasMaxLength(100);
+                    .HasMaxLength(500);
 
                 e.Property(x => x.Effect)
                     .HasMaxLength(1000);
@@ -273,20 +264,17 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.Property(x => x.UnidentifiedArtifactKey)
                     .HasColumnType("varchar(10)");
 
-                e.Property(x => x.Effect)
-                    .HasColumnType("varchar(2000)");
-
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Genre)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Depletion)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Form)
                     .HasMaxLength(100);
@@ -306,7 +294,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .ValueGeneratedOnAdd();
 
                 e.Property(x => x.Quirk)
-                    .HasMaxLength(500);
+                    .HasMaxLength(1000);
             });
 
             builder.Entity<Oddity>(e =>
@@ -317,7 +305,7 @@ namespace CypherBot.Core.DataAccess.Repos
                     .ValueGeneratedOnAdd();
 
                 e.Property(e => e.OddityDescription)
-                    .HasMaxLength(500);
+                    .HasMaxLength(1000);
             });
 
             builder.Entity<Models.Type>(e =>
@@ -326,7 +314,7 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.HasMany(x => x.TypeAbilities);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
@@ -340,13 +328,13 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasForeignKey(x => x.TypeId);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
             });
 
             builder.Entity<Descriptor>(e =>
@@ -355,7 +343,7 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.HasMany(x => x.DescriptorAbilities);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
@@ -369,13 +357,13 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasForeignKey(x => x.DescriptorId);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
             });
 
             builder.Entity<Focus>(e =>
@@ -384,7 +372,7 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.HasMany(x => x.FocusAbilities);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
@@ -398,13 +386,13 @@ namespace CypherBot.Core.DataAccess.Repos
                     .HasForeignKey(x => x.FocusId);
 
                 e.Property(x => x.Name)
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 e.Property(x => x.Description)
                     .HasMaxLength(1000);
 
                 e.Property(x => x.Source)
-                    .HasMaxLength(20);
+                    .HasMaxLength(100);
             });
         }
     }
