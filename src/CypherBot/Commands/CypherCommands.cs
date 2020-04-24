@@ -476,7 +476,7 @@ namespace CypherBot.Commands
 
             [Command("artifacts")]
             [Aliases("artifact")]
-            [Description("Lists all of the character's cyphers")]
+            [Description("Lists all of the character's artifacts")]
             public async Task GetCharacterArtifacts(CommandContext ctx)
             {
                 var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
@@ -849,7 +849,7 @@ namespace CypherBot.Commands
             }
 
             [Command("type")]
-            [Description("Modifys the character's Yype")]
+            [Description("Modifys the character's Type")]
             public async Task ModifyType(CommandContext ctx, [Description("What the Type will be changed to.")] string type)
             {
                 var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
@@ -872,7 +872,7 @@ namespace CypherBot.Commands
             }
 
             [Command("Focus")]
-            [Description("Modifys the character's type")]
+            [Description("Modifys the character's Focus")]
             public async Task ModifyFocus(CommandContext ctx, [Description("What the focus will be changed to.")] string focus)
             {
                 var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
