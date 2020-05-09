@@ -43,40 +43,12 @@ namespace CypherBot.Core.Services
             return ls;
         }
 
-        public static async Task SaveUnidentifiedCypher(UnidentifiedCypher unidentifiedCypher)
-        {
-            using (var db = new CypherContext())
-            {
-                db.UnidentifiedCyphers.Add(unidentifiedCypher);
-                await db.SaveChangesAsync();
-            }
-        }
-
-        public static async Task SaveUnidentifiedArtifact(UnidentifiedArtifact unidentifiedArtifact)
-        {
-            using (var db = new CypherContext())
-            {
-                db.UnidentifiedArtifacts.Add(unidentifiedArtifact);
-                await db.SaveChangesAsync();
-            }
-        }
-
-        public static async Task RemoveUnidentifiedCypher(int unidentifiedCypherID)
+        public static async Task RemoveUnidentifiedCypherAsync(int unidentifiedCypherID)
         {
             using (var db = new CypherContext())
             {
                 var uCypherToRemove = new UnidentifiedCypher() { UnidentifiedCypherId = unidentifiedCypherID };
                 db.UnidentifiedCyphers.Remove(uCypherToRemove);
-                await db.SaveChangesAsync();
-            }
-        }
-
-        public static async Task RemoveUnidentifiedArtifact(int unidentifiedArtifactID)
-        {
-            using (var db = new CypherContext())
-            {
-                var uArtifactToRemove = new UnidentifiedArtifact() { UnidentifiedArtifactId = unidentifiedArtifactID };
-                db.UnidentifiedArtifacts.Remove(uArtifactToRemove);
                 await db.SaveChangesAsync();
             }
         }

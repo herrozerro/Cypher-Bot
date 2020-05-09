@@ -526,7 +526,27 @@ namespace CypherBot.Commands
                 foreach (var ucypher in ucyphers)
                 {
                     response += "**Key:** " + ucypher.UnidentifiedCypherKey;
+                    response += " **Level:** " + ucypher.Level;
                     response += " **Form:** " + ucypher.Form + Environment.NewLine;
+                }
+
+                await ctx.RespondAsync(response);
+            }
+
+            [Command("uartifacts")]
+            [Aliases("uartifact")]
+            [Description("Lists all of the character's cyphers")]
+            public async Task GetUnidentifiedArtifacts(CommandContext ctx)
+            {
+                var uartifacts = await ArtifactHelper.GetAllUnidentifiedArtifactsAsync();
+
+                var response = "Wow!  look what I found out back!" + Environment.NewLine;
+
+                foreach (var uartifact in uartifacts)
+                {
+                    response += "**Key:** " + uartifact.UnidentifiedArtifactKey;
+                    response += " **Level:** " + uartifact.Level;
+                    response += " **Form:** " + uartifact.Form + Environment.NewLine;
                 }
 
                 await ctx.RespondAsync(response);
@@ -550,13 +570,13 @@ namespace CypherBot.Commands
                     var cf = cypher.Forms.ToList()[rnd.Next(0, cypher.Forms.Count() - 1)];
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Name:** " + cypher.Name + Environment.NewLine;
-                    response += "**Level:** " + cypher.Level + Environment.NewLine; 
+                    response += "**Level:** " + cypher.Level + Environment.NewLine;
                     response += "**Form:** " + cf.Form + " - " + cf.FormDescription + Environment.NewLine;
                     response += "**Effect:** " + cypher.Effect;
                     if (cypher.EffectOptions.Any())
                     {
                         response += Environment.NewLine + "Effects:";
-                        foreach (var eo in cypher.EffectOptions.OrderBy(x=>x.StartRange))
+                        foreach (var eo in cypher.EffectOptions.OrderBy(x => x.StartRange))
                         {
                             response += Environment.NewLine + $"{eo.StartRange}-{eo.EndRange}: {eo.EffectDescription}";
                         }
@@ -588,7 +608,7 @@ namespace CypherBot.Commands
                     var rnd = RandomGenerator.GetRandom();
 
                     var cf = cy.Forms.ToList()[rnd.Next(0, cy.Forms.Count() - 1)];
-                    
+
                     var cypher = new UnidentifiedCypher()
                     {
                         UnidentifiedCypherId = cy.CypherId,
@@ -640,6 +660,45 @@ namespace CypherBot.Commands
                     response += "**Quirk:** " + quirk.Quirk;
 
                     await ctx.RespondAsync(response);
+                }
+                catch (Exception ex)
+                {
+                    await ctx.RespondAsync("Oops! Something went wrong!  I gotta get the code monkey on that.");
+                    throw ex;
+                }
+            }
+
+            [Command("uartifact")]
+            [Description("Gets a random Artifact")]
+            public async Task RandomUArtifact(CommandContext ctx)
+            {
+                try
+                {
+                    var artifact = await ArtifactHelper.GetRandomArtifactAsync();
+                    var quirk = await ArtifactHelper.GetRandomArtifactQuirkAsync();
+
+                    UnidentifiedArtifact unidentifiedArtifact = new UnidentifiedArtifact
+                    {
+                        UnidentifiedArtifactKey = RandomGenerator.GetRandomDesination(4),
+                        Effect = artifact.Effect,
+                        LevelBonus = artifact.LevelBonus,
+                        LevelDie = artifact.LevelDie,
+                        Level = artifact.Level,
+                        Name = artifact.Name,
+                        Source = artifact.Source,
+                        IsIdentified = false,
+                        Form = artifact.Form,
+                        Quirk = quirk.Quirk,
+                        Depletion = artifact.Depletion
+                    };
+
+                    var response = "Wow!  look what I found out back!" + Environment.NewLine;
+                    response += "**Level:** " + artifact.Level + Environment.NewLine;
+                    response += "**Form:** " + artifact.Form + Environment.NewLine;
+
+                    await ctx.RespondAsync(response);
+
+                    await ArtifactHelper.SaveUnidentifiedArtifactAsync(unidentifiedArtifact);
                 }
                 catch (Exception ex)
                 {
@@ -1088,7 +1147,62 @@ namespace CypherBot.Commands
 
                 await ctx.RespondAsync(response);
 
-                await CypherHelper.RemoveUnidentifiedCypher(selectedCypher.UnidentifiedCypherId);
+                await CypherHelper.RemoveUnidentifiedCypherAsync(selectedCypher.UnidentifiedCypherId);
+            }
+
+            [Command("artifact")]
+            [Description("Identifies a artifact from the list of unidentified cyphers.")]
+            public async Task IdentifyArtifact(CommandContext ctx)
+            {
+                var interactivity = ctx.Client.GetInteractivityModule();
+
+                UnidentifiedArtifact selectedArtifact = null;
+
+                var uartifacts = await ArtifactHelper.GetAllUnidentifiedArtifactsAsync();
+
+                var response = "What artifact would you like to identify? (Case Insensative) 0 to quit" + Environment.NewLine;
+
+                foreach (var uartifact in uartifacts)
+                {
+                    response += "**Key:** " + uartifact.UnidentifiedArtifactKey;
+                    response += " **Level:** " + uartifact.Level;
+                    response += " **Form:** " + uartifact.Form + Environment.NewLine;
+                }
+
+                await ctx.RespondAsync(response);
+
+                while (true)
+                {
+                    var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
+
+                    if (userResponse.Message.Content == "0")
+                    {
+                        return;
+                    }
+
+                    selectedArtifact = uartifacts.FirstOrDefault(x => x.UnidentifiedArtifactKey.ToLower() == userResponse.Message.Content.ToLower());
+
+                    if (selectedArtifact != null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        await ctx.RespondAsync("Sorry I didn't get that, Please try the command again");
+                    }
+                }
+
+                response = "Wow!  look what I found out back!" + Environment.NewLine;
+                response += "**Name:** " + selectedArtifact.Name + Environment.NewLine;
+                response += "**Level:** " + selectedArtifact.Level + Environment.NewLine;
+                response += "**Form:** " + selectedArtifact.Form + Environment.NewLine;
+                response += "**Effect:** " + selectedArtifact.Effect + Environment.NewLine;
+                response += "**Quirk:** " + selectedArtifact.Quirk + Environment.NewLine;
+                response += "Removing from the List.";
+
+                await ctx.RespondAsync(response);
+
+                await ArtifactHelper.RemoveUnidentifiedArtifactAsync(selectedArtifact.UnidentifiedArtifactId);
             }
         }
     }
