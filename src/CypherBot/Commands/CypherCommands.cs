@@ -1043,9 +1043,11 @@ namespace CypherBot.Commands
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
 
+                UnidentifiedCypher selectedCypher = null;
+
                 var ucyphers = await CypherHelper.GetAllUnidentifiedCyphersAsync();
 
-                var response = "What cypher would you like to identify? (Case Insensative)" + Environment.NewLine;
+                var response = "What cypher would you like to identify? (Case Insensative) 0 to quit" + Environment.NewLine;
 
                 foreach (var ucypher in ucyphers)
                 {
@@ -1056,14 +1058,25 @@ namespace CypherBot.Commands
 
                 await ctx.RespondAsync(response);
 
-                var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
-
-                var selectedCypher = ucyphers.FirstOrDefault(x => x.UnidentifiedCypherKey.ToLower() == userResponse.Message.Content.ToLower());
-
-                if (selectedCypher == null)
+                while (true)
                 {
-                    await ctx.RespondAsync("Sorry I didn't get that, Please try the command again");
-                    return;
+                    var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
+
+                    if (userResponse.Message.Content == "0")
+                    {
+                        return;
+                    }
+
+                    selectedCypher = ucyphers.FirstOrDefault(x => x.UnidentifiedCypherKey.ToLower() == userResponse.Message.Content.ToLower());
+
+                    if (selectedCypher != null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        await ctx.RespondAsync("Sorry I didn't get that, Please try the command again");
+                    }
                 }
 
                 response = "Wow!  look what I found out back!" + Environment.NewLine;
