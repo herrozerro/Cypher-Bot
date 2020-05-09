@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CypherBot.Utilities
+namespace CypherBot.Core.Services
 {
     public static class OddityHelper
     {
@@ -25,7 +25,7 @@ namespace CypherBot.Utilities
         {
             var oddList = await GetAllOdditysAsync();
 
-            var i = Utilities.RandomGenerator.GetRandom().Next(0, oddList.Count() - 1);
+            var i = RandomGenerator.GetRandom().Next(0, oddList.Count() - 1);
 
             return oddList[i];
         }
@@ -33,7 +33,7 @@ namespace CypherBot.Utilities
         public static async Task<List<Oddity>> GetRandomOddityAsync(int numberOfCyphers)
         {
             var ls = new List<Oddity>();
-            var rnd = Utilities.RandomGenerator.GetRandom();
+            var rnd = RandomGenerator.GetRandom();
 
             for (int i = 0; i < numberOfCyphers; i++)
             {

@@ -1,6 +1,402 @@
 [
   {
-    "OddityId": "0",
-    "OddityDescription": ""
+    "OddityId": 0,
+    "OddityDescription": "Crystal that shatters easily but then instantly reforms"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Egg-shaped metallic bauble that occasionally spins and speaks in a language no one knows"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Aerosol can that sprays sparkling paint that hangs in the air"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Device that emits a projection of a human face that changes expression depending on the direction in which it's looking"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Unknown musical instrument that plays only soft, unpleasant sounds"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Circular stone plate with a human face that occasionally changes expression or appears to speak (but has no voice)"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Box with a tiny group of musicians in it who play when it is opened and look horrified when it is closed"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Remote-controlled dragonfly with a tiny, handheld controller"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Pants that fit perfectly and never seem to get dirty but are always chilly"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Blob of clay that takes on various mysterious shapes when left alone"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Crystal that hums"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Necklace made of gears and other machine parts"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Flute with buttons rather than holes so you can play music without blowing into it"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Lightning bug in a glass globe"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Plastic disk that displays ever-changing but meaningless symbols"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small rod that emits a voice saying the same thing in an unknown language every time a button is pushed"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Glass plate that shows what seems to be a live image of the moon, but from a closer vantage"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Comb that glows when used"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small square cage that puts whatever single creature is inside it into stasis"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Plastic bottle containing a spray that cleans any stain and never runs out"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Metallic device that creates one sheet of new paper each day"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Pen that writes in invisible ink revealed only at a very low temperature"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Tiny toy ornithopter made of a solid piece of material that seems indestructible"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Fuzzy stuffed ravage bear that makes growling noises when you squeeze it"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Goggles that tint everything green"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Series of thin plastic cards that show all kinds of unknown creatures"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Candle that never runs down"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Bag of sixteen rubber balloons"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Three silken gloves with six fingers each"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Metallic jar that maintains the temperature of liquid inside indefinitely"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Blue crystal that glows as bright as a candle when held"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small coin pouch that holds twice as much as it appears it should"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small wand-like device that keeps away normal insects in a 5-foot (1.5 m) radius"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Unknown plastic device with lights that occasionally blink"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Powerful magnifying glass"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Bag that contains dice, each with a different number of sides"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small mirrored cube"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Piece of extremely strong and thin cable 8 feet (2.5 m) long"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Feathered hat that occasionally makes bird noises"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Wooden rod that increases in length by about 1 inch (2.5 cm) a month"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Brass device with nested circular plates that rotate and click"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Cape that billows as if blown by the wind when worn, even in still air"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Glass cube that shows what seems to be a live aerial view of an unknown, ruined city"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Armband that tightens slightly when within 100 feet (30 m) of abhumans"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small jar of black paint that refills itself each day"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Metallic mask that fits perfectly on your face and changes expression when you do"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Five metallic plates that orbit around your head and display ever-changing, unknown symbols"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Green glass sphere that floats next to you and whistles when you are angry"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Metal canister that fills with 4 quarts (3.8 liters) of water at the same time each day"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Metal and glass disk that, when pressed against flesh, instantly etches a tattoo of a black scorpion"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small mirror that shows someone other than you when you gaze into it"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Canister that produces an extremely foul odor and a puff of dark red smoke when opened"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Goggles that allow you to see perfectly through steam or smoke"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Box that produces a 3-inch (7.5 cm) cube of a firm but gelatinous substance at the same time each day"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Shirt that displays your muscles, bones, and internal organs when you wear it"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small leather case of cosmetics that never seem to run out"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Amulet that, when worn, projects holographic images of fish swimming around you"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Bracelet with a tiny bell charm that rings like a massive bell when intentionally rung"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Metallic, pointed-toe boots designed to fit an aneen or a similar creature"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Cup that instantly boils any liquid poured into it"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Spectacles that project strange images on the lenses so the wearer sees things that are not there"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Box of a dozen matchsticks that, when burned, release puffs of lingering smoke that take on the shapes of faces, creatures, or other things"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Blanket that makes a pleasant, soft humming noise while covering a living creature"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Semicircular device of metal and glass that projects a harmless, thin red beam up to 50 feet (15 m) when activated"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Two 5-inch (12.7 cm) metal and glass disks that hover around your wrists"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Six small, clear synth bags that can be sealed and are very durable"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Glass orb that always drips perfumed water very slowly"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Jar of sixteen seeds; when planted, each seed grows into a daffodil made of gold in six months"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Rose made of nigh-indestructible glass"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Octagon-shaped amulet that is black during the day and sky blue at night"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Mummified fish with feathered wings in a wooden box"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Two-headed animal fetus in a glass jar"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Saddle sized for a very small animal, such as a squirrel or a small cat"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Small rectangular device that makes a chirping sound at the same time each day"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Pair of tiny metal rods that, when brought within 1 inch (2.5 cm) of each other, vibrate exactly fifteen minutes before the sun rises on any given day"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Ceramic ring that makes you feel as though gentle hands are caressing your body"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Bottle of twenty-four pills that make you vividly dream about your favorite memory when you next sleep"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Cylinder that clears the air of smoke, foul smells, and the like in an enclosed room in one minute's time"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "A pair of small, floating cubes that keep a small, enclosed room at the temperature at which water freezes"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Bracelet that renders you unable to reproduce while worn"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Chair that can be stored in an extradimensional space when activated"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Synth disk that will restore a rotten vegetable or piece of fruit"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Cylinder that, if you speak through it, makes your voice sound wavering and strange"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Scarf that appears to be made of silk but is virtually indestructible and cannot be dirtied or stained"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Egg-shaped device that temporarily negates all odor within 3 feet (1 m)"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Short metal rod that is insubstantial to all matter except the special synth glove that goes with it"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Cube that, when activated, disappears for one minute and then reappears in the same spot"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Wristband that buzzes when in complete darkness"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Plate of glass that, when you view the night sky through it, reveals ten times as many stars"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Ceramic pot that produces a tiny puff of colored smoke once every hour and a half"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Hoop that sharpens any blade passed through it"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Sphere that produces vigorous bubbles when placed in water"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Tiny awl that inflicts no pain when it pierces flesh"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Contact lenses that make your eyes seem completely white with no pupils"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Silken string 3 feet (1 m) long that coils around whatever it touches"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Large, clear synth bag that keeps food inside it fresh indefinitely"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Stockings that are always warm"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Single rubber glove that is extremely durable and resistant"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Box filled with two dozen spherical magnets, each about the size of a pea"
+  },
+  {
+    "OddityId": 0,
+    "OddityDescription": "Pair of clear drinking glasses that change color depending on the contents"
   }
 ]

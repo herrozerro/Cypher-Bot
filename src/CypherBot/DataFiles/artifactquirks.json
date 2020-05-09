@@ -1,7 +1,147 @@
 [
   {
     "StartRange": 1,
+    "EndRange": 6,
+    "Quirk": "Activated by sound (user must hum, whistle, sing, or speak in a specific way)"
+  },
+  {
+    "StartRange": 7,
+    "EndRange": 10,
+    "Quirk": "Activated only in complete darkness"
+  },
+  {
+    "StartRange": 11,
+    "EndRange": 14,
+    "Quirk": "Activated only in direct sunlight"
+  },
+  {
+    "StartRange": 15,
+    "EndRange": 17,
+    "Quirk": "Activated only when user is in correct frame of mind"
+  },
+  {
+    "StartRange": 18,
+    "EndRange": 20,
+    "Quirk": "Activated only in a certain temperature"
+  },
+  {
+    "StartRange": 21,
+    "EndRange": 23,
+    "Quirk": "Activated by application or insertion of special substance(water, saliva, sand, plant matter, ice, blood, flesh, paper, synth, metal)"
+  },
+  {
+    "StartRange": 24,
+    "EndRange": 27,
+    "Quirk": "Creates a terrible smell"
+  },
+  {
+    "StartRange": 28,
+    "EndRange": 32,
+    "Quirk": "Creates annoying black smoke"
+  },
+  {
+    "StartRange": 33,
+    "EndRange": 36,
+    "Quirk": "Produces an oily residue"
+  },
+  {
+    "StartRange": 37,
+    "EndRange": 39,
+    "Quirk": "Makes a strange sound"
+  },
+  {
+    "StartRange": 40,
+    "EndRange": 42,
+    "Quirk": "Makes a very loud sound"
+  },
+  {
+    "StartRange": 43,
+    "EndRange": 46,
+    "Quirk": "Creates a bright flash"
+  },
+  {
+    "StartRange": 47,
+    "EndRange": 48,
+    "Quirk": "Produces a strange hologram along with the effect"
+  },
+  {
+    "StartRange": 49,
+    "EndRange": 50,
+    "Quirk": "Produces strange telepathic sendings along with the effect"
+  },
+  {
+    "StartRange": 51,
+    "EndRange": 54,
+    "Quirk": "Creates a small electric shock(no damage)"
+  },
+  {
+    "StartRange": 55,
+    "EndRange": 56,
+    "Quirk": "Creates a major electric shock(2 points of damage)"
+  },
+  {
+    "StartRange": 57,
+    "EndRange": 60,
+    "Quirk": "Gets annoyingly warm"
+  },
+  {
+    "StartRange": 61,
+    "EndRange": 62,
+    "Quirk": "Gets dangerously warm(2 points of damage)"
+  },
+  {
+    "StartRange": 63,
+    "EndRange": 66,
+    "Quirk": "Drains heat around it"
+  },
+  {
+    "StartRange": 67,
+    "EndRange": 68,
+    "Quirk": "Drastically drains heat around it(2 points of damage within immediate range)"
+  },
+  {
+    "StartRange": 69,
+    "EndRange": 70,
+    "Quirk": "Drains mental energy(2 points of Intellect damage)"
+  },
+  {
+    "StartRange": 71,
+    "EndRange": 74,
+    "Quirk": "Causes animals to flee from it"
+  },
+  {
+    "StartRange": 75,
+    "EndRange": 77,
+    "Quirk": "Attracts animals to it"
+  },
+  {
+    "StartRange": 78,
+    "EndRange": 81,
+    "Quirk": "Once it functions, cannot be used again for an hour while it recharges"
+  },
+  {
+    "StartRange": 82,
+    "EndRange": 85,
+    "Quirk": "Produces a rash or lesions on the user's flesh"
+  },
+  {
+    "StartRange": 86,
+    "EndRange": 89,
+    "Quirk": "Sickens user(all tasks hindered for one minute)"
+  },
+  {
+    "StartRange": 90,
+    "EndRange": 94,
+    "Quirk": "Frequently breaks down(one time out of every six uses), requiring one minute of repair time"
+  },
+  {
+    "StartRange": 95,
+    "EndRange": 99,
+    "Quirk": "Creates any variety of strange effects due to a reality-warping nature(roll each time, taking only results that make sense)"
+  },
+  {
+    "StartRange": 100,
     "EndRange": 100,
-    "Quirk": "Quirk"
+    "Quirk": "Takes over user's mind for one round; user stands still and speaks gibberish"
   }
 ]

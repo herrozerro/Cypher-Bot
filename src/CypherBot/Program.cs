@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 using CypherBot.Core.DataAccess.Repos;
+using CypherBot.Core.Services;
 
 namespace CypherBot
 {

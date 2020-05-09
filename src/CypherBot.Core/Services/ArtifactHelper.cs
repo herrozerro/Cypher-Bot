@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CypherBot.Core.Models;
 using CypherBot.Core.DataAccess.Repos;
 
-namespace CypherBot.Core.Utilities
+namespace CypherBot.Core.Services
 {
     public static class ArtifactHelper
     {
@@ -23,22 +23,22 @@ namespace CypherBot.Core.Utilities
 
         public static async Task<Artifact> GetRandomArtifactAsync(string genre = "")
         {
-            var cyList = await GetAllArtifactsAsync();
+            var artList = await GetAllArtifactsAsync();
 
             if (genre != "")
             {
-                cyList = cyList.Where(x => x.Genre == genre).ToList();
+                artList = artList.Where(x => x.Genre == genre).ToList();
             }
 
-            var i = new Random().Next(0, cyList.Count() - 1);
+            var i = RandomGenerator.GetRandom().Next(0, artList.Count() - 1);
 
-            return cyList[i];
+            return artList[i];
         }
 
         public static async Task<List<Artifact>> GetRandomArtifactAsync(int numberOfCyphers, string genre = "")
         {
             var ls = new List<Artifact>();
-            var rnd = new Random(Guid.NewGuid().GetHashCode());
+            var rnd = RandomGenerator.GetRandom();
 
             for (int i = 0; i < numberOfCyphers; i++)
             {
@@ -53,6 +53,25 @@ namespace CypherBot.Core.Utilities
             }
 
             return ls;
+        }
+
+        public static async Task<List<ArtifactQuirk>> GetAllArtifactQuirksAsync()
+        {
+            using (var db = new CypherContext())
+            {
+                var artList = await db.ArtifactQuirks.ToListAsync();
+
+                return artList;
+            }
+        }
+
+        public static async Task<ArtifactQuirk> GetRandomArtifactQuirkAsync()
+        {
+            var artQuiList = await GetAllArtifactQuirksAsync();
+
+            var i = RandomGenerator.GetRandom().Next(0, artQuiList.Count() - 1);
+
+            return artQuiList[i];
         }
     }
 }

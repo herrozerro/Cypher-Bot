@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using CypherBot.Core.Models;
 using Newtonsoft.Json;
-using CypherBot.Utilities;
+using Microsoft.EntityFrameworkCore.Internal;
+using CypherBot.Core.Services;
 
 namespace CypherBot.Commands
 {
@@ -20,7 +21,7 @@ namespace CypherBot.Commands
             [Aliases("act")]
             public async Task RollAction(CommandContext ctx)
             {
-                var rnd = Utilities.RandomGenerator.GetRandom();
+                var rnd = RandomGenerator.GetRandom();
                 var dieroll = rnd.Next(1, 20);
                 var levelbeats = Math.Floor((decimal)dieroll / 3);
                 await ctx.RespondAsync($"{ctx.Member.DisplayName} 🎲 Your die roll is: {dieroll} and beats level: {levelbeats}");
@@ -90,7 +91,7 @@ namespace CypherBot.Commands
             public async Task UseInventory(CommandContext ctx)
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 if (chr == null)
                 {
@@ -225,16 +226,16 @@ namespace CypherBot.Commands
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
 
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
-                var rnd = Utilities.RandomGenerator.GetRandom();
+                var rnd = RandomGenerator.GetRandom();
 
                 if (chr == null)
                 {
                     return;
                 }
 
-                var cy = await Utilities.CypherHelper.GetRandomCypherAsync();
+                var cy = await CypherHelper.GetRandomCypherAsync();
 
                 var cypher = new CharacterCypher()
                 {
@@ -282,15 +283,15 @@ namespace CypherBot.Commands
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
 
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
                 if (chr == null)
                 {
                     return;
                 }
 
-                var art = await Utilities.ArtifactHelper.GetRandomArtifactAsync();
-                var quirk = await Utilities.ArtifactHelper.GetRandomArtifactQuirkAsync();
+                var art = await ArtifactHelper.GetRandomArtifactAsync();
+                var quirk = await ArtifactHelper.GetRandomArtifactQuirkAsync();
                 var artifact = new CharacterArtifact()
                 {
                     ArtifactId = art.ArtifactId,
@@ -344,12 +345,12 @@ namespace CypherBot.Commands
             {
                 var interactivity = ctx.Client.GetInteractivityModule();
 
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
                 var responses = new List<string>();
                 responses.Add("What Item do you want to add?");
                 responses.Add("0. Add a new Item.");
-                responses.Add(await Utilities.CharacterHelper.GetCurrentCharacterInventoryAsync(ctx));
+                responses.Add(await CharacterHelper.GetCurrentCharacterInventoryAsync(ctx));
 
                 await ctx.RespondAsync(string.Join(Environment.NewLine, responses));
 
@@ -436,7 +437,7 @@ namespace CypherBot.Commands
             [Description("Shows the players character")]
             public async Task GetCharacter(CommandContext ctx)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
                 if (chr == null)
                 {
@@ -462,14 +463,14 @@ namespace CypherBot.Commands
             [Description("Lists all of the character's cyphers")]
             public async Task GetCharacterCyphers(CommandContext ctx)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
                 if (chr == null)
                 {
                     return;
                 }
 
-                var response = await Utilities.CharacterHelper.GetCurrentCharacterCyphersAsync(ctx);
+                var response = await CharacterHelper.GetCurrentCharacterCyphersAsync(ctx);
 
                 await ctx.RespondAsync(response);
             }
@@ -479,14 +480,14 @@ namespace CypherBot.Commands
             [Description("Lists all of the character's artifacts")]
             public async Task GetCharacterArtifacts(CommandContext ctx)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
                 if (chr == null)
                 {
                     return;
                 }
 
-                var response = await Utilities.CharacterHelper.GetCurrentCharacterArtifactsAsync(ctx);
+                var response = await CharacterHelper.GetCurrentCharacterArtifactsAsync(ctx);
 
                 await ctx.RespondAsync(response);
             }
@@ -496,7 +497,7 @@ namespace CypherBot.Commands
             [Description("Shows the character's inventory")]
             public async Task ViewInventory(CommandContext ctx)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
                 if (chr == null)
                 {
@@ -510,7 +511,25 @@ namespace CypherBot.Commands
                     return;
                 }
 
-                await ctx.RespondAsync(string.Join(Environment.NewLine, await Utilities.CharacterHelper.GetCurrentCharacterInventoryAsync(ctx)));
+                await ctx.RespondAsync(string.Join(Environment.NewLine, await CharacterHelper.GetCurrentCharacterInventoryAsync(ctx)));
+            }
+
+            [Command("ucyphers")]
+            [Aliases("ucypher")]
+            [Description("Lists all of the character's cyphers")]
+            public async Task GetUnidentifiedCyphers(CommandContext ctx)
+            {
+                var ucyphers = await CypherHelper.GetAllUnidentifiedCyphersAsync();
+
+                var response = "Wow!  look what I found out back!" + Environment.NewLine;
+
+                foreach (var ucypher in ucyphers)
+                {
+                    response += "**Key:** " + ucypher.UnidentifiedCypherKey;
+                    response += " **Form:** " + ucypher.Form + Environment.NewLine;
+                }
+
+                await ctx.RespondAsync(response);
             }
         }
 
@@ -525,8 +544,8 @@ namespace CypherBot.Commands
                 //var cyphers = Models.Cypher.GetCyphers().ToList();
                 try
                 {
-                    var cypher = await Utilities.CypherHelper.GetRandomCypherAsync();
-                    var rnd = Utilities.RandomGenerator.GetRandom();
+                    var cypher = await CypherHelper.GetRandomCypherAsync();
+                    var rnd = RandomGenerator.GetRandom();
 
                     var cf = cypher.Forms.ToList()[rnd.Next(0, cypher.Forms.Count() - 1)];
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
@@ -558,15 +577,15 @@ namespace CypherBot.Commands
                 }
             }
 
-            [Command("cy")]
-            [Description("Gets a random Cypher")]
+            [Command("ucypher")]
+            [Description("Gets a random unidentified Cypher")]
             public async Task RandomUCypher(CommandContext ctx)
             {
                 //var cyphers = Models.Cypher.GetCyphers().ToList();
                 try
                 {
-                    var cy = await Utilities.CypherHelper.GetRandomCypherAsync();
-                    var rnd = Utilities.RandomGenerator.GetRandom();
+                    var cy = await CypherHelper.GetRandomCypherAsync();
+                    var rnd = RandomGenerator.GetRandom();
 
                     var cf = cy.Forms.ToList()[rnd.Next(0, cy.Forms.Count() - 1)];
                     
@@ -582,15 +601,16 @@ namespace CypherBot.Commands
                         Source = cy.Source,
                         Type = cy.Type,
                         IsIdentified = false,
-                        Form = cf.FormDescription,
+                        Form = cf.Form + " - " + cf.FormDescription,
                         EffectOption = cy.EffectOptions.Count() == 0 ? "" : cy.EffectOptions.ToList()[rnd.Next(0, cy.EffectOptions.Count() - 1)].EffectDescription
                     };
 
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Form:** " + cf.Form + " - " + cf.FormDescription + Environment.NewLine;
                     response += "**Key:** " + cypher.UnidentifiedCypherKey + Environment.NewLine;
+                    response += "I stuffed it into the unidentified cypher box.";
 
-
+                    await CypherHelper.SaveUnidentifiedCypherAsync(cypher);
 
                     await ctx.RespondAsync(response);
                 }
@@ -608,8 +628,8 @@ namespace CypherBot.Commands
                 //var cyphers = Models.Cypher.GetCyphers().ToList();
                 try
                 {
-                    var artifact = await Utilities.ArtifactHelper.GetRandomArtifactAsync();
-                    var quirk = await Utilities.ArtifactHelper.GetRandomArtifactQuirkAsync();
+                    var artifact = await ArtifactHelper.GetRandomArtifactAsync();
+                    var quirk = await ArtifactHelper.GetRandomArtifactQuirkAsync();
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Name:** " + artifact.Name + Environment.NewLine;
                     response += "**Level:** " + artifact.Level + Environment.NewLine;
@@ -635,7 +655,7 @@ namespace CypherBot.Commands
                 //var cyphers = Models.Cypher.GetCyphers().ToList();
                 try
                 {
-                    var oddity = await Utilities.OddityHelper.GetRandomOddityAsync();
+                    var oddity = await OddityHelper.GetRandomOddityAsync();
 
                     var response = "Wow!  look what I found out back!" + Environment.NewLine;
                     response += "**Oddity:** " + oddity.OddityDescription;
@@ -734,7 +754,7 @@ namespace CypherBot.Commands
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "third" });
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "fourth" });
 
-                    var cyls = (IEnumerable<Cypher>)await Utilities.CypherHelper.GetRandomCypherAsync(2);
+                    var cyls = (IEnumerable<Cypher>)await CypherHelper.GetRandomCypherAsync(2);
 
                     chr.Cyphers = cyls.Select(x => new CharacterCypher()
                     {
@@ -776,7 +796,7 @@ namespace CypherBot.Commands
             [Description("Rolls the character's recovery roll and marks it as used")]
             public async Task RecoveryRoll(CommandContext ctx, [Description("Which roll do you want to make? 1,2,3,4,(5 if you are sturdy, etc...)")] int rollIndex)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 if (chr.RecoveryRolls[rollIndex - 1].IsUsed)
                 {
@@ -786,7 +806,7 @@ namespace CypherBot.Commands
 
                 chr.RecoveryRolls[rollIndex - 1].IsUsed = true;
 
-                var rnd = Utilities.RandomGenerator.GetRandom();
+                var rnd = RandomGenerator.GetRandom();
                 var dieroll = rnd.Next(1, chr.RecoveryDie);
 
                 await ctx.RespondAsync($"🎲 You recovered {dieroll + chr.RecoveryMod + chr.Tier}: Rolled: {dieroll} Mod: {chr.RecoveryMod} Tier: {chr.Tier}");
@@ -802,7 +822,7 @@ namespace CypherBot.Commands
             [Description("Modifys the pool of a character")]
             public async Task ModifyPool(CommandContext ctx, [Description("Pool to modify")]string pool, [Description("How much to modify it by. Negative numbers are valid")]int mod)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); //await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); //await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
                 if (pool.ToLower() == "might")
                 {
@@ -830,7 +850,7 @@ namespace CypherBot.Commands
             [Description("Modifys the character's tier")]
             public async Task ModifyTier(CommandContext ctx, [Description("What the tier will be changed to.")] int mod)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 chr.Tier = mod;
 
@@ -841,7 +861,7 @@ namespace CypherBot.Commands
             [Description("Modifies the character's XP")]
             public async Task ModifyXp(CommandContext ctx, [Description("What the XP will be changed to.")] int mod)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 chr.XP = mod;
 
@@ -852,7 +872,7 @@ namespace CypherBot.Commands
             [Description("Modifys the character's Type")]
             public async Task ModifyType(CommandContext ctx, [Description("What the Type will be changed to.")] string type)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 chr.Type = type;
 
@@ -864,7 +884,7 @@ namespace CypherBot.Commands
             [Description("Modifys the character's Descriptor")]
             public async Task ModifyDescriptor(CommandContext ctx, [Description("What the Descriptor will be changed to.")] string descriptor)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 chr.Descriptor = descriptor;
 
@@ -875,7 +895,7 @@ namespace CypherBot.Commands
             [Description("Modifys the character's Focus")]
             public async Task ModifyFocus(CommandContext ctx, [Description("What the focus will be changed to.")] string focus)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 chr.Focus = focus;
 
@@ -892,7 +912,7 @@ namespace CypherBot.Commands
             [Description("Exports the current character")]
             public async Task ExportCharacter(CommandContext ctx)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx); ;
 
                 if (chr == null)
                 {
@@ -914,7 +934,7 @@ namespace CypherBot.Commands
             [Description("Imports a character for the player")]
             public async Task ImportCharacter(CommandContext ctx, string chr)
             {
-                Data.CharacterList.Characters.Remove(await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx));
+                Data.CharacterList.Characters.Remove(await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx));
 
                 try
                 {
@@ -937,10 +957,10 @@ namespace CypherBot.Commands
         {
             [Command("char")]
             [Aliases("character")]
-            [Description("Saves a character for the player")]
+            [Description("Saves a character for the player.")]
             public async Task SaveCharacter(CommandContext ctx)
             {
-                var chr = await Utilities.CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
+                var chr = await CharacterHelper.GetCurrentPlayersCharacterAsync(ctx);
 
                 if (chr == null)
                 {
@@ -950,7 +970,7 @@ namespace CypherBot.Commands
                 {
                     var chrString = JsonConvert.SerializeObject(chr, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
-                    await Utilities.CharacterHelper.SaveCurrentCharacterAsync("", chr);
+                    await CharacterHelper.SaveCurrentCharacterAsync("", chr);
                 }
                 catch (Exception ex)
                 {
@@ -974,7 +994,7 @@ namespace CypherBot.Commands
 
                 //var files = Data.FileIO.GetFilesInDatabase("Players\\" + ctx.Member.Username + ctx.Member.Discriminator);
 
-                var chars = await Utilities.CharacterHelper.GetCurrentPlayersCharactersAsync(ctx);
+                var chars = await CharacterHelper.GetCurrentPlayersCharactersAsync(ctx);
 
                 var response = new List<string>();
                 response.Add("Here are your saved characters:");
@@ -1009,6 +1029,53 @@ namespace CypherBot.Commands
                         Console.WriteLine(ex.Message);
                     }
                 }
+            }
+        }
+
+        [Group("identify")]
+        [Aliases("id")]
+        [Description("Commands for identifying objects.")]
+        public class IdentifyCommands
+        {
+            [Command("cypher")]
+            [Description("Identifies a cypher from the list of unidentified cyphers.")]
+            public async Task IdentifyCypher(CommandContext ctx)
+            {
+                var interactivity = ctx.Client.GetInteractivityModule();
+
+                var ucyphers = await CypherHelper.GetAllUnidentifiedCyphersAsync();
+
+                var response = "What cypher would you like to identify? (Case Insensative)" + Environment.NewLine;
+
+                foreach (var ucypher in ucyphers)
+                {
+                    response += "**Key:** " + ucypher.UnidentifiedCypherKey;
+                    response += " **Level:** " + ucypher.Level;
+                    response += " **Form:** " + ucypher.Form + Environment.NewLine;
+                }
+
+                await ctx.RespondAsync(response);
+
+                var userResponse = await interactivity.WaitForMessageAsync(xm => xm.Author.Id == ctx.User.Id, TimeSpan.FromMinutes(1));
+
+                var selectedCypher = ucyphers.FirstOrDefault(x => x.UnidentifiedCypherKey.ToLower() == userResponse.Message.Content.ToLower());
+
+                if (selectedCypher == null)
+                {
+                    await ctx.RespondAsync("Sorry I didn't get that, Please try the command again");
+                    return;
+                }
+
+                response = "Wow!  look what I found out back!" + Environment.NewLine;
+                response += "**Name:** " + selectedCypher.Name + Environment.NewLine;
+                response += "**Level:** " + selectedCypher.Level + Environment.NewLine;
+                response += "**Form:** " + selectedCypher.Form + Environment.NewLine;
+                response += "**Effect:** " + selectedCypher.Effect + Environment.NewLine;
+                response += "Removing from the List.";
+
+                await ctx.RespondAsync(response);
+
+                await CypherHelper.RemoveUnidentifiedCypher(selectedCypher.UnidentifiedCypherId);
             }
         }
     }
