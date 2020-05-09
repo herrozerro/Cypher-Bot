@@ -73,5 +73,34 @@ namespace CypherBot.Core.Services
 
             return artQuiList[i];
         }
+
+        public static async Task<List<UnidentifiedArtifact>> GetAllUnidentifiedArtifactsAsync()
+        {
+            using(var db = new CypherContext())
+            {
+                var artifacts = await db.UnidentifiedArtifacts.ToListAsync();
+                return artifacts;
+            }
+        }
+
+        public static async Task SaveUnidentifiedArtifactAsync(UnidentifiedArtifact unidentifiedArtifact)
+        {
+            using (var db = new CypherContext())
+            {
+                db.UnidentifiedArtifacts.Add(unidentifiedArtifact);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public static async Task RemoveUnidentifiedArtifactAsync(int unidentifiedArtifactID)
+        {
+            using (var db = new CypherContext())
+            {
+                var uArtifactToRemove = new UnidentifiedArtifact() { UnidentifiedArtifactId = unidentifiedArtifactID };
+                db.UnidentifiedArtifacts.Remove(uArtifactToRemove);
+                await db.SaveChangesAsync();
+            }
+        }
+
     }
 }

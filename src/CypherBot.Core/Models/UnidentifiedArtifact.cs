@@ -8,7 +8,7 @@ namespace CypherBot.Core.Models
     public class UnidentifiedArtifact : IArtifact
     {
         public int UnidentifiedArtifactId { get; set; }
-        public int UnidentifiedArtifactKey { get; set; }
+        public string UnidentifiedArtifactKey { get; set; }
         public string Name { get; set; }
         public string Form { get; set; }
         public string Genre { get; set; }
