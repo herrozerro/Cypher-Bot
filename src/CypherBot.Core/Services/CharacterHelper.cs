@@ -10,7 +10,7 @@ using CypherBot.Core.Models;
 using CypherBot.Core.DataAccess.Repos;
 
 
-namespace CypherBot.Core.Utilities
+namespace CypherBot.Core.Services
 {
     public static class CharacterHelper
     {

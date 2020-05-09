@@ -54,6 +54,8 @@ namespace CypherBot.Utilities
                     Console.WriteLine($"{cyphers.Count()} cyphers found! Adding.");
                     db.AddRange(cyphers);
                     await db.SaveChangesAsync();
+
+                    var ls = db.CypherFormOptions.ToList();
                     #endregion
 
                     //Artifacts

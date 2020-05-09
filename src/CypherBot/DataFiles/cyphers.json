@@ -1,11 +1,24 @@
 [
   {
     "ID": 0,
-    "Name": "Test",
-    "Type": "Cypher",
+    "Name": "",
     "LevelDie": "6",
     "LevelBonus": "0",
-    "Effect": "It does stuff",
-    "Source": "CSR"
+    "Forms": [
+      {
+        "Form": "",
+        "FormDescription": ""
+      }
+    ],
+    "Effect": "",
+    "EffectOptions": 
+	[
+		{
+			"StartRange": "1",
+			"EndRange": "10",
+			"EffectDescription": ""
+		}
+	],
+    "Source": ""
   }
 ]

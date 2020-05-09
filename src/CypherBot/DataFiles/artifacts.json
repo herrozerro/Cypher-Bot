@@ -1,13 +1,13 @@
 [
   {
     "ID": 0,
-    "Name": "Name",
-    "Genre": "Genre",
-    "Form": "Form",
-    "Depletion": "Depletion",
+    "Name": "",
+    "Genre": "",
+    "Form": "",
+    "Depletion": "",
     "LevelDie": "6",
-    "LevelBonus": "0",
-    "Effect": "Source",
-    "Source": "CSR"
+    "LevelBonus": "4",
+    "Effect": "",
+    "Source": ""
   }
 ]

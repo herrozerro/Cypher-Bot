@@ -196,7 +196,7 @@ namespace CypherBot.Core.DataAccess.Repos
                 e.Property(x => x.Type)
                     .HasMaxLength(100);
 
-                e.Ignore(x => x.Level);
+                e.Ignore(x => x.Level); //TODO: remove this line and remigrate.
             });
 
             builder.Entity<CypherFormOption>(e =>
