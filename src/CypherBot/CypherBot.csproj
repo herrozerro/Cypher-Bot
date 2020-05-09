@@ -10,43 +10,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishReadyToRun>false</PublishReadyToRun>
-    <PublishSingleFile>true</PublishSingleFile>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="BusinessLogic\**" />
-    <Compile Remove="Models\**" />
-    <Compile Remove="Views\**" />
-    <EmbeddedResource Remove="BusinessLogic\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="Views\**" />
-    <None Remove="BusinessLogic\**" />
-    <None Remove="Models\**" />
-    <None Remove="Views\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="appsettings.json" />
-    <None Remove="DataFiles\artifacts.json" />
-    <None Remove="DataFiles\cyphers.json" />
-    <None Remove="DataFiles\types.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DataFiles\artifacts.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataFiles\cyphers.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataFiles\types.json">
+    <Content Include="DataFiles\*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -70,12 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DataFiles\artifactquirks.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="DataFiles\oddities.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="secrets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
