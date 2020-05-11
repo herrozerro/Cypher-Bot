@@ -14,17 +14,17 @@ namespace CypherBot.Core.Services
 {
     public static class CharacterHelper
     {
-        public static async Task<Character> GetCurrentPlayersCharacterAsync(CommandContext ctx)
-        {
-            var chr = new Character();// Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator);
+        //public static async Task<Character> GetCurrentPlayersCharacterAsync(CommandContext ctx)
+        //{
+        //    var chr = new Character();// Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator);
 
-            if (chr == null)
-            {
-                await ctx.RespondAsync("Hey!  you don't have any characters!");
-            }
+        //    if (chr == null)
+        //    {
+        //        await ctx.RespondAsync("Hey!  you don't have any characters!");
+        //    }
 
-            return chr;
-        }
+        //    return chr;
+        //}
 
         public static async Task<List<Character>> GetCurrentPlayersCharactersAsync(CommandContext ctx)
         {
@@ -39,55 +39,12 @@ namespace CypherBot.Core.Services
             }
         }
 
-        public static async Task<string> GetCurrentCharacterCyphersAsync(CommandContext ctx)
-        {
-            var chr = await GetCurrentPlayersCharacterAsync(ctx);
+        
 
-            var response = "Here are your current cyphers:" + Environment.NewLine;
-
-            foreach (var cypher in chr.Cyphers)
-            {
-                response += "**Name:** " + cypher.Name + Environment.NewLine;
-                response += "**Level:** " + cypher.Level + Environment.NewLine;
-                response += "**Effect:** " + cypher.Effect + Environment.NewLine + Environment.NewLine;
-            }
-
-            return response;
-        }
-
-        public static async Task<string> GetCurrentCharacterArtifactsAsync(CommandContext ctx)
-        {
-            var chr = await GetCurrentPlayersCharacterAsync(ctx);
-
-            var response = "Here are your current artifacts:" + Environment.NewLine;
-
-            foreach (var artifact in chr.Artifacts)
-            {
-                response += "**Name:** " + artifact.Name + Environment.NewLine;
-                response += "**Level:** " + artifact.Level + Environment.NewLine;
-                response += "**Effect:** " + artifact.Effect + Environment.NewLine + Environment.NewLine;
-            }
-
-            return response;
-        }
+        
 
 
-        public static async Task<string> GetCurrentCharacterInventoryAsync(CommandContext ctx)
-        {
-            var chr = await GetCurrentPlayersCharacterAsync(ctx);
-
-            var responses = new List<string>();
-
-            responses.Add("Here is your inventory:");
-            var i = 1;
-            foreach (var inv in chr.Inventory)
-            {
-                responses.Add($"{i++}. {inv.ItemName} : {inv.Qty}x");
-            }
-
-            return string.Join(Environment.NewLine, responses);
-        }
-
+        
         public static async Task SaveCurrentCharacterAsync(string playerId, Character charToSave)
         {
             using (var db = new CypherContext())
