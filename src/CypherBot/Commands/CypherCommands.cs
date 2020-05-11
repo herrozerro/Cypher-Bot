@@ -1207,5 +1207,23 @@ namespace CypherBot.Commands
                 await ArtifactHelper.RemoveUnidentifiedArtifactAsync(selectedArtifact.UnidentifiedArtifactId);
             }
         }
+
+        [Group("reset")]
+        [Description("Commands for Resetting.")]
+        public class ResetCommands
+        {
+            [Command("Recovery")]
+            [Description("Resets the current character's recovery rolls")]
+            public async Task ResetRecoveryRolls(CommandContext ctx)
+            {
+                var chr = await Data.CharacterList.GetCurrentPlayersCharacterAsync(ctx);
+
+                chr.RecoveryRolls.ForEach(x => x.IsUsed = false);
+
+                string response = $"{chr.Name}'s recovery rolls are reset.";
+
+                await ctx.RespondAsync(response);
+            }
+        }
     }
 }
