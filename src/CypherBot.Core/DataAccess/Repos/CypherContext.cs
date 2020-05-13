@@ -16,6 +16,7 @@ namespace CypherBot.Core.DataAccess.Repos
         public DbSet<CharacterCypher> CharacterCyphers { get; set; }
         public DbSet<CharacterAbility> CharacterAbilities { get; set; }
         public DbSet<CharacterArtifact> CharacterArtifacts { get; set; }
+        public DbSet<CharacterPool> CharacterPools { get; set; }
 
         public DbSet<Cypher> Cyphers { get; set; }
         public DbSet<UnidentifiedCypher> UnidentifiedCyphers { get; set; }
@@ -150,6 +151,21 @@ namespace CypherBot.Core.DataAccess.Repos
 
                 e.Property(x => x.Quirk)
                     .HasMaxLength(1000);
+
+            });
+
+            builder.Entity<CharacterPool>(e =>
+            {
+                e.HasKey(x => x.PoolId);
+
+                e.Property(x => x.PoolId).ValueGeneratedOnAdd();
+
+                e.HasOne(x => x.Character)
+                    .WithMany(x => x.Pools)
+                    .HasForeignKey(x => x.CharacterId);
+
+                e.Property(x => x.Name)
+                    .HasMaxLength(100);
 
             });
 

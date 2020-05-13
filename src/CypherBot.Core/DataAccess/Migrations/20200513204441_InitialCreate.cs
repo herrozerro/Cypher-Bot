@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CypherBot.Core.DataAccess.Migrations
+namespace CypherBot.Core.dataaccess.migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -50,13 +50,11 @@ namespace CypherBot.Core.DataAccess.Migrations
                     Player = table.Column<string>(maxLength: 100, nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
                     Tier = table.Column<int>(nullable: false),
+                    Effort = table.Column<int>(nullable: false),
                     XP = table.Column<int>(nullable: false),
                     Descriptor = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
                     Focus = table.Column<string>(nullable: true),
-                    MightPool = table.Column<int>(nullable: false),
-                    SpeedPool = table.Column<int>(nullable: false),
-                    IntPool = table.Column<int>(nullable: false),
                     RecoveryDie = table.Column<int>(nullable: false),
                     RecoveryMod = table.Column<int>(nullable: false)
                 },
@@ -147,7 +145,7 @@ namespace CypherBot.Core.DataAccess.Migrations
                 {
                     UnidentifiedArtifactId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UnidentifiedArtifactKey = table.Column<int>(type: "varchar(10)", nullable: false),
+                    UnidentifiedArtifactKey = table.Column<string>(type: "varchar(10)", nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
                     Form = table.Column<string>(maxLength: 100, nullable: true),
                     Genre = table.Column<string>(maxLength: 100, nullable: true),
@@ -284,6 +282,29 @@ namespace CypherBot.Core.DataAccess.Migrations
                     table.PrimaryKey("PK_CharacterInventories", x => x.InventoryId);
                     table.ForeignKey(
                         name: "FK_CharacterInventories_Characters_CharacterId",
+                        column: x => x.CharacterId,
+                        principalTable: "Characters",
+                        principalColumn: "CharacterId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CharacterPools",
+                columns: table => new
+                {
+                    PoolId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CharacterId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    PoolIndex = table.Column<int>(nullable: false),
+                    PoolMax = table.Column<int>(nullable: false),
+                    PoolCurrentVaue = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CharacterPools", x => x.PoolId);
+                    table.ForeignKey(
+                        name: "FK_CharacterPools_Characters_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Characters",
                         principalColumn: "CharacterId",
@@ -444,6 +465,11 @@ namespace CypherBot.Core.DataAccess.Migrations
                 column: "CharacterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CharacterPools_CharacterId",
+                table: "CharacterPools",
+                column: "CharacterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CharacterRecoveryRolls_CharacterId",
                 table: "CharacterRecoveryRolls",
                 column: "CharacterId");
@@ -493,6 +519,9 @@ namespace CypherBot.Core.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "CharacterInventories");
+
+            migrationBuilder.DropTable(
+                name: "CharacterPools");
 
             migrationBuilder.DropTable(
                 name: "CharacterRecoveryRolls");

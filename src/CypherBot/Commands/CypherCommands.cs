@@ -10,6 +10,7 @@ using CypherBot.Core.Models;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore.Internal;
 using CypherBot.Core.Services;
+using System.IO;
 
 namespace CypherBot.Commands
 {
@@ -448,9 +449,12 @@ namespace CypherBot.Commands
 
                 responses.Add($"Here is {ctx.Member.DisplayName}'s Character");
                 responses.Add("**Name:** " + chr.Name);
-                responses.Add("**Might Pool:** " + chr.MightPool);
-                responses.Add("**Speed Pool:** " + chr.SpeedPool);
-                responses.Add("**Intellect Pool:** " + chr.IntPool);
+
+                foreach (var pool in chr.Pools.OrderBy(x=>x.PoolIndex))
+                {
+                    responses.Add($"**{pool.Name} Pool:** {pool.PoolCurrentVaue}/{pool.PoolMax}");
+                }
+
                 responses.Add("**Cyphers Held:** " + (chr?.Cyphers.Count == 0 ? "None" : string.Join(", ", chr.Cyphers.Select(x => x.Name))));
 
                 var response = string.Join(Environment.NewLine, responses);
@@ -796,9 +800,9 @@ namespace CypherBot.Commands
                     //    }
                     //}
 
-                    chr.MightPool = 10;
-                    chr.SpeedPool = 10;
-                    chr.IntPool = 10;
+                    chr.Pools.Add(new CharacterPool() { Name = "Might", PoolIndex = 0, PoolMax = 10, PoolCurrentVaue = 10 });
+                    chr.Pools.Add(new CharacterPool() { Name = "Speed", PoolIndex = 1, PoolMax = 10, PoolCurrentVaue = 10 });
+                    chr.Pools.Add(new CharacterPool() { Name = "Intellect", PoolIndex = 2, PoolMax = 10, PoolCurrentVaue = 10 });
 
                     chr.Tier = 1;
                     chr.RecoveryDie = 6;
@@ -834,9 +838,10 @@ namespace CypherBot.Commands
                     var response = $"Hey!  Here is a new character for {ctx.Member.DisplayName}" + Environment.NewLine;
                     response += "**Name:** " + chr.Name + Environment.NewLine;
                     response += $"is a {chr.Descriptor} {chr.Type} who {chr.Focus}" + Environment.NewLine;
-                    response += "**Might Pool:** " + chr.MightPool + Environment.NewLine;
-                    response += "**Speed Pool:** " + chr.SpeedPool + Environment.NewLine;
-                    response += "**Intellect Pool:** " + chr.IntPool + Environment.NewLine;
+                    foreach (var pool in chr.Pools.OrderBy(x => x.PoolIndex))
+                    {
+                        response += $"**{pool.Name} Pool:** {pool.PoolCurrentVaue}/{pool.PoolMax}" + Environment.NewLine;
+                    }
                     response += "**Cyphers Held:** " + (chr?.Cyphers.Count == 0 ? "None" : string.Join(", ", chr.Cyphers.Select(x => x.Name)));
 
                     Data.CharacterList.Characters.Remove(Data.CharacterList.Characters.FirstOrDefault(x => x.Player == ctx.Member.Username + ctx.User.Discriminator));
@@ -885,24 +890,22 @@ namespace CypherBot.Commands
             {
                 var chr = await Data.CharacterList.GetCurrentPlayersCharacterAsync(ctx); //await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
-                if (pool.ToLower() == "might")
+                var selPool = chr.Pools.FirstOrDefault(x => x.Name.ToLower() == pool.ToLower());
+
+                if (selPool == null)
                 {
-                    chr.MightPool += mod;
+                    await ctx.RespondAsync($"Error: {pool} not a valid pool. please try again.");
+                    return;
                 }
-                if (pool.ToLower() == "speed")
-                {
-                    chr.SpeedPool += mod;
-                }
-                if (pool.ToLower() == "int")
-                {
-                    chr.IntPool += mod;
-                }
+
+                selPool.PoolCurrentVaue += mod;
 
                 var response = $"{pool} pool Modified for {chr.Name}! new values are:" + Environment.NewLine;
                 response += "**Name:** " + chr.Name + Environment.NewLine;
-                response += "**Might Pool:** " + chr.MightPool + Environment.NewLine;
-                response += "**Speed Pool:** " + chr.SpeedPool + Environment.NewLine;
-                response += "**Intellect Pool:** " + chr.IntPool + Environment.NewLine;
+                foreach (var p in chr.Pools.OrderBy(x => x.PoolIndex))
+                {
+                    response += $"**{p.Name} Pool:** {p.PoolCurrentVaue}/{p.PoolMax}" + Environment.NewLine;
+                }
 
                 await ctx.RespondAsync(response);
             }
@@ -973,16 +976,44 @@ namespace CypherBot.Commands
             [Description("Exports the current character")]
             public async Task ExportCharacter(CommandContext ctx)
             {
-                var chr = await Data.CharacterList.GetCurrentPlayersCharacterAsync(ctx); ;
+                var chr = await Data.CharacterList.GetCurrentPlayersCharacterAsync(ctx);
 
                 if (chr == null)
                 {
                     await ctx.RespondAsync("Hey! you don't have any characters!");
                 }
 
-                var jsonstr = Newtonsoft.Json.JsonConvert.SerializeObject(chr, Formatting.Indented);
 
-                await ctx.RespondAsync("Keep it safe!" + Environment.NewLine + jsonstr.Replace('"', '\''));
+                try
+                {
+                    var jsonstr = Newtonsoft.Json.JsonConvert.SerializeObject(chr, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+
+                    if (jsonstr.Length > 2000)
+                    {
+                        var jsonStream = new MemoryStream(System.Text.ASCIIEncoding.Unicode.GetBytes(jsonstr));
+
+                        jsonStream.Position = 0;
+                        //var stream = new MemoryStream();
+                        //using (var sw = new StreamWriter(stream))
+                        //{
+                        //    sw.Write(jsonstr);
+                        //    sw.Flush();
+                        //    stream.Position = 0;
+                        //}
+                        await ctx.RespondWithFileAsync(jsonStream, chr.Name + ".txt", "Here you go!");
+                        return;
+                    }
+                    await ctx.RespondAsync("Keep it safe!" + Environment.NewLine + jsonstr.Replace('"', '\''));
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                
+
+
+                
             }
         }
 
