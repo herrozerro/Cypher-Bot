@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CypherBot.Core.DataAccess.Migrations
+namespace CypherBot.Core.dataaccess.migrations
 {
     [DbContext(typeof(CypherContext))]
-    [Migration("20200509153656_InitialCreate")]
+    [Migration("20200513204441_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,14 +88,11 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.Property<string>("Descriptor")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Effort")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Focus")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("IntPool")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MightPool")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT")
@@ -109,9 +106,6 @@ namespace CypherBot.Core.DataAccess.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("RecoveryMod")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SpeedPool")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Tier")
@@ -283,6 +277,35 @@ namespace CypherBot.Core.DataAccess.Migrations
                     b.HasIndex("CharacterId");
 
                     b.ToTable("CharacterInventories");
+                });
+
+            modelBuilder.Entity("CypherBot.Core.Models.CharacterPool", b =>
+                {
+                    b.Property<int>("PoolId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("PoolCurrentVaue")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PoolIndex")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PoolMax")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("PoolId");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("CharacterPools");
                 });
 
             modelBuilder.Entity("CypherBot.Core.Models.CharacterRecoveryRoll", b =>
@@ -609,7 +632,7 @@ namespace CypherBot.Core.DataAccess.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
-                    b.Property<int>("UnidentifiedArtifactKey")
+                    b.Property<string>("UnidentifiedArtifactKey")
                         .HasColumnType("varchar(10)");
 
                     b.HasKey("UnidentifiedArtifactId");
@@ -695,6 +718,15 @@ namespace CypherBot.Core.DataAccess.Migrations
                 {
                     b.HasOne("CypherBot.Core.Models.Character", "Character")
                         .WithMany("Inventory")
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CypherBot.Core.Models.CharacterPool", b =>
+                {
+                    b.HasOne("CypherBot.Core.Models.Character", "Character")
+                        .WithMany("Pools")
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
