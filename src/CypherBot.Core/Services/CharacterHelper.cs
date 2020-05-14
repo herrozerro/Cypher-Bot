@@ -33,18 +33,15 @@ namespace CypherBot.Core.Services
                 var chars = await db.Characters
                     .Include(x => x.Cyphers)
                     .Include(x => x.Inventory)
-                    .Include(x => x.RecoveryRolls).Where(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator).ToListAsync();
+                    .Include(x => x.RecoveryRolls)
+                    .Include(x => x.Pools)
+                    .Where(x => x.Player == ctx.Member.Username + ctx.Member.Discriminator)
+                    .ToListAsync();
 
                 return chars;
             }
         }
 
-        
-
-        
-
-
-        
         public static async Task SaveCurrentCharacterAsync(string playerId, Character charToSave)
         {
             using (var db = new CypherContext())
