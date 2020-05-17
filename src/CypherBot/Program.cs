@@ -49,9 +49,7 @@ namespace CypherBot
                 CaseSensitive = false                
             });
 
-            commands.RegisterCommands<Commands.DiceCommands>();
             commands.RegisterCommands<Commands.CypherCommands>();
-            commands.RegisterCommands<Commands.AdminCommands>();
 
             interactivity = discord.UseInteractivity(new InteractivityConfiguration() { });
 
