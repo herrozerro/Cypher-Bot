@@ -76,7 +76,7 @@ namespace CypherBot.Core.Services
 
         public static async Task<List<UnidentifiedArtifact>> GetAllUnidentifiedArtifactsAsync()
         {
-            using(var db = new CypherContext())
+            using (var db = new CypherContext())
             {
                 var artifacts = await db.UnidentifiedArtifacts.ToListAsync();
                 return artifacts;
