@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using CypherBot.Core.Models;
+using System;
 
 namespace CypherBot.Core.DataAccess.Repos
 {
@@ -7,7 +8,8 @@ namespace CypherBot.Core.DataAccess.Repos
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=cs.db");
+            //optionsBuilder.UseSqlite("Data Source=cs.db");
+            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("postgresConnectionString"));
         }
 
         public DbSet<Character> Characters { get; set; }
