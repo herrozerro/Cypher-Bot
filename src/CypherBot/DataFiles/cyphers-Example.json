@@ -11,14 +11,13 @@
       }
     ],
     "Effect": "",
-    "EffectOptions": 
-	[
-		{
-			"StartRange": "1",
-			"EndRange": "10",
-			"EffectDescription": ""
-		}
-	],
+    "EffectOptions": [
+      {
+        "StartRange": "1",
+        "EndRange": "10",
+        "EffectDescription": ""
+      }
+    ],
     "Source": ""
   }
 ]
