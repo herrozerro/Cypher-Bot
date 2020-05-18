@@ -329,3 +329,8 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 src/CypherBot/secrets.json
+src/CypherBot/DataFiles/artifactquirks.json
+src/CypherBot/DataFiles/artifacts.json
+src/CypherBot/DataFiles/types.json
+src/CypherBot/DataFiles/oddities.json
+src/CypherBot/DataFiles/cyphers.json
