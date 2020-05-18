@@ -27,6 +27,14 @@ namespace CypherBot.Commands
                 var levelbeats = Math.Floor((decimal)dieroll / 3);
                 await ctx.RespondAsync($"{ctx.Member.DisplayName} 🎲 Your die roll is: {dieroll} and beats level: {levelbeats}");
             }
+
+            [Command("rolldie")]
+            public async Task Random(CommandContext ctx, int max)
+            {
+                var rnd = RandomGenerator.GetRandom();
+                var dieroll = rnd.Next(1, max);
+                await ctx.RespondAsync($"🎲 Your random number is: {dieroll}");
+            }
         }
 
         [Group("use")]
