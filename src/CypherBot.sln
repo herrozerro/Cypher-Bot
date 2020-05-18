@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot", "CypherBot\Cyph
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core", "CypherBot.Core\CypherBot.Core.csproj", "{F2DC519F-2F48-474A-96CD-7A9E3421BD5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Core.Tests", "CypherBot.Core.Tests\CypherBot.Core.Tests.csproj", "{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core.Tests", "CypherBot.Core.Tests\CypherBot.Core.Tests.csproj", "{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Web", "CypherBot.Web\CypherBot.Web.csproj", "{F6A0DB26-CD20-43E5-A3FA-6FA390547577}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A0DB26-CD20-43E5-A3FA-6FA390547577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A0DB26-CD20-43E5-A3FA-6FA390547577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A0DB26-CD20-43E5-A3FA-6FA390547577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A0DB26-CD20-43E5-A3FA-6FA390547577}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
