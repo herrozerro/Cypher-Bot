@@ -1,0 +1,64 @@
+﻿@page "/character"
+@page "/character/{id:int}"
+@using System.Net.Http
+@inject HttpClient Http
+
+<h3>Character</h3>
+
+@if (character == null)
+{
+    <span>Loading</span>
+}
+else
+{
+    <input @bind="character.Name" />
+    <input @bind="character.Name" />
+    <ul>
+        @foreach (var cypher in character.Cyphers)
+        {
+            <li>@cypher.Name</li>
+        }
+    </ul>
+    @foreach (var cypher in character.Cyphers)
+    {
+        <CypherBot.Blazor.Client.Components.Character.CharacterCypher Cypher="cypher"></CypherBot.Blazor.Client.Components.Character.CharacterCypher>
+    }
+}
+
+
+@code {
+    [Parameter]
+    public int id { get; set; } = 0;
+
+    private CypherBot.Core.Models.Character character;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (id == 0)
+        {
+            character = new Core.Models.Character();
+            character.Name = "New Character";
+            character.Player = "herrozerro2535";
+        }
+        else
+        {
+            Console.WriteLine("Got here");
+            try
+            {
+                character = await Http.GetFromJsonAsync<CypherBot.Core.Models.Character>($"api/Character/Character/{id}");
+            }
+            catch (Exception)
+            {
+            }
+
+        }
+
+        //await Http.PutAsJsonAsync<CypherBot.Core.Models.Character>("api/Character/Character/1", character);
+        //character = new Core.Models.Character();
+        //character.Name = "Mobbert";
+
+        //await Http.PostAsJsonAsync<CypherBot.Core.Models.Character>("api/Character/Character", character);
+    }
+
+
+}

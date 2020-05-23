@@ -1,0 +1,47 @@
+﻿<div>
+    <div>
+        <label>
+            Name:
+            <input @bind="Cypher.Name" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Level:
+            <input @bind="Cypher.Level" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Form:
+            <input @bind="Cypher.Form" />
+        </label>
+    </div>
+    <div>
+        <label>
+            Effect:
+            <input @bind="Cypher.Effect" />
+        </label>
+    </div>
+    @if (!string.IsNullOrEmpty(Cypher.EffectOption))
+    {
+        <div>
+            <label>
+                Effect Option:
+                <input @bind="Cypher.EffectOption" />
+            </label>
+        </div>
+    }
+    <div>
+        <label>
+            Source:
+            <input @bind="Cypher.Source" />
+        </label>
+    </div>
+    
+</div>
+
+@code {
+    [Parameter]
+    public CypherBot.Core.Models.CharacterCypher Cypher { get; set; }
+}
