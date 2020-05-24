@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core", "CypherBot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core.Tests", "CypherBot.Core.Tests\CypherBot.Core.Tests.csproj", "{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Blazor.Server", "CypherBot.Blazor\Server\CypherBot.Blazor.Server.csproj", "{7BC730C7-CA4E-4145-9263-B0BF09A9FFCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Blazor.Server", "CypherBot.Blazor\Server\CypherBot.Blazor.Server.csproj", "{7BC730C7-CA4E-4145-9263-B0BF09A9FFCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Blazor.Client", "CypherBot.Blazor\Client\CypherBot.Blazor.Client.csproj", "{A31CC8B5-7213-4EA6-9B1D-A93CF276B2B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Blazor.Client", "CypherBot.Blazor\Client\CypherBot.Blazor.Client.csproj", "{A31CC8B5-7213-4EA6-9B1D-A93CF276B2B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

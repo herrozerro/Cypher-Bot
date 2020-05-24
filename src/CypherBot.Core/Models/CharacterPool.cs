@@ -12,6 +12,7 @@ namespace CypherBot.Core.Models
         public int PoolIndex { get; set; }
         public int PoolMax { get; set; }
         public int PoolCurrentVaue { get; set; }
+        public int PoolEdge { get; set; }
 
         public Character Character { get; set; }
     }

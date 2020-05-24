@@ -458,7 +458,7 @@ namespace CypherBot.Commands
                 responses.Add($"Here is {ctx.Member.DisplayName}'s Character");
                 responses.Add("**Name:** " + chr.Name);
 
-                foreach (var pool in chr.Pools.OrderBy(x=>x.PoolIndex))
+                foreach (var pool in chr.Pools.OrderBy(x => x.PoolIndex))
                 {
                     responses.Add($"**{pool.Name} Pool:** {pool.PoolCurrentVaue}/{pool.PoolMax}");
                 }
@@ -826,7 +826,7 @@ namespace CypherBot.Commands
                     chr.RecoveryRolls.Add(new CharacterRecoveryRoll { IsUsed = false, RollName = "fourth" });
 
                     var cyls = (IEnumerable<Cypher>)await CypherHelper.GetRandomCypherAsync(2);
-
+                    var rnd = RandomGenerator.GetRandom();
                     chr.Cyphers = cyls.Select(x => new CharacterCypher()
                     {
                         CypherId = x.CypherId,
@@ -836,7 +836,8 @@ namespace CypherBot.Commands
                         Level = x.Level,
                         Name = x.Name,
                         Source = x.Source,
-                        Type = x.Type
+                        Type = x.Type,
+                        Form = x.Forms.ToList()[rnd.Next(0, x.Forms.Count() - 1)].FormDescription
                     }).ToList();
 
                     chr.Inventory = new List<CharacterInventory>();
@@ -894,7 +895,7 @@ namespace CypherBot.Commands
         {
             [Command("pool")]
             [Description("Modifys the pool of a character")]
-            public async Task ModifyPool(CommandContext ctx, [Description("Pool to modify")]string pool, [Description("How much to modify it by. Negative numbers are valid")]int mod)
+            public async Task ModifyPool(CommandContext ctx, [Description("Pool to modify")] string pool, [Description("How much to modify it by. Negative numbers are valid")] int mod)
             {
                 var chr = await Data.CharacterList.GetCurrentPlayersCharacterAsync(ctx); //await Utilities.CharacterHelper.GetCurrentPlayersCharacter(ctx);;
 
@@ -1018,10 +1019,10 @@ namespace CypherBot.Commands
 
                     throw ex;
                 }
-                
 
 
-                
+
+
             }
         }
 
