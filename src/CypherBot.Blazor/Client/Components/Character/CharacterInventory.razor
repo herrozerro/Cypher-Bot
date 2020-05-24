@@ -1,0 +1,57 @@
+﻿<div>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Item</td>
+                <td>Quantity</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inventory in inventories)
+            {
+                <tr>
+                    <td>@inventory.ItemName</td>
+                    <td><input @bind="inventory.Qty" /></td>
+                    <td>
+                        <button @onclick="@(() => DeleteInventory(inventory))">X</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <button @onclick="Addinventory">Add</button>
+</div>
+
+@code {
+    [Parameter]
+    public List<CypherBot.Core.Models.CharacterInventory> inventories { get; set; }
+
+    [Parameter]
+    public int characterId { get; set; }
+
+    private bool isEditing = false;
+
+    private void ToggleEdit()
+    {
+        isEditing = !isEditing;
+    }
+
+    private void DeleteInventory(CypherBot.Core.Models.CharacterInventory inv)
+    {
+        inventories.Remove(inv);
+    }
+
+    private void Addinventory()
+    {
+        inventories.Add(new Core.Models.CharacterInventory()
+        {
+            CharacterId = characterId,
+            InventoryId = 0,
+            ItemName = "New Item",
+            Qty = 0
+        });
+    }
+}

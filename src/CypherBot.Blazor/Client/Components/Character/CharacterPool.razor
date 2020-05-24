@@ -1,0 +1,31 @@
+﻿
+<div style="display:flex;">
+    @foreach (var pool in characterPools)
+    {
+        <div style="text-align:center;">
+            @pool.Name
+            <div style="width: 100%; display: block;">
+                <input @bind="pool.PoolCurrentVaue" style="width:100%;text-align:center;"/>
+                <div>Current</div>
+            </div>
+            <br />
+            <div style="width: 100%; display:flex;">
+                <div style="width:50%;">
+                    <input @bind="pool.PoolMax" style="width:100%;text-align:center;" />
+                    <div>Pool</div>
+                </div>
+                <div style="width:50%;">
+                    <input @bind="pool.PoolEdge" style="width:100%;text-align:center;" />
+                    <div>Edge</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public List<CypherBot.Core.Models.CharacterPool> characterPools { get; set; }
+
+
+}

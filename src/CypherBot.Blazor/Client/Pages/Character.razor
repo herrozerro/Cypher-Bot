@@ -11,14 +11,16 @@
 }
 else
 {
+    <button @onclick="SaveCharacter">Save</button>
     <input @bind="character.Name" />
-    <input @bind="character.Name" />
-    <ul>
-        @foreach (var cypher in character.Cyphers)
-        {
-            <li>@cypher.Name</li>
-        }
-    </ul>
+
+    <h4>Pools</h4>
+    <CypherBot.Blazor.Client.Components.Character.CharacterPool characterPools="character.Pools"></CypherBot.Blazor.Client.Components.Character.CharacterPool>
+
+    <h4>Inventory</h4>
+    <CypherBot.Blazor.Client.Components.Character.CharacterInventory inventories="character.Inventory" characterId="character.CharacterId"></CypherBot.Blazor.Client.Components.Character.CharacterInventory>
+
+    <h4>Cyphers</h4>
     @foreach (var cypher in character.Cyphers)
     {
         <CypherBot.Blazor.Client.Components.Character.CharacterCypher Cypher="cypher"></CypherBot.Blazor.Client.Components.Character.CharacterCypher>
@@ -60,5 +62,8 @@ else
         //await Http.PostAsJsonAsync<CypherBot.Core.Models.Character>("api/Character/Character", character);
     }
 
-
+    private async Task SaveCharacter()
+    {
+        await Http.PutAsJsonAsync<CypherBot.Core.Models.Character>($"api/Character/Character/{id}", character);
+    }
 }
