@@ -1,0 +1,13 @@
+﻿<h4>Cyphers</h4>
+
+@foreach (var cypher in characterCyphers)
+{
+    <CypherBot.Blazor.Client.Components.Character.CharacterCypher Cypher="cypher"></CypherBot.Blazor.Client.Components.Character.CharacterCypher>
+}
+
+@code {
+    [Parameter]
+    public List<CypherBot.Core.Models.CharacterCypher> characterCyphers { get; set; }
+
+    private bool isHidden = false;
+}

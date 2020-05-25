@@ -1,14 +1,13 @@
-﻿
+﻿<h4>Pools</h4>
 <div style="display:flex;">
     @foreach (var pool in characterPools)
     {
         <div style="text-align:center;">
             @pool.Name
             <div style="width: 100%; display: block;">
-                <input @bind="pool.PoolCurrentVaue" style="width:100%;text-align:center;"/>
+                <input @bind="pool.PoolCurrentVaue" style="width:100%;text-align:center;" />
                 <div>Current</div>
             </div>
-            <br />
             <div style="width: 100%; display:flex;">
                 <div style="width:50%;">
                     <input @bind="pool.PoolMax" style="width:100%;text-align:center;" />
