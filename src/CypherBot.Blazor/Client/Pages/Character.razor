@@ -14,17 +14,12 @@ else
     <button @onclick="SaveCharacter">Save</button>
     <input @bind="character.Name" />
 
-    <h4>Pools</h4>
+
     <CypherBot.Blazor.Client.Components.Character.CharacterPool characterPools="character.Pools"></CypherBot.Blazor.Client.Components.Character.CharacterPool>
 
-    <h4>Inventory</h4>
     <CypherBot.Blazor.Client.Components.Character.CharacterInventory inventories="character.Inventory" characterId="character.CharacterId"></CypherBot.Blazor.Client.Components.Character.CharacterInventory>
 
-    <h4>Cyphers</h4>
-    @foreach (var cypher in character.Cyphers)
-    {
-        <CypherBot.Blazor.Client.Components.Character.CharacterCypher Cypher="cypher"></CypherBot.Blazor.Client.Components.Character.CharacterCypher>
-    }
+    <CypherBot.Blazor.Client.Components.Character.CharacterCypherList characterCyphers="character.Cyphers"></CypherBot.Blazor.Client.Components.Character.CharacterCypherList>
 }
 
 
