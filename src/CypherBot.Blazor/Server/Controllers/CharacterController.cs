@@ -22,10 +22,11 @@ namespace CypherBot.Blazor.Server.Controllers
         }
 
         [HttpGet("Character/{id}")]
-        public async Task<Character> GetCharacter([FromRoute]int id)
+        public async Task<Character> GetCharacter([FromRoute] int id)
         {
             var chr = await cypherContext.Characters
                     .Include(x => x.Cyphers)
+                    .Include(x => x.Artifacts)
                     .Include(x => x.Inventory)
                     .Include(x => x.RecoveryRolls)
                     .Include(x => x.Pools)
@@ -40,6 +41,7 @@ namespace CypherBot.Blazor.Server.Controllers
         {
             var existingModel = await cypherContext.Characters
                     .Include(x => x.Cyphers)
+                    .Include(x => x.Artifacts)
                     .Include(x => x.Inventory)
                     .Include(x => x.RecoveryRolls)
                     .Include(x => x.Pools)
