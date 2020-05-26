@@ -3,7 +3,7 @@
 @using System.Net.Http
 @inject HttpClient Http
 
-<h3>Character</h3>
+<h2>Character</h2>
 
 @if (character == null)
 {
@@ -16,14 +16,15 @@ else
 
 
     <CypherBot.Blazor.Client.Components.Character.CharacterPool characterPools="character.Pools"></CypherBot.Blazor.Client.Components.Character.CharacterPool>
-
+    <br />
+    <CypherBot.Blazor.Client.Components.Character.CharacterRecoveryRolls characterRecoveryRolls="character.RecoveryRolls"></CypherBot.Blazor.Client.Components.Character.CharacterRecoveryRolls>
+    <br />
     <CypherBot.Blazor.Client.Components.Character.CharacterInventory inventories="character.Inventory" characterId="character.CharacterId"></CypherBot.Blazor.Client.Components.Character.CharacterInventory>
-
+    <br />
     <CypherBot.Blazor.Client.Components.Character.CharacterCypherList characterCyphers="character.Cyphers"></CypherBot.Blazor.Client.Components.Character.CharacterCypherList>
-
+    <br />
     <CypherBot.Blazor.Client.Components.Character.CypherCharacterArtifactList characterArtifacts="character.Artifacts"></CypherBot.Blazor.Client.Components.Character.CypherCharacterArtifactList>
-
-
+    <br />
 
 
 }
