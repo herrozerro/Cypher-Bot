@@ -51,7 +51,7 @@ else
             Console.WriteLine("Got here");
             try
             {
-                character = await Http.GetFromJsonAsync<CypherBot.Core.Models.Character>($"api/Character/Character/{id}");
+                character = await Http.GetFromJsonAsync<CypherBot.Core.Models.Character>($"api/Character/{id}");
             }
             catch (Exception)
             {
@@ -68,6 +68,6 @@ else
 
     private async Task SaveCharacter()
     {
-        await Http.PutAsJsonAsync<CypherBot.Core.Models.Character>($"api/Character/Character/{id}", character);
+        await Http.PutAsJsonAsync<CypherBot.Core.Models.Character>($"api/Character/{id}", character);
     }
 }
