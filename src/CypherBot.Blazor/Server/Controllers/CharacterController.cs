@@ -21,7 +21,7 @@ namespace CypherBot.Blazor.Server.Controllers
             this.cypherContext = cypherContext;
         }
 
-        [HttpGet("Character/{id}")]
+        [HttpGet("{id}")]
         public async Task<Character> GetCharacter([FromRoute] int id)
         {
             var chr = await cypherContext.Characters
@@ -36,7 +36,7 @@ namespace CypherBot.Blazor.Server.Controllers
             return chr;
         }
 
-        [HttpPut("Character/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCharacter([FromRoute] int id, [FromBody] Character character)
         {
             var existingModel = await cypherContext.Characters
@@ -230,7 +230,7 @@ namespace CypherBot.Blazor.Server.Controllers
             return BadRequest();
         }
 
-        [HttpPost("Character")]
+        [HttpPost()]
         public async Task<IActionResult> CreateCharacter([FromBody] Character character)
         {
             if (character.CharacterId != 0)
