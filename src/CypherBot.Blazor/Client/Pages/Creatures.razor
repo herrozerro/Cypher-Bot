@@ -2,6 +2,7 @@
 @page "/creature/{id:int}"
 @using System.Net.Http
 @inject HttpClient Http
+@attribute [Authorize]
 
 <h3>Creature</h3>
 
@@ -113,8 +114,9 @@ else
             {
                 creature = await Http.GetFromJsonAsync<CypherBot.Core.Models.Creature>($"api/Creatures/{id}");
             }
-            catch (Exception)
+            catch (AccessTokenNotAvailableException exception)
             {
+                exception.Redirect();
             }
 
         }

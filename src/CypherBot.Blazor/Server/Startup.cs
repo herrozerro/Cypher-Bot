@@ -14,6 +14,7 @@ using System.Linq;
 using CypherBot.Blazor.Server.Data;
 using CypherBot.Blazor.Server.Models;
 using System;
+using CypherBot.Core.DataAccess.Repos;
 
 namespace CypherBot.Blazor.Server
 {
@@ -30,6 +31,8 @@ namespace CypherBot.Blazor.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CypherContext>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(Environment.GetEnvironmentVariable("postgresIdentityConnectionString")));
 

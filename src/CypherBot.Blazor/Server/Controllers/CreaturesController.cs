@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CypherBot.Core.DataAccess.Repos;
 using CypherBot.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CypherBot.Blazor.Server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CreaturesController : ControllerBase
