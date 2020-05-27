@@ -1,12 +1,19 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
-using CypherBot.Core.DataAccess.Repos;
+using CypherBot.Blazor.Server.Data;
+using CypherBot.Blazor.Server.Models;
+using System;
 
 namespace CypherBot.Blazor.Server
 {
@@ -23,21 +30,34 @@ namespace CypherBot.Blazor.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(Environment.GetEnvironmentVariable("postgresIdentityConnectionString")));
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            
             services.AddRazorPages();
-
-            services.AddDbContext<CypherContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext applicationDbContext)
         {
+
+            // migrate any database changes on startup (includes initial db creation)
+            applicationDbContext.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
                 app.UseWebAssemblyDebugging();
             }
             else
@@ -52,6 +72,10 @@ namespace CypherBot.Blazor.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseIdentityServer();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
