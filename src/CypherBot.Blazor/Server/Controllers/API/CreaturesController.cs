@@ -9,7 +9,7 @@ using CypherBot.Core.DataAccess.Repos;
 using CypherBot.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace CypherBot.Blazor.Server.Controllers
+namespace CypherBot.Blazor.Server.Controllers.API
 {
     [Authorize]
     [Route("api/[controller]")]

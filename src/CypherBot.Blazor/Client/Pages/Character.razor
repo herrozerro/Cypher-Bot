@@ -72,6 +72,13 @@ else
 
     private async Task SaveCharacter()
     {
-        await Http.PutAsJsonAsync<CypherBot.Core.Models.Character>($"api/Character/{id}", character);
+        if (character.CharacterId == 0)
+        {
+            await Http.PostAsJsonAsync<CypherBot.Core.Models.Character>($"api/Character/", character);
+        }
+        else
+        {
+            await Http.PutAsJsonAsync<CypherBot.Core.Models.Character>($"api/Character/{id}", character);
+        }
     }
 }

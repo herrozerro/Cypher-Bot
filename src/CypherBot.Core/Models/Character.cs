@@ -7,6 +7,7 @@ namespace CypherBot.Core.Models
     public class Character
     {
         public int CharacterId { get; set; }
+        public Guid UserId { get; set; }
         public string Player { get; set; }
         public string Name { get; set; }
         public int Tier { get; set; }
