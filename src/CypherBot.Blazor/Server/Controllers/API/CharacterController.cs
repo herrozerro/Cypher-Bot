@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CypherBot.Blazor.Server.Controllers
+namespace CypherBot.Blazor.Server.Controllers.API
 {
     [Authorize]
     [Route("api/[controller]")]
