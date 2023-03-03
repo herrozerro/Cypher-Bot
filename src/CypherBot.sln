@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core", "CypherBot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CypherBot.Core.Tests", "CypherBot.Core.Tests\CypherBot.Core.Tests.csproj", "{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Blazor.Server", "CypherBot.Blazor\Server\CypherBot.Blazor.Server.csproj", "{5BAA09C5-60EF-4C96-A453-60E6AFD1C60A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CypherBot.Blazor.Client", "CypherBot.Blazor\Client\CypherBot.Blazor.Client.csproj", "{0C5AEE8E-99C7-468C-98A2-F711D9AFD067}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9A5F74A-8875-4DF4-AFD3-CB3D2957D1FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BAA09C5-60EF-4C96-A453-60E6AFD1C60A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BAA09C5-60EF-4C96-A453-60E6AFD1C60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BAA09C5-60EF-4C96-A453-60E6AFD1C60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BAA09C5-60EF-4C96-A453-60E6AFD1C60A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C5AEE8E-99C7-468C-98A2-F711D9AFD067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C5AEE8E-99C7-468C-98A2-F711D9AFD067}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C5AEE8E-99C7-468C-98A2-F711D9AFD067}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C5AEE8E-99C7-468C-98A2-F711D9AFD067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

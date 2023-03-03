@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Interactivity;
@@ -10,17 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 using CypherBot.Core.DataAccess.Repos;
-using CypherBot.Core.Services;
+using DSharpPlus.Interactivity.Extensions;
 
 namespace CypherBot
 {
-    class Program
+    class Program : BaseCommandModule
     {
         static DiscordClient discord;
-        static CommandsNextModule commands;
         static IConfiguration Configuration { get; set; }
-        static InteractivityModule interactivity;
-
         static async Task Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
@@ -39,19 +34,19 @@ namespace CypherBot
             {
                 Token = Environment.GetEnvironmentVariable("DiscordAPIKey") ?? Configuration["token"],
                 TokenType = TokenType.Bot,
-                UseInternalLogHandler = true,
-                LogLevel = LogLevel.Debug
+                Intents = DiscordIntents.AllUnprivileged | DiscordIntents.MessageContents
             });
 
-            commands = discord.UseCommandsNext(new CommandsNextConfiguration
+            var commands = discord.UseCommandsNext(new CommandsNextConfiguration
             {
-                StringPrefix = Configuration["commandPrefix"],
+                StringPrefixes = new[] { Configuration["commandPrefix"] },
                 CaseSensitive = false                
             });
 
             commands.RegisterCommands<Commands.CypherCommands>();
+            //commands.RegisterCommands<Commands.CypherCommands.RollCommands>();
 
-            interactivity = discord.UseInteractivity(new InteractivityConfiguration() { });
+            var interactivity = discord.UseInteractivity(new InteractivityConfiguration() { });
 
             //Initialize the database and migrate on start.
             var db = new CypherContext();
